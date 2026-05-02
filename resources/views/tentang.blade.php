@@ -10,7 +10,7 @@
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
-            background-image: url("{{ asset('storage/images/banner.png') }}");
+            background-image: url("{{ asset('images/banner.png') }}");
             background-size: auto;
             background-repeat: repeat;
             background-attachment: fixed;
@@ -20,7 +20,7 @@
         /* Visi Misi Section */
         .visi-misi-wrapper {
             background-color: #f07c1b;
-            background-image: url("{{ asset('storage/images/banner3.png') }}");
+            background-image: url("{{ asset('images/banner3.png') }}");
             background-size: auto;
             background-repeat: repeat;
             padding: 100px 0;

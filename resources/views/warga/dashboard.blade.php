@@ -7,7 +7,7 @@
 <style>
     .welcome-card {
         background: #f07c1b;
-        background-image: url("{{ asset('storage/images/banner3.png') }}");
+        background-image: url("{{ asset('images/banner3.png') }}");
         background-size: cover;
         background-blend-mode: overlay;
         border-radius: 30px;

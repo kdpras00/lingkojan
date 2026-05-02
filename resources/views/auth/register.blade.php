@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background: #f8f9fa url('{{ asset('storage/images/banner.png') }}') repeat fixed; background-size: auto;" lang="id">
+<html style="background: #f8f9fa url('{{ asset('images/banner.png') }}') repeat fixed; background-size: auto;" lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,12 +7,12 @@
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="preload" as="image" href="{{ asset('storage/images/banner.png') }}">
+    <link rel="preload" as="image" href="{{ asset('images/banner.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
-            background-image: url("{{ asset('storage/images/banner.png') }}");
+            background-image: url("{{ asset('images/banner.png') }}");
             background-size: auto;
             background-repeat: repeat;
             background-attachment: fixed;
@@ -136,7 +136,7 @@
 
     <div class="flex items-center justify-center p-6 mt-6 pb-20">
         <div class="register-card p-10 md:p-14 text-center">
-            <img src="{{ asset('storage/images/iconkojan.png') }}" alt="Logo" class="h-6 mx-auto mb-8">
+            <img src="{{ asset('images/iconkojan.png') }}" alt="Logo" class="h-6 mx-auto mb-8">
             <h2 class="text-3xl font-bold text-black mb-12">Registrasi</h2>
 
             <form action="{{ route('register') }}" method="POST">

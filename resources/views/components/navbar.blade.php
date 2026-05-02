@@ -18,7 +18,7 @@
 <nav id="main-nav" class="bg-transparent py-6 z-50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
         <div class="flex items-center">
-            <img src="{{ asset('storage/images/iconkojan.png') }}" alt="LingKojan" class="h-10 select-none">
+            <img src="{{ asset('images/iconkojan.png') }}" alt="LingKojan" class="h-10 select-none">
         </div>
         <div class="hidden md:flex items-center space-x-10">
             <a href="{{ route('home') }}" class="nav-link {{ Request::routeIs('home') ? 'text-orange-main font-bold' : '' }}">Beranda</a>

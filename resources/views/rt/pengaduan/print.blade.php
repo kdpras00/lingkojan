@@ -41,7 +41,7 @@
         <!-- Header -->
         <div class="flex items-center border-b-2 border-black pb-6 mb-8">
             <div class="w-24">
-                <img src="{{ asset('storage/images/iconkojan.png') }}" alt="Logo" class="w-full h-auto">
+                <img src="{{ asset('images/iconkojan.png') }}" alt="Logo" class="w-full h-auto">
             </div>
             <div class="flex-1 text-center">
                 <h1 class="text-xl font-black uppercase leading-tight">Sekretariat RW 006</h1>

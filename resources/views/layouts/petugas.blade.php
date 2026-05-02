@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background: #f8f9fa url('{{ asset('storage/images/banner.png') }}') repeat fixed; background-size: auto;" lang="id">
+<html style="background: #f8f9fa url('{{ asset('images/banner.png') }}') repeat fixed; background-size: auto;" lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,13 +7,13 @@
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="preload" as="image" href="{{ asset('storage/images/banner.png') }}">
+    <link rel="preload" as="image" href="{{ asset('images/banner.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
             
-            background-image: url("{{ asset('storage/images/banner.png') }}");
+            background-image: url("{{ asset('images/banner.png') }}");
             background-size: auto;
             background-repeat: repeat;
             background-attachment: fixed;
@@ -172,7 +172,7 @@
         <div class="navbar-container">
             <!-- Logo (Left) -->
             <div class="flex items-center">
-                <img src="{{ asset('storage/images/iconkojan.png') }}" alt="LingKojan" class="h-9 select-none">
+                <img src="{{ asset('images/iconkojan.png') }}" alt="LingKojan" class="h-9 select-none">
             </div>
 
             <!-- Menu Links & User Profile (Far Right) -->

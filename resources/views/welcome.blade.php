@@ -16,7 +16,7 @@
             font-family: 'Poppins', sans-serif; 
             scroll-behavior: smooth; 
             color: #333; 
-            background-image: url("{{ asset('storage/images/banner.png') }}");
+            background-image: url("{{ asset('images/banner.png') }}");
             background-size: auto;
             background-repeat: repeat;
             background-attachment: fixed;
@@ -32,7 +32,7 @@
 
         .cta-banner {
             background-color: #f07c1b;
-            background-image: url("{{ asset('storage/images/banner3.png') }}");
+            background-image: url("{{ asset('images/banner3.png') }}");
             background-size: auto;
             background-position: center;
             background-repeat: repeat;
@@ -144,7 +144,7 @@
                 </a>
             </div>
             <div class="lg:w-2/5 flex justify-center lg:justify-end">
-                <img id="hero-img" src="{{ asset('storage/images/iconphone.png') }}" alt="Hero Illustration" class="w-full max-w-md lg:max-w-lg gsap-hidden">
+                <img id="hero-img" src="{{ asset('images/iconphone.png') }}" alt="Hero Illustration" class="w-full max-w-md lg:max-w-lg gsap-hidden">
             </div>
         </div>
     </section>

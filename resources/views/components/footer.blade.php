@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-left">
             <!-- Brand Column -->
             <div class="col-span-1 md:col-span-1">
-                <img src="{{ asset('storage/images/iconkojan.png') }}" alt="LingKojan" class="h-10 mb-6">
+                <img src="{{ asset('images/iconkojan.png') }}" alt="LingKojan" class="h-10 mb-6">
                 <p class="text-gray-500 text-sm leading-relaxed">
                     Platform pengaduan masyarakat untuk lingkungan yang lebih bersih, aman, dan nyaman bagi semua warga.
                 </p>
