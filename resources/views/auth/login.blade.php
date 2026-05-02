@@ -62,6 +62,8 @@
             padding-right: 20px;
             color: #ccc;
             cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
         }
         .login-card {
             background: white;
@@ -82,24 +84,6 @@
         }
         .nav-link { color: #333; font-weight: 500; }
         .text-orange-main { color: #f07c1b; }
-    
-        }');
-            background-repeat: repeat;
-            background-size: auto;
-            z-index: -1;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-    
-    
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .main-content, .card, .navbar-main, .auth-container {
-            animation: fadeInPage 0.4s ease-out forwards;
-        }
-    
     </style>
 </head>
 <body style="margin: 0; min-height: 100vh; background: transparent;">
@@ -147,26 +131,26 @@
     </div>
 
     <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-        const eyeIcon = document.querySelector('#eyeIcon');
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            const eyeIcon = document.querySelector('#eyeIcon');
 
-        togglePassword.addEventListener('click', function (e) {
-            // toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            
-            // toggle the icon or color
-            if (type === 'text') {
-                this.classList.add('text-orange-main');
-                this.classList.remove('text-gray-400');
-                // Change to eye-off icon
-                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"></path>`;
-            } else {
-                this.classList.remove('text-orange-main');
-                this.classList.add('text-gray-400');
-                // Change back to eye icon
-                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>`;
+            if (togglePassword && password && eyeIcon) {
+                togglePassword.addEventListener('click', function (e) {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    
+                    if (type === 'text') {
+                        this.classList.add('text-orange-main');
+                        this.classList.remove('text-gray-400');
+                        eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"></path>`;
+                    } else {
+                        this.classList.remove('text-orange-main');
+                        this.classList.add('text-gray-400');
+                        eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>`;
+                    }
+                });
             }
         });
     </script>

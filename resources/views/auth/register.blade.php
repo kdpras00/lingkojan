@@ -72,6 +72,8 @@
             padding-right: 20px;
             color: #ccc;
             cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
         }
         .register-card {
             background: white;
@@ -127,24 +129,6 @@
             cursor: pointer;
             padding: 15px 20px;
         }
-    
-        }');
-            background-repeat: repeat;
-            background-size: auto;
-            z-index: -1;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-    
-    
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .main-content, .card, .navbar-main, .auth-container {
-            animation: fadeInPage 0.4s ease-out forwards;
-        }
-    
     </style>
 </head>
 <body style="margin: 0; min-height: 100vh; background: transparent;">
