@@ -21,6 +21,7 @@ jobs:
           key: ${{ secrets.SSH_KEY_PRIVATE }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 2223
+          debug: true
           script: |
             cd ~/public_html/domains/lingkojan.my.id
 
