@@ -17,9 +17,6 @@
     <div class="card !p-0 overflow-hidden">
         <div class="bg-gray-50/50 px-10 py-6 border-b border-gray-100 flex items-center justify-between">
             <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail User</h3>
-            <div class="flex space-x-3">
-                <a href="{{ route('admin.petugas.edit', 1) }}" class="text-[10px] font-black uppercase text-orange-600 hover:underline">Edit Data</a>
-            </div>
         </div>
         
         <div class="p-12">

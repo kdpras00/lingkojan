@@ -8,5 +8,9 @@ class WargaController extends Controller {
         $warga = \App\Models\User::role('warga')->where('rt', $userRt)->get();
         return view('rt.warga.index', compact('warga', 'userRt'));
     }
-    public function show($id) { return view('rt.warga.show'); }
+    public function show($id) 
+    { 
+        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        return view('rt.warga.show', compact('warga')); 
+    }
 }

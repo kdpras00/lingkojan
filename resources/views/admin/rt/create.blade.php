@@ -19,18 +19,10 @@
             <form action="{{ route('admin.rt.store') }}" method="POST" class="space-y-10">
                 @csrf
                 <div class="flex items-center space-x-10">
-                    <label class="text-sm font-black text-black uppercase tracking-widest w-40">Nomor RT</label>
+                    <label class="text-sm font-black text-black uppercase tracking-widest w-40">RT</label>
                     <div class="flex-1 group">
                         <input type="text" name="nomor" value="{{ old('nomor') }}" class="w-full bg-gray-50 border @error('nomor') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Contoh: 003">
                         @error('nomor') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-10">
-                    <label class="text-sm font-black text-black uppercase tracking-widest w-40">Nama Ketua (Opsional)</label>
-                    <div class="flex-1 group">
-                        <input type="text" name="nama_ketua" value="{{ old('nama_ketua') }}" class="w-full bg-gray-50 border @error('nama_ketua') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Nama Ketua RT">
-                        @error('nama_ketua') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                 </div>
 

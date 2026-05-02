@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\RukunTetangga;
 use Illuminate\Support\Facades\Hash;
 
 class PetugasController extends Controller {
@@ -16,7 +17,8 @@ class PetugasController extends Controller {
     
     public function create() 
     { 
-        return view('admin.petugas.create'); 
+        $rts = RukunTetangga::orderBy('nomor')->get();
+        return view('admin.petugas.create', compact('rts')); 
     }
 
     public function store(Request $request)
@@ -44,8 +46,8 @@ class PetugasController extends Controller {
             'nik' => $request->nik,
             'phone' => $request->phone,
             'email' => $request->email,
-            'rt' => null,
-            'rw' => '006', // Assuming static RW 006 for this app context
+            'rt' => $request->rt,
+            'rw' => '006',
             'password' => Hash::make($request->password),
         ]);
 
@@ -63,7 +65,8 @@ class PetugasController extends Controller {
     public function edit($id) 
     { 
         $petugas = User::role('petugas')->findOrFail($id);
-        return view('admin.petugas.edit', compact('petugas')); 
+        $rts = RukunTetangga::orderBy('nomor')->get();
+        return view('admin.petugas.edit', compact('petugas', 'rts')); 
     }
 
     public function update(Request $request, $id)
@@ -98,7 +101,7 @@ class PetugasController extends Controller {
         $petugas->nik = $request->nik;
         $petugas->phone = $request->phone;
         $petugas->email = $request->email;
-        $petugas->rt = null;
+        $petugas->rt = $request->rt;
 
         if ($request->filled('password')) {
             $petugas->password = Hash::make($request->password);

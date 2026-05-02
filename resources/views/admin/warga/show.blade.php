@@ -17,9 +17,6 @@
     <div class="card !p-0 overflow-hidden">
         <div class="bg-gray-50/50 px-10 py-6 border-b border-gray-100 flex items-center justify-between">
             <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail User</h3>
-            <div class="flex space-x-3">
-                <a href="{{ route('admin.warga.edit', 1) }}" class="text-[10px] font-black uppercase text-orange-600 hover:underline">Edit Data</a>
-            </div>
         </div>
         
         <div class="p-12">
@@ -27,35 +24,35 @@
                 <!-- Row 1 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Username</label>
-                    <p class="text-sm font-bold text-gray-700">monatalia</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->username }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Email</label>
-                    <p class="text-sm font-bold text-gray-700">mona@gmail.com</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->email }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
-                    <p class="text-sm font-bold text-gray-700">Kampung Kojan, RT 001/RW 006</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->address ?? $warga->alamat ?? '-' }}, RT {{ $warga->rt }}/RW {{ $warga->rw }}</p>
                 </div>
 
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">Mona Talia</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->name }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">081365489263</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $warga->phone ?? '-' }}</p>
                 </div>
 
                 <!-- Row 3 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">NIK</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">3308921673902367</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->nik ?? '-' }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">001/006</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->rt }}/{{ $warga->rw }}</p>
                 </div>
             </div>
         </div>

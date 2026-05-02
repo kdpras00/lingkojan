@@ -34,6 +34,7 @@
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">NIK</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">No. Telepon</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Email</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100 text-center">RT</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Menu</th>
                     </tr>
                 </thead>
@@ -46,6 +47,7 @@
                         <td class="px-6 py-5 text-sm font-semibold text-gray-600 border-r border-gray-100 tracking-wider">{{ $user->nik }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $user->phone }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $user->email }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $user->rt ?: '-' }}</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center justify-center space-x-2">
                                 <a href="{{ route('admin.users.show', $user->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors" title="Detail">
@@ -62,7 +64,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data administrator.</td>
+                        <td colspan="8" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data administrator.</td>
                     </tr>
                     @endforelse
                 </tbody>

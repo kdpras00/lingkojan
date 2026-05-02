@@ -30,7 +30,6 @@
                     <tr>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center border-r border-gray-100 w-24">No</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">RT</th>
-                        <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Ketua RT</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Menu</th>
                     </tr>
                 </thead>
@@ -39,7 +38,6 @@
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100">{{ $rt->nomor }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $rt->nama_ketua }}</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center justify-center space-x-2">
                                 <a href="{{ route('admin.rt.edit', $rt->id) }}" class="p-1 text-gray-400 hover:text-orange-600 transition-colors" title="Edit">
@@ -53,7 +51,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data RT.</td>
+                        <td colspan="3" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data RT.</td>
                     </tr>
                     @endforelse
                 </tbody>

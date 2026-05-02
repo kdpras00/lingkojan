@@ -28,6 +28,12 @@ class DashboardController extends Controller {
         $recentPengaduans = $query->orderBy('created_at', 'desc')
             ->get();
 
-        return view('rw.dashboard', compact('stats', 'recentPengaduans'));
+        $wargaStats = \App\Models\User::role('warga')
+            ->select('rt', \DB::raw('count(*) as total'))
+            ->groupBy('rt')
+            ->orderBy('rt')
+            ->get();
+
+        return view('rw.dashboard', compact('stats', 'recentPengaduans', 'wargaStats'));
     }
 }

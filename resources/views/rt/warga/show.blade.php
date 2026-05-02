@@ -14,53 +14,48 @@
         <span class="text-gray-400">Detail</span>
     </div>
 
-    <div class="card !p-10 space-y-10">
-        <div class="border-b border-gray-100 pb-6">
-            <h3 class="text-2xl font-black text-black tracking-tight uppercase">Detail User</h3>
+    <div class="card !p-0 overflow-hidden">
+        <div class="bg-gray-50/50 px-10 py-6 border-b border-gray-100 flex items-center justify-between">
+            <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail User</h3>
         </div>
+        
+        <div class="p-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-12">
+                <!-- Row 1 -->
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Username</label>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->username }}</p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Email</label>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->email }}</p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->address ?? $warga->alamat ?? '-' }}, RT {{ $warga->rt }}/RW {{ $warga->rw ?? '006' }}</p>
+                </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-            <!-- Username -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">Username</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->username }}</div>
-            </div>
+                <!-- Row 2 -->
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->name }}</p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $warga->phone ?? '-' }}</p>
+                </div>
+                <div>
+                    <!-- Empty space to align Alamat -->
+                </div>
 
-            <!-- Email -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">Email</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->email }}</div>
-            </div>
-
-            <!-- Nama -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">Nama</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->name }}</div>
-            </div>
-
-            <!-- No. HP -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">No. HP</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->phone ?? '-' }}</div>
-            </div>
-
-            <!-- NIK -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">NIK</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->nik ?? '-' }}</div>
-            </div>
-
-            <!-- RT/RW -->
-            <div>
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">RT/RW</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold text-gray-600 shadow-sm">{{ $warga->rt }}/006</div>
-            </div>
-
-            <!-- Alamat (Full Width) -->
-            <div class="md:col-span-2">
-                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 uppercase">Alamat</label>
-                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-8 py-6 text-sm font-semibold text-gray-600 shadow-sm leading-relaxed">
-                    {{ $warga->alamat ?? 'Alamat belum diisi.' }}
+                <!-- Row 3 -->
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">NIK</label>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->nik ?? '-' }}</p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->rt }}/{{ $warga->rw ?? '006' }}</p>
                 </div>
             </div>
         </div>

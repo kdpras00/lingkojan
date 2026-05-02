@@ -17,10 +17,36 @@
 </div>
 
 <div class="max-w-4xl">
+    <!-- Informasi Akun -->
+    <div class="card mb-8">
+        <div class="mb-8 text-center md:text-left">
+            <h4 class="text-xl font-black text-black uppercase tracking-tight">Informasi Akun</h4>
+            <p class="text-sm text-gray-500 font-medium mt-1">Data profil Anda saat ini.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Nama</label>
+                <input type="text" value="{{ auth()->user()->name }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+            </div>
+            <div>
+                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Email</label>
+                <input type="email" value="{{ auth()->user()->email }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+            </div>
+            <div>
+                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">RT</label>
+                <input type="text" value="{{ auth()->user()->rt }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+            </div>
+            <div>
+                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Alamat</label>
+                <input type="text" value="{{ auth()->user()->address }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="mb-10 text-center md:text-left">
-            <h4 class="text-2xl font-black text-black uppercase tracking-tight">Form Pengaduan</h4>
-            <p class="text-sm text-gray-500 font-medium">Lengkapi formulir di bawah ini untuk melaporkan permasalahan.</p>
+            <h4 class="text-2xl font-black text-black uppercase tracking-tight">Buat Pengaduan Baru</h4>
+            <p class="text-sm text-gray-500 font-medium mt-1">Lengkapi formulir di bawah ini untuk melaporkan permasalahan.</p>
         </div>
 
         <form action="{{ route('warga.pengaduan.store') }}" method="POST" enctype="multipart/form-data">

@@ -17,9 +17,6 @@
     <div class="card !p-0 overflow-hidden">
         <div class="bg-gray-50/50 px-10 py-6 border-b border-gray-100 flex items-center justify-between">
             <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail User</h3>
-            <div class="flex space-x-3">
-                <a href="#" class="text-[10px] font-black uppercase text-orange-600 hover:underline">Edit Data</a>
-            </div>
         </div>
         
         <div class="p-12">
@@ -27,35 +24,35 @@
                 <!-- Row 1 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Username</label>
-                    <p class="text-sm font-bold text-gray-700">admin</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->username }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Email</label>
-                    <p class="text-sm font-bold text-gray-700">admin@gmail.com</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->email }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
-                    <p class="text-sm font-bold text-gray-700">Kampung Kojan, RT 001/RW 006</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->alamat ?: '-' }}</p>
                 </div>
 
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">Admin System</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->name }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">082830273458</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $user->phone ?: '-' }}</p>
                 </div>
 
                 <!-- Row 3 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">NIK</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">3302147890261567</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $user->nik ?: '-' }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700">001/006</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->rt ? $user->rt . '/006' : '-' }}</p>
                 </div>
             </div>
         </div>

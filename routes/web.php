@@ -62,7 +62,12 @@ Route::middleware(['auth'])->prefix('rt')->as('rt.')->group(function () {
 // RW Routes
 Route::middleware(['auth'])->prefix('rw')->as('rw.')->group(function () {
     Route::get('/dashboard', [RW\DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('/warga', [RW\WargaController::class, 'index'])->name('warga.index');
+    Route::get('/petugas', [RW\PetugasController::class, 'index'])->name('petugas.index');
+
     Route::controller(RW\PengaduanController::class)->prefix('pengaduan')->as('pengaduan.')->group(function () {
+        Route::get('/', 'index')->name('index');
         Route::get('/recap', 'recap')->name('recap');
         Route::get('/{id}', 'show')->name('show');
         Route::get('/{id}/print', 'print')->name('print');

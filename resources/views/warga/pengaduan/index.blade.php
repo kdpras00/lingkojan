@@ -31,6 +31,7 @@
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100 w-16 text-center">No</th>
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100">Tanggal</th>
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100">Nomor Pengaduan</th>
+                    <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100">Nama Warga</th>
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100">Subject</th>
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest border-r border-gray-100">Last Status</th>
                     <th class="px-6 py-5 font-black text-[10px] text-gray-400 uppercase tracking-widest text-center">Menu</th>
@@ -42,6 +43,7 @@
                     <td class="px-6 py-5 text-sm font-bold text-gray-500 border-r border-gray-100 text-center">{{ $index + 1 }}</td>
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d F Y H:i') }}</td>
                     <td class="px-6 py-5 text-sm font-black text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
+                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? '-' }}</td>
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
                     <td class="px-6 py-5 border-r border-gray-100">
                         @php
@@ -65,7 +67,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="px-6 py-10 text-center text-sm font-bold text-gray-400">Belum ada pengaduan yang dibuat.</td>
+                    <td colspan="7" class="px-6 py-10 text-center text-sm font-bold text-gray-400">Belum ada pengaduan yang dibuat.</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -81,7 +83,7 @@
         const rows = tableBody.querySelectorAll('tr');
         const emptyRowTemplate = `
             <tr id="empty-search-row">
-                <td colspan="6" class="px-6 py-10 text-center text-sm font-bold text-gray-400">Data tidak ditemukan.</td>
+                <td colspan="7" class="px-6 py-10 text-center text-sm font-bold text-gray-400">Data tidak ditemukan.</td>
             </tr>
         `;
 

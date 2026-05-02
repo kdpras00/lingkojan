@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\RukunTetangga;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
@@ -16,7 +17,8 @@ class UserController extends Controller {
     
     public function create() 
     { 
-        return view('admin.users.create'); 
+        $rts = RukunTetangga::orderBy('nomor')->get();
+        return view('admin.users.create', compact('rts')); 
     }
 
     public function store(Request $request)
@@ -46,7 +48,7 @@ class UserController extends Controller {
             'nik' => $request->nik,
             'phone' => $request->phone,
             'email' => $request->email,
-            'rt' => null,
+            'rt' => $request->rt,
             'rw' => '006',
             'password' => Hash::make($request->password),
         ]);
@@ -65,7 +67,8 @@ class UserController extends Controller {
     public function edit($id) 
     { 
         $user = User::role('admin')->findOrFail($id);
-        return view('admin.users.edit', compact('user')); 
+        $rts = RukunTetangga::orderBy('nomor')->get();
+        return view('admin.users.edit', compact('user', 'rts')); 
     }
 
     public function update(Request $request, $id)
@@ -102,7 +105,7 @@ class UserController extends Controller {
         $user->nik = $request->nik;
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->rt = null;
+        $user->rt = $request->rt;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
