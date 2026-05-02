@@ -47,7 +47,7 @@ class PengaduanSeeder extends Seeder
             [
                 'user_id' => $warga->id,
                 'nomor_pengaduan' => 'P-20260501-0002',
-                'kategori' => 'Fasilitas Umum',
+                'kategori' => 'Kebersihan',
                 'subjek' => 'jalan rusak bisa diperbaiki segera ga',
                 'foto' => 'pengaduans/w4fSjWrkHV476DNfd130AAKFb1fnneo0hOMmETDq.png',
                 'alamat' => 'jalan rusak bisa diperbaiki segera ga',
@@ -105,7 +105,7 @@ class PengaduanSeeder extends Seeder
             [
                 'user_id' => $warga->id,
                 'nomor_pengaduan' => 'P-20260501-0004',
-                'kategori' => 'Infrastruktur',
+                'kategori' => 'Lingkungan',
                 'subjek' => 'jalan rusak',
                 'foto' => 'pengaduans/N2UekvDFVFPNL4BFZgIFaGp0MxIgwk1IDBZxGv3G.png',
                 'alamat' => 'jalan rusak',
