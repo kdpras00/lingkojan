@@ -29,6 +29,7 @@ class KetuaRTController extends Controller {
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
             'rt'       => ['required', 'string'],
+            'alamat'   => ['nullable', 'string'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
@@ -45,6 +46,7 @@ class KetuaRTController extends Controller {
             'username' => $request->username,
             'nik' => $request->nik,
             'phone' => $request->phone,
+            'alamat' => $request->alamat,
             'email' => $request->email,
             'rt' => $request->rt,
             'rw' => '006',
@@ -83,6 +85,7 @@ class KetuaRTController extends Controller {
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users,email,'.$ketuaRt->id],
             'rt'       => ['required', 'string'],
+            'alamat'   => ['nullable', 'string'],
         ];
 
         $messages = [
@@ -107,7 +110,9 @@ class KetuaRTController extends Controller {
         $ketuaRt->nik = $request->nik;
         $ketuaRt->phone = $request->phone;
         $ketuaRt->email = $request->email;
+        $ketuaRt->alamat = $request->alamat;
         $ketuaRt->rt = $request->rt;
+        $ketuaRt->rw = '006';
 
         if ($request->filled('password')) {
             $ketuaRt->password = Hash::make($request->password);

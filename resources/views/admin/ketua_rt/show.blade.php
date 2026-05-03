@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Detail User Warga')
-@section('page_title', 'Detail User')
+@section('title', 'Detail Ketua RT')
+@section('page_title', 'Detail Ketua RT')
 
 @section('content')
 <div class="space-y-8">
@@ -9,14 +9,14 @@
     <div class="mb-10 flex items-center text-sm font-bold text-black px-4 md:px-0">
         <a href="{{ route('admin.dashboard') }}" class="hover:text-[#f07c1b]">Dashboard</a>
         <span class="mx-3 text-gray-300 font-normal text-lg">/</span>
-        <a href="{{ route('admin.warga.index') }}" class="hover:text-[#f07c1b]">Kelola Data Warga</a>
+        <a href="{{ route('admin.ketua_rt.index') }}" class="hover:text-[#f07c1b]">Kelola Data Ketua RT</a>
         <span class="mx-3 text-gray-300 font-normal text-lg">/</span>
         <span class="text-gray-400">Detail</span>
     </div>
 
     <div class="card !p-0 overflow-hidden">
         <div class="bg-gray-50/50 px-10 py-6 border-b border-gray-100 flex items-center justify-between">
-            <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail User</h3>
+            <h3 class="text-xl font-black text-black tracking-tight uppercase">Detail Ketua RT</h3>
         </div>
         
         <div class="p-12">
@@ -24,35 +24,35 @@
                 <!-- Row 1 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Username</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->username }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $ketuaRt->username }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Email</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->email }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $ketuaRt->email }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->address ?? $warga->alamat ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $ketuaRt->address ?? $ketuaRt->alamat ?? '-' }}</p>
                 </div>
 
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->name }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $ketuaRt->name }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $warga->phone ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $ketuaRt->phone ?? '-' }}</p>
                 </div>
 
                 <!-- Row 3 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">NIK</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->nik ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $ketuaRt->nik ?? '-' }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->rt }}/{{ $warga->rw ?? '006' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $ketuaRt->rt }}/{{ $ketuaRt->rw ?? '006' }}</p>
                 </div>
             </div>
         </div>

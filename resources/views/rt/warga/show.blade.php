@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->address ?? $warga->alamat ?? '-' }}, RT {{ $warga->rt }}/RW {{ $warga->rw ?? '006' }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->address ?? $warga->alamat ?? '-' }}</p>
                 </div>
 
                 <!-- Row 2 -->

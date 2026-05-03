@@ -29,6 +29,7 @@ class PetugasController extends Controller {
             'nik'      => ['required', 'digits:16', 'unique:users'],
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
+            'alamat'   => ['nullable', 'string'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
@@ -45,6 +46,7 @@ class PetugasController extends Controller {
             'username' => $request->username,
             'nik' => $request->nik,
             'phone' => $request->phone,
+            'alamat' => $request->alamat,
             'email' => $request->email,
             'rt' => $request->rt,
             'rw' => '006',
@@ -79,6 +81,7 @@ class PetugasController extends Controller {
             'nik'      => ['required', 'digits:16', 'unique:users,nik,'.$petugas->id],
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users,email,'.$petugas->id],
+            'alamat'   => ['nullable', 'string'],
         ];
 
         $messages = [
@@ -101,7 +104,9 @@ class PetugasController extends Controller {
         $petugas->nik = $request->nik;
         $petugas->phone = $request->phone;
         $petugas->email = $request->email;
+        $petugas->alamat = $request->alamat;
         $petugas->rt = $request->rt;
+        $petugas->rw = '006';
 
         if ($request->filled('password')) {
             $petugas->password = Hash::make($request->password);

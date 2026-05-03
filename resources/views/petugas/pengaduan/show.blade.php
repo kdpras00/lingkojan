@@ -89,13 +89,6 @@
                 <!-- Header Rincian -->
                 <div class="border-b border-gray-100 pb-5 mb-10 flex items-center justify-between">
                     <h3 class="text-2xl font-black text-black uppercase tracking-tight">Rincian Pengaduan</h3>
-                    <div class="flex space-x-3">
-                        @if(!in_array($pengaduan->status, ['Done', 'Cancel']))
-                        <a href="#response_section" class="bg-[#f07c1b] text-white px-6 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#d96a12] transition-all shadow-sm">
-                            Beri Respon
-                        </a>
-                        @endif
-                    </div>
                 </div>
 
                 <div class="space-y-16">
@@ -105,56 +98,54 @@
                             <h4 class="font-extrabold text-black uppercase text-sm tracking-widest">Informasi Pengaduan</h4>
                         </div>
                         <div class="p-10">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 mb-10">
-                                <!-- Left Column -->
-                                <div class="space-y-6">
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nomor Pengaduan</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->nomor_pengaduan }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tanggal Pengaduan</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kategori</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->kategori }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">RT / RW</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->rt }} / {{ $pengaduan->rw }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Status Terakhir</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->status }}</div>
-                                    </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Nomor Pengaduan</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->nomor_pengaduan }}</div>
                                 </div>
-
-                                <!-- Right Column -->
-                                <div class="space-y-6">
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Warga</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->name }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">No. Telepon</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
-                                    </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Nama Warga</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->name }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Tanggal Pengaduan</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">NIK</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->nik ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Kategori</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->kategori }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">No. Telepon</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Lokasi / Alamat</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->alamat ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Email</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->email ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Status Terakhir</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->status }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">RT</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->rt }}</div>
                                 </div>
                             </div>
 
                             <!-- Full Width Subject -->
-                            <div class="mt-8 group">
+                            <div class="group">
                                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Subjek</label>
                                 <div class="bg-gray-50 border-2 border-gray-100 rounded-3xl p-8 text-lg font-bold text-black shadow-inner leading-relaxed group-hover:border-[#f07c1b]/20 transition-all">
                                     {{ $pengaduan->subjek }}
-                                </div>
-                            </div>
-
-                            <div class="mt-6 group">
-                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Lokasi / Alamat</label>
-                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-medium text-gray-600 shadow-sm leading-relaxed">
-                                    "{{ $pengaduan->alamat ?? 'Tidak ada detail alamat.' }}"
                                 </div>
                             </div>
 
@@ -179,46 +170,105 @@
                         </div>
                         
                         <div class="space-y-6">
-                            @forelse($pengaduan->tindakLanjuts as $tindak)
-                            <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-sm bg-white hover:border-[#f07c1b]/30 transition-all">
-                                <div class="bg-gray-50/50 px-8 py-4 border-b border-gray-100 flex justify-between items-center">
-                                    <span class="font-bold text-sm text-black">{{ $tindak->user->name }} <span class="text-xs font-normal text-gray-400 ml-2">({{ $tindak->user->roles->first()->name ?? 'User' }})</span></span>
-                                    <div class="flex flex-col items-end space-y-1">
-                                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ $tindak->created_at->format('d M Y H:i') }}</span>
-                                        <span class="text-[10px] font-bold uppercase tracking-widest
-                                            {{ $tindak->status == 'New' ? 'text-blue-600' : 
-                                              ($tindak->status == 'On Progress' ? 'text-orange-600' : 
-                                              ($tindak->status == 'Done' ? 'text-green-600' : 'text-red-600')) }}">
+                            <!-- Card 1: Data Awal (New) -->
+                            <div class="border border-gray-200 rounded-[32px] p-10 space-y-8 bg-white shadow-sm hover:shadow-md transition-all border-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
+                                        <div class="bg-blue-50 border border-blue-100 rounded-2xl px-6 py-3.5 text-sm font-black text-blue-600 shadow-sm">
+                                            New
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">User</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $pengaduan->user->name }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Pengaduan</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $pengaduan->created_at->format('d-m-Y H.i') }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm uppercase">
+                                            {{ $pengaduan->user->roles->first()->name ?? 'Warga' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Detail Pengaduan</label>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-bold text-gray-600 shadow-sm leading-relaxed min-h-[80px]">
+                                        {{ $pengaduan->subjek }}
+                                    </div>
+                                </div>
+                                @if($pengaduan->foto)
+                                <div class="flex items-center text-sm font-black text-gray-700 ml-1">
+                                    <span class="mr-2">Download File:</span>
+                                    <a href="{{ asset('storage/' . $pengaduan->foto) }}" target="_blank" class="text-blue-500 hover:underline italic">
+                                        {{ basename($pengaduan->foto) }}
+                                    </a>
+                                </div>
+                                @endif
+                            </div>
+
+                            <!-- Tindak Lanjut Berikutnya -->
+                            @foreach($pengaduan->tindakLanjuts->sortBy('created_at') as $tindak)
+                            <div class="border border-gray-200 rounded-[32px] p-10 space-y-8 bg-white shadow-sm hover:shadow-md transition-all border-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
+                                        <div class="border rounded-2xl px-6 py-3.5 text-sm font-black shadow-sm
+                                            {{ $tindak->status == 'New' ? 'bg-blue-50 border-blue-100 text-blue-600' : 
+                                              ($tindak->status == 'On Progress' ? 'bg-orange-50 border-orange-100 text-orange-600' : 
+                                              ($tindak->status == 'Done' ? 'bg-green-50 border-green-100 text-green-600' : 'bg-red-50 border-red-100 text-red-600')) }}">
                                             {{ $tindak->status }}
-                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">User</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $tindak->user->name }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Pengaduan</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $tindak->created_at->format('d-m-Y H.i') }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm uppercase">
+                                            {{ $tindak->user->roles->first()->name ?? 'User' }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="p-8">
-                                    <div class="text-sm text-gray-600 leading-relaxed">
-                                        "{{ $tindak->detail }}"
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Detail Pengaduan</label>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-bold text-gray-600 shadow-sm leading-relaxed min-h-[80px]">
+                                        {{ $tindak->detail }}
                                     </div>
-                                    @if($tindak->foto)
-                                    <div class="mt-4">
-                                        <button onclick="openImagePreview('{{ asset('storage/' . $tindak->foto) }}')" class="text-blue-500 text-[11px] font-black uppercase tracking-widest hover:underline flex items-center">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                            Lihat Lampiran Bukti
-                                        </button>
-                                    </div>
-                                    @endif
                                 </div>
+                                @if($tindak->foto)
+                                <div class="flex items-center text-sm font-black text-gray-700 ml-1">
+                                    <span class="mr-2">Download File:</span>
+                                    <a href="{{ asset('storage/' . $tindak->foto) }}" target="_blank" class="text-blue-500 hover:underline italic">
+                                        {{ basename($tindak->foto) }}
+                                    </a>
+                                </div>
+                                @endif
                             </div>
-                            @empty
-                            <div class="bg-gray-50 rounded-3xl p-10 text-center border border-dashed border-gray-200">
-                                <p class="text-gray-400 text-sm font-bold">Belum ada tindak lanjut untuk pengaduan ini.</p>
-                            </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Section: Beri Tanggapan -->
                     @if(!in_array($pengaduan->status, ['Done', 'Cancel']))
                     <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-sm bg-white" id="response_section">
-                        <div class="bg-gray-50/50 px-8 py-5 border-b border-gray-100 flex items-center justify-between">
+                        <div class="bg-gray-100 px-8 py-5 border-b border-gray-100 flex items-center justify-between">
                             <h4 class="font-extrabold text-black uppercase text-sm tracking-widest">Beri Tanggapan</h4>
                         </div>
                         <div class="p-10">
@@ -230,7 +280,7 @@
 
                             <!-- Initial Button (Mockup 02) -->
                             <div id="initial_action">
-                                <button type="button" onclick="showResponseForm()" class="bg-white border-2 border-gray-100 text-black px-10 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:border-[#f07c1b] hover:text-[#f07c1b] transition-all shadow-sm flex items-center group/btn">
+                                <button type="button" onclick="showResponseForm()" class="bg-white border-2 border-gray-200 text-black px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-widest hover:border-[#f07c1b] hover:text-[#f07c1b] transition-all shadow-sm flex items-center group/btn">
                                     Respon Sekarang
                                 </button>
                             </div>
@@ -241,7 +291,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div class="group">
                                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Update Status</label>
-                                        <select name="status" required class="w-full bg-gray-50 border border-gray-200 rounded-none px-5 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-0 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
+                                        <select name="status" required class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-0 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
                                             @if($pengaduan->status == 'New')
                                                 <option value="On Progress">On Progress (Lagi diproses)</option>
                                                 <option value="Cancel">Cancel (Dibatalkan)</option>
@@ -255,15 +305,15 @@
                                     <div class="group">
                                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Upload Bukti (Opsional)</label>
                                         <div class="flex flex-col items-center gap-4">
-                                            <div id="preview_container" class="hidden relative w-full max-w-sm rounded-none overflow-hidden border border-gray-200 shadow-lg flex-shrink-0">
+                                            <div id="preview_container" class="hidden relative w-full max-w-sm rounded-2xl overflow-hidden border border-gray-200 shadow-lg flex-shrink-0">
                                                 <img id="upload_preview" src="" class="w-full h-auto cursor-pointer" onclick="openImagePreview(this.src)">
-                                                <button type="button" onclick="removeImage()" class="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-none shadow-lg hover:bg-red-600 transition-colors z-10">
+                                                <button type="button" onclick="removeImage()" class="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors z-10">
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                                 </button>
                                             </div>
                                             <div class="w-full">
                                                 <input type="file" name="foto" class="hidden" id="file_upload">
-                                                <label for="file_upload" class="flex items-center justify-center w-full bg-gray-50 border border-dashed border-gray-300 rounded-none px-5 py-3.5 text-[10px] font-black uppercase tracking-widest text-gray-500 cursor-pointer hover:bg-gray-100 transition-all border-2">
+                                                <label for="file_upload" class="flex items-center justify-center w-full bg-gray-50 border border-dashed border-gray-300 rounded-full px-5 py-3.5 text-[10px] font-black uppercase tracking-widest text-gray-500 cursor-pointer hover:bg-gray-100 transition-all border-2">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12"></path></svg>
                                                     <span id="file_label">Pilih Foto Bukti</span>
                                                 </label>
@@ -278,7 +328,7 @@
                                 </div>
 
                                 <div class="flex justify-end">
-                                    <button type="submit" class="bg-black text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg flex items-center group/btn">
+                                    <button type="submit" class="bg-black text-white px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg flex items-center group/btn">
                                         Kirim Tanggapan
                                         <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                                     </button>

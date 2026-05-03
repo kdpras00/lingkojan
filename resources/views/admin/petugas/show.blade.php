@@ -24,35 +24,35 @@
                 <!-- Row 1 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Username</label>
-                    <p class="text-sm font-bold text-gray-700">Andi</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $petugas->username }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Email</label>
-                    <p class="text-sm font-bold text-gray-700">petugas@gmail.com</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $petugas->email }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Alamat</label>
-                    <p class="text-sm font-bold text-gray-700">Kampung Kojan, RT 002/RW 006</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $petugas->address ?? $petugas->alamat ?? '-' }}</p>
                 </div>
 
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">Petugas Kebersihan</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $petugas->name }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">085890127834</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $petugas->phone ?? '-' }}</p>
                 </div>
 
                 <!-- Row 3 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">NIK</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">330243107420974</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $petugas->nik ?? '-' }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">002/006</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $petugas->rt }}/{{ $petugas->rw ?? '006' }}</p>
                 </div>
             </div>
         </div>

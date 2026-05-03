@@ -68,68 +68,54 @@
                             <h4 class="font-extrabold text-black uppercase text-sm tracking-widest">Rincian</h4>
                         </div>
                         <div class="p-10">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 mb-10">
-                                <!-- Left Column -->
-                                <div class="space-y-6">
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Nomor Pengaduan</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->nomor_pengaduan }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Tanggal Pengaduan</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Kategori</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->kategori }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Alamat</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->address ?? '-' }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Status Terakhir</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->status }}</div>
-                                    </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Nomor Pengaduan</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->nomor_pengaduan }}</div>
                                 </div>
-
-                                <!-- Right Column -->
-                                <div class="space-y-6">
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Nama Warga</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->name }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">NIK</label>
-                                        <div class="bg-blue-50/30 border border-blue-100/50 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm tracking-widest">{{ $pengaduan->user->nik ?? '-' }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 uppercase">No. Telepon</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 uppercase">Email</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->email }}</div>
-                                    </div>
-                                    <div class="group">
-                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 uppercase">RT</label>
-                                        <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->rt ?? '-' }}</div>
-                                    </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Nama Warga</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->name }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Tanggal Pengaduan</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">NIK</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->nik ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Kategori</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->kategori }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">No. Telepon</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Lokasi / Alamat</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->alamat ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Email</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->email ?? '-' }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Status Terakhir</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->status }}</div>
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">RT</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm uppercase">{{ $pengaduan->rt }}</div>
                                 </div>
                             </div>
 
                             <!-- Full Width Subject -->
-                            <div class="group mb-8">
-                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Subject</label>
-                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 shadow-sm leading-relaxed">
-                                    {{ $pengaduan->subjek }}
-                                </div>
-                            </div>
-
                             <div class="group">
-                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Detail Alamat / Isi Laporan</label>
-                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-medium text-gray-600 shadow-sm leading-relaxed">
-                                    "{{ $pengaduan->alamat ?? 'Tidak ada detail alamat.' }}"
+                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Subjek</label>
+                                <div class="bg-gray-50 border-2 border-gray-100 rounded-3xl p-8 text-lg font-bold text-black shadow-inner leading-relaxed group-hover:border-[#f07c1b]/20 transition-all">
+                                    {{ $pengaduan->subjek }}
                                 </div>
                             </div>
 
@@ -154,31 +140,94 @@
                         </div>
                         
                         <div class="space-y-6">
-                            @forelse($pengaduan->tindakLanjuts as $tindak)
-                            <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-sm bg-white hover:border-[#f07c1b]/30 transition-all">
-                                <div class="bg-gray-50/50 px-8 py-4 border-b border-gray-100 flex justify-between items-center">
-                                    <span class="font-bold text-sm text-black">{{ $tindak->user->name }} <span class="text-xs font-normal text-gray-400 ml-2">({{ $tindak->user->roles->first()->name ?? 'User' }})</span></span>
-                                    <div class="flex flex-col items-end space-y-1">
-                                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ $tindak->created_at->format('d M Y H:i') }}</span>
-                                        <span class="text-[10px] font-black uppercase tracking-widest
-                                            {{ $tindak->status == 'New' ? 'text-blue-600' : 
-                                              ($tindak->status == 'On Progress' ? 'text-orange-600' : 
-                                              ($tindak->status == 'Done' ? 'text-green-600' : 'text-red-600')) }}">
+                            <!-- Card 1: Data Awal (New) -->
+                            <div class="border border-gray-200 rounded-[32px] p-10 space-y-8 bg-white shadow-sm hover:shadow-md transition-all border-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
+                                        <div class="bg-blue-50 border border-blue-100 rounded-2xl px-6 py-3.5 text-sm font-black text-blue-600 shadow-sm">
+                                            New
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">User</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $pengaduan->user->name }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Pengaduan</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $pengaduan->created_at->format('d-m-Y H.i') }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm uppercase">
+                                            {{ $pengaduan->user->roles->first()->name ?? 'Warga' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Detail Pengaduan</label>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-bold text-gray-600 shadow-sm leading-relaxed min-h-[80px]">
+                                        {{ $pengaduan->subjek }}
+                                    </div>
+                                </div>
+                                @if($pengaduan->foto)
+                                <div class="flex items-center text-sm font-black text-gray-700 ml-1">
+                                    <span class="mr-2">Download File:</span>
+                                    <a href="{{ asset('storage/' . $pengaduan->foto) }}" target="_blank" class="text-blue-500 hover:underline italic">
+                                        {{ basename($pengaduan->foto) }}
+                                    </a>
+                                </div>
+                                @endif
+                            </div>
+
+                            @foreach($pengaduan->tindakLanjuts->sortBy('created_at') as $tindak)
+                            <div class="border border-gray-200 rounded-[32px] p-10 space-y-8 bg-white shadow-sm hover:shadow-md transition-all border-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
                                             {{ $tindak->status }}
-                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">User</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $tindak->user->name }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Pengaduan</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm">
+                                            {{ $tindak->created_at->format('d-m-Y H.i') }}
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-black text-gray-700 shadow-sm uppercase">
+                                            {{ $tindak->user->roles->first()->name ?? 'User' }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="p-8">
-                                    <div class="text-sm text-gray-600 leading-relaxed">
-                                        "{{ $tindak->detail }}"
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Detail Pengaduan</label>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-bold text-gray-600 shadow-sm leading-relaxed min-h-[80px]">
+                                        {{ $tindak->detail }}
                                     </div>
                                 </div>
+                                @if($tindak->foto)
+                                <div class="flex items-center text-sm font-black text-gray-700 ml-1">
+                                    <span class="mr-2">Download File:</span>
+                                    <a href="{{ asset('storage/' . $tindak->foto) }}" target="_blank" class="text-blue-500 hover:underline italic">
+                                        {{ basename($tindak->foto) }}
+                                    </a>
+                                </div>
+                                @endif
                             </div>
-                            @empty
-                            <div class="bg-gray-50 rounded-3xl p-10 text-center border border-dashed border-gray-200">
-                                <p class="text-gray-400 text-sm font-bold">Belum ada tindak lanjut untuk pengaduan ini.</p>
-                            </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -29,6 +29,7 @@ class UserController extends Controller {
             'nik'      => ['required', 'digits:16', 'unique:users'],
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
+            'alamat'   => ['nullable', 'string'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'name.min'        => 'Nama minimal 3 karakter.',
@@ -47,6 +48,7 @@ class UserController extends Controller {
             'username' => $request->username,
             'nik' => $request->nik,
             'phone' => $request->phone,
+            'alamat' => $request->alamat,
             'email' => $request->email,
             'rt' => $request->rt,
             'rw' => '006',
@@ -81,6 +83,7 @@ class UserController extends Controller {
             'nik'      => ['required', 'digits:16', 'unique:users,nik,'.$user->id],
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users,email,'.$user->id],
+            'alamat'   => ['nullable', 'string'],
         ];
 
         $messages = [
@@ -105,7 +108,9 @@ class UserController extends Controller {
         $user->nik = $request->nik;
         $user->phone = $request->phone;
         $user->email = $request->email;
+        $user->alamat = $request->alamat;
         $user->rt = $request->rt;
+        $user->rw = '006';
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);

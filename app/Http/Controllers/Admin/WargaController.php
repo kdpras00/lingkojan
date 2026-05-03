@@ -31,7 +31,7 @@ class WargaController extends Controller {
             'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
             'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
             'rt'       => ['required', 'string'],
-            'rw'       => ['required', 'string'],
+            'alamat'   => ['nullable', 'string'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
@@ -51,7 +51,7 @@ class WargaController extends Controller {
             'phone' => $request->phone,
             'email' => $request->email,
             'rt' => $request->rt,
-            'rw' => $request->rw,
+            'rw' => '006',
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
         ]);
 
@@ -84,7 +84,8 @@ class WargaController extends Controller {
             'phone' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$warga->id],
             'rt' => ['required', 'string'],
-            'rw' => ['required', 'string'],
+            'rt' => ['required', 'string'],
+            'alamat' => ['nullable', 'string'],
         ];
 
         if ($request->filled('password')) {
@@ -100,6 +101,7 @@ class WargaController extends Controller {
         $warga->phone = $request->phone;
         $warga->email = $request->email;
         $warga->rt = $request->rt;
+        $warga->rw = '006';
 
         if ($request->filled('password')) {
             $warga->password = \Illuminate\Support\Facades\Hash::make($request->password);
