@@ -89,10 +89,10 @@
                 </table>
             </div>
 
-            <!-- Section B: Rincian -->
+            <!-- Section B: Informasi Pengaduan -->
             <div class="border border-black overflow-hidden">
                 <div class="bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-widest">
-                    B. Rincian
+                    B. Informasi Pengaduan
                 </div>
                 <table class="w-full text-sm border-collapse">
                     <tr class="border-t border-black">
