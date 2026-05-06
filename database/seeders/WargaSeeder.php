@@ -37,7 +37,6 @@ class WargaSeeder extends Seeder
         $password = Hash::make('password');
         $nikCounter = 33071000000001;
         $phoneCounter = 81200000001;
-        $faker = \Faker\Factory::create('id_ID');
 
         foreach ($wargaPerRt as $rt => $jumlah) {
             $this->command->info("Seeding {$jumlah} warga untuk RT {$rt}...");
@@ -48,7 +47,7 @@ class WargaSeeder extends Seeder
                 $phone  = '0' . $phoneCounter++;
 
                 $users[] = [
-                    'name'              => $faker->name(),
+                    'name'              => 'Warga ' . $i . ' RT ' . $rt,
                     'username'          => 'warga_rt' . $rt . '_' . $i,
                     'email'             => 'warga.rt' . $rt . '.' . $i . '@lingkojan.com',
                     'password'          => $password,
