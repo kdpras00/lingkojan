@@ -34,7 +34,10 @@ class PengaduanController extends Controller {
         }
 
         $pengaduans = $query->orderBy('created_at', 'desc')->get();
-        return view('rw.pengaduan.index', compact('pengaduans'));
+        $availableRts = \App\Models\Pengaduan::distinct()->whereNotNull('rt')->pluck('rt');
+        $availableKategoris = \App\Models\Pengaduan::distinct()->whereNotNull('kategori')->pluck('kategori');
+
+        return view('rw.pengaduan.index', compact('pengaduans', 'availableRts', 'availableKategoris'));
     }
 
     public function recap(\Illuminate\Http\Request $request) 
@@ -45,6 +48,12 @@ class PengaduanController extends Controller {
         if ($request->rt) {
             $query->where('rt', $request->rt);
         }
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+        if ($request->kategori) {
+            $query->where('kategori', $request->kategori);
+        }
         if ($request->start_date) {
             $query->whereDate('created_at', '>=', $request->start_date);
         }
@@ -54,10 +63,11 @@ class PengaduanController extends Controller {
 
         $recap = $query->get();
         
-        // Get all unique RTs for filter
-        $availableRts = \App\Models\Pengaduan::distinct()->pluck('rt');
+        // Get all unique RTs and Kategori for filter
+        $availableRts = \App\Models\Pengaduan::distinct()->whereNotNull('rt')->pluck('rt');
+        $availableKategoris = \App\Models\Pengaduan::distinct()->whereNotNull('kategori')->pluck('kategori');
 
-        return view('rw.pengaduan.recap', compact('recap', 'availableRts')); 
+        return view('rw.pengaduan.recap', compact('recap', 'availableRts', 'availableKategoris')); 
     }
 
     public function recapDetail(\Illuminate\Http\Request $request) 
