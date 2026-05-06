@@ -64,11 +64,14 @@ Route::middleware(['auth'])->prefix('rw')->as('rw.')->group(function () {
     Route::get('/dashboard', [RW\DashboardController::class, 'index'])->name('dashboard');
     
     Route::get('/warga', [RW\WargaController::class, 'index'])->name('warga.index');
+    Route::get('/warga/{id}', [RW\WargaController::class, 'show'])->name('warga.show');
     Route::get('/petugas', [RW\PetugasController::class, 'index'])->name('petugas.index');
+    Route::get('/petugas/{id}', [RW\PetugasController::class, 'show'])->name('petugas.show');
 
     Route::controller(RW\PengaduanController::class)->prefix('pengaduan')->as('pengaduan.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/recap', 'recap')->name('recap');
+        Route::get('/recap/detail', 'recapDetail')->name('recap.detail');
         Route::get('/{id}', 'show')->name('show');
         Route::get('/{id}/print', 'print')->name('print');
     });

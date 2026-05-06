@@ -155,7 +155,7 @@
                     </div>
                     <h4 class="font-bold text-xl mb-4 text-black">Alamat</h4>
                     <p class="text-[12px] text-gray-500 leading-relaxed font-medium">
-                        Jl. Sitpon, RT. 007/RW. 008, Kampung Kojan, Kalideres, Jakarta Barat, Daerah Khusus Ibu Kota Jakarta, 11840
+                        Jl. Sltpn, RT. 007/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat, Daerah Khusus Ibu Kota Jakarta, 11840
                     </p>
                 </div>
                 <!-- Telepon -->

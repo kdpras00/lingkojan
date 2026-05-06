@@ -14,6 +14,7 @@ class Pengaduan extends Model
         'nomor_pengaduan',
         'kategori',
         'subjek',
+        'deskripsi',
         'alamat',
         'rt',
         'rw',

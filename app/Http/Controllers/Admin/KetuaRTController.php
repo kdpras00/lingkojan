@@ -25,32 +25,20 @@ class KetuaRTController extends Controller {
         $request->validate([
             'name'     => ['required', 'string', 'min:3', 'max:255', 'regex:/^[\p{L}\s]+$/u'],
             'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_num:ascii', 'unique:users'],
-            'nik'      => ['required', 'digits:16', 'unique:users'],
-            'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
-            'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
             'rt'       => ['required', 'string'],
-            'alamat'   => ['nullable', 'string'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
             'username.min'    => 'Username minimal 3 karakter.',
             'username.alpha_num' => 'Username hanya boleh berisi huruf dan angka.',
-            'nik.digits'      => 'NIK harus tepat 16 digit angka.',
-            'phone.digits_between' => 'Nomor HP harus antara 10-15 digit.',
-            'phone.regex'     => 'Nomor HP harus diawali angka 0.',
-            'password.regex'  => 'Password harus mengandung minimal 1 huruf dan 1 angka.',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'nik' => $request->nik,
-            'phone' => $request->phone,
-            'alamat' => $request->alamat,
-            'email' => $request->email,
+            'email' => $request->username . '@lingkojan.com',
             'rt' => $request->rt,
             'rw' => '006',
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('password'),
         ]);
 
         $user->assignRole('rt');
@@ -81,25 +69,13 @@ class KetuaRTController extends Controller {
         $rules = [
             'name'     => ['required', 'string', 'min:3', 'max:255', 'regex:/^[\p{L}\s]+$/u'],
             'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_num:ascii', 'unique:users,username,'.$ketuaRt->id],
-            'nik'      => ['required', 'digits:16', 'unique:users,nik,'.$ketuaRt->id],
-            'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
-            'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users,email,'.$ketuaRt->id],
             'rt'       => ['required', 'string'],
-            'alamat'   => ['nullable', 'string'],
         ];
 
         $messages = [
             'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
             'username.alpha_num' => 'Username hanya boleh berisi huruf dan angka.',
-            'nik.digits'      => 'NIK harus tepat 16 digit angka.',
-            'phone.digits_between' => 'Nomor HP harus antara 10-15 digit.',
-            'phone.regex'     => 'Nomor HP harus diawali angka 0.',
         ];
-
-        if ($request->filled('password')) {
-            $rules['password'] = ['string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'];
-            $messages['password.regex'] = 'Password harus mengandung minimal 1 huruf dan 1 angka.';
-        }
 
         $request->validate($rules, $messages);
 
@@ -107,16 +83,7 @@ class KetuaRTController extends Controller {
 
         $ketuaRt->name = $request->name;
         $ketuaRt->username = $request->username;
-        $ketuaRt->nik = $request->nik;
-        $ketuaRt->phone = $request->phone;
-        $ketuaRt->email = $request->email;
-        $ketuaRt->alamat = $request->alamat;
         $ketuaRt->rt = $request->rt;
-        $ketuaRt->rw = '006';
-
-        if ($request->filled('password')) {
-            $ketuaRt->password = Hash::make($request->password);
-        }
 
         $ketuaRt->save();
 

@@ -105,8 +105,12 @@
                                     <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
                                 </div>
                                 <div class="group">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Subjek / Judul</label>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->subjek }}</div>
+                                </div>
+                                <div class="group">
                                     <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Lokasi / Alamat</label>
-                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->alamat ?? '-' }}</div>
+                                    <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->alamat ?? '-' }}</div>
                                 </div>
                                 <div class="group">
                                     <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Email</label>
@@ -122,11 +126,11 @@
                                 </div>
                             </div>
 
-                            <!-- Full Width Subject -->
+                            <!-- Full Width Description -->
                             <div class="group">
-                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Subjek</label>
+                                <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Deskripsi</label>
                                 <div class="bg-gray-50 border-2 border-gray-100 rounded-3xl p-8 text-lg font-bold text-black shadow-inner leading-relaxed group-hover:border-[#f07c1b]/20 transition-all">
-                                    {{ $pengaduan->subjek }}
+                                    {{ $pengaduan->alamat }}
                                 </div>
                             </div>
 

@@ -9,4 +9,10 @@ class PetugasController extends Controller {
         $petugas = \App\Models\User::role('petugas')->get();
         return view('rw.petugas.index', compact('petugas'));
     }
+
+    public function show($id)
+    {
+        $petugas = \App\Models\User::role('petugas')->findOrFail($id);
+        return view('rw.petugas.show', compact('petugas'));
+    }
 }

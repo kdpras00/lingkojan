@@ -26,23 +26,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Nama</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="w-full bg-gray-50 border @error('name') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Masukkan nama lengkap">
+                        <input type="text" name="name" value="{{ old('name') }}" class="w-full bg-gray-50 border @error('name') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan nama lengkap anda...">
                         @error('name') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">NIK</label>
-                        <input type="text" name="nik" value="{{ old('nik') }}" maxlength="16" minlength="16" pattern="[0-9]{16}" inputmode="numeric" title="NIK harus tepat 16 digit angka" class="w-full bg-gray-50 border @error('nik') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Masukkan 16 digit NIK">
+                        <input type="text" name="nik" value="{{ old('nik') }}" maxlength="16" minlength="16" pattern="[0-9]{16}" inputmode="numeric" title="NIK harus tepat 16 digit angka" class="w-full bg-gray-50 border @error('nik') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan NIK anda...">
                         @error('nik') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Alamat</label>
-                        <input type="text" name="alamat" value="{{ old('alamat') }}" class="w-full bg-gray-50 border @error('alamat') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Masukkan alamat lengkap">
+                        <input type="text" name="alamat" value="{{ old('alamat') }}" class="w-full bg-gray-50 border @error('alamat') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan alamat lengkap anda...">
                         @error('alamat') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">No. HP</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" maxlength="15" minlength="10" pattern="0[0-9]{9,14}" inputmode="numeric" title="Nomor HP harus 10-15 digit dan diawali 0" class="w-full bg-gray-50 border @error('phone') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Contoh: 0812xxxx">
+                        <input type="text" name="phone" value="{{ old('phone') }}" maxlength="15" minlength="10" pattern="0[0-9]{9,14}" inputmode="numeric" title="Nomor HP harus 10-15 digit dan diawali 0" class="w-full bg-gray-50 border @error('phone') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan no. telepon anda...">
                         @error('phone') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="group">
@@ -67,17 +67,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Username</label>
-                        <input type="text" name="username" value="{{ old('username') }}" class="w-full bg-gray-50 border @error('username') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Masukkan username">
+                        <input type="text" name="username" value="{{ old('username') }}" class="w-full bg-gray-50 border @error('username') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan username anda...">
                         @error('username') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" class="w-full bg-gray-50 border @error('email') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Contoh: admin@gmail.com">
+                        <input type="email" name="email" value="{{ old('email') }}" class="w-full bg-gray-50 border @error('email') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan email anda...">
                         @error('email') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="group">
                         <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Password</label>
-                        <input type="password" name="password" class="w-full bg-gray-50 border @error('password') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Min. 8 karakter, kombinasi huruf & angka">
+                        <input type="password" name="password" class="w-full bg-gray-50 border @error('password') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="masukan password anda...">
                         @error('password') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                 </div>

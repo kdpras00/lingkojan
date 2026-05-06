@@ -38,7 +38,7 @@
             </div>
             <div>
                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Alamat</label>
-                <input type="text" value="{{ auth()->user()->address }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+                <input type="text" value="{{ auth()->user()->alamat }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
             </div>
         </div>
     </div>
@@ -55,14 +55,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <!-- Judul Laporan -->
                 <div class="col-span-1 md:col-span-2">
-                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Judul Laporan <span class="text-red-500">*</span></label>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Subject Pengaduan<span class="text-red-500">*</span></label>
                     <input type="text" name="subjek" value="{{ old('subjek') }}" placeholder="Contoh: Jalan Rusak di RT 07" class="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all @error('subjek') border-red-500 @enderror">
                     @error('subjek') <p class="text-red-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">{{ $message }}</p> @enderror
                 </div>
 
                 <!-- Kategori -->
                 <div>
-                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Kategori Masalah <span class="text-red-500">*</span></label>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Kategori<span class="text-red-500">*</span></label>
                     <select name="kategori" class="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat @error('kategori') border-red-500 @enderror">
                         <option value="">Pilih Kategori</option>
                         <option value="Keamanan" {{ old('kategori') == 'Keamanan' ? 'selected' : '' }}>Keamanan</option>
@@ -72,23 +72,16 @@
                     @error('kategori') <p class="text-red-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">{{ $message }}</p> @enderror
                 </div>
 
-                <!-- Tanggal Kejadian -->
-                <div>
-                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Tanggal Kejadian <span class="text-red-500">*</span></label>
-                    <input type="date" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" class="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all @error('tanggal') border-red-500 @enderror">
-                    @error('tanggal') <p class="text-red-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">{{ $message }}</p> @enderror
-                </div>
-
                 <!-- Isi Laporan -->
                 <div class="col-span-1 md:col-span-2">
-                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Deskripsi Laporan <span class="text-red-500">*</span></label>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Detail Pengaduan<span class="text-red-500">*</span></label>
                     <textarea name="deskripsi" rows="6" placeholder="Jelaskan secara detail permasalahan yang terjadi..." class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-medium text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all @error('deskripsi') border-red-500 @enderror">{{ old('deskripsi') }}</textarea>
                     @error('deskripsi') <p class="text-red-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">{{ $message }}</p> @enderror
                 </div>
 
                 <!-- Upload Bukti -->
                 <div class="col-span-1 md:col-span-2">
-                    <label class="block text-sm font-bold text-black mb-3">Lampiran Bukti (Foto) <span class="text-red-500">*</span></label>
+                    <label class="block text-sm font-bold text-black mb-3">Uploud File (Optional)</label>
                     <div class="relative group">
                         <input type="file" name="foto" id="foto-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                         <div id="dropzone" class="flex flex-col items-center justify-center p-12 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl group-hover:bg-orange-50/50 group-hover:border-[#f07c1b] transition-all @error('foto') border-red-500 @enderror relative">

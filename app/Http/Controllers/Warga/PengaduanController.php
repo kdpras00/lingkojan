@@ -47,9 +47,9 @@ class PengaduanController extends Controller {
             'nomor_pengaduan' => $nomor,
             'kategori' => $request->kategori,
             'subjek' => $request->subjek,
-            'alamat' => $request->deskripsi, // Using alamat for description as per migration for now or we can use another field
+            'alamat' => $request->deskripsi,
             'rt' => $user->rt ?? '001',
-            'rw' => $user->rw ?? '001',
+            'rw' => $user->rw ?? '006',
             'foto' => $fotoPath,
             'status' => 'New',
         ]);

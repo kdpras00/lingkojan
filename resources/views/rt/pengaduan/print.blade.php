@@ -49,7 +49,7 @@
                 <h3 class="text-2xl font-black mt-1">LINGKOJAN</h3>
                 <h4 class="text-xs font-bold uppercase mt-1">Layanan Pengaduan Masyarakat</h4>
                 <p class="text-[10px] mt-1 font-medium leading-tight">
-                    Jl. Sitrun, RT. 001/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat<br>
+                    Jl. Sltpn, RT. 007/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat<br>
                     Daerah Khusus Ibu Kota Jakarta, 11840
                 </p>
             </div>
@@ -89,10 +89,10 @@
                 </table>
             </div>
 
-            <!-- Section B: Informasi Pengaduan -->
+            <!-- Section B: Rincian -->
             <div class="border border-black overflow-hidden">
                 <div class="bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-widest">
-                    B. Informasi Pengaduan
+                    B. Rincian
                 </div>
                 <table class="w-full text-sm border-collapse">
                     <tr class="border-t border-black">

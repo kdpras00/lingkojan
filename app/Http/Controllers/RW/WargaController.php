@@ -16,4 +16,10 @@ class WargaController extends Controller {
         
         return view('rw.warga.index', compact('wargas', 'availableRts'));
     }
+
+    public function show($id)
+    {
+        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        return view('rw.warga.show', compact('warga'));
+    }
 }

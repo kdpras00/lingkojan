@@ -150,7 +150,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('name') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <input type="text" name="name" placeholder="Mona Talia" value="{{ old('name') }}" required>
+                            <input type="text" name="name" placeholder="masukan nama anda..." value="{{ old('name') }}" required>
                         </div>
                         @error('name')
                             <span class="text-xs text-red-500 font-medium mt-1.5 block text-left">{{ $message }}</span>
@@ -166,7 +166,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('username') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <input type="text" name="username" placeholder="monatalia" value="{{ old('username') }}" required>
+                            <input type="text" name="username" placeholder="masukan username anda..." value="{{ old('username') }}" required>
                         </div>
                         @error('username')
                             <span class="text-xs text-red-500 font-medium mt-1.5 block text-left">{{ $message }}</span>
@@ -182,7 +182,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('nik') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <input type="text" name="nik" placeholder="3308921673902367" value="{{ old('nik') }}" required>
+                            <input type="text" name="nik" placeholder="masukan NIK anda..." value="{{ old('nik') }}" required>
                         </div>
                         @error('nik')
                             <span class="text-xs text-red-500 font-medium mt-1.5 block text-left">{{ $message }}</span>
@@ -198,7 +198,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('phone') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 005.455 5.455l.774-1.548a1 1 0 011.06-.539l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
                             </div>
-                            <input type="text" name="phone" placeholder="081365489263" value="{{ old('phone') }}" required>
+                            <input type="text" name="phone" placeholder="masukan no. telepon anda..." value="{{ old('phone') }}" required>
                         </div>
                         @error('phone')
                             <span class="text-xs text-red-500 font-medium mt-1.5 block text-left">{{ $message }}</span>
@@ -214,7 +214,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('email') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                             </div>
-                            <input type="email" name="email" placeholder="mona@gmail.com" value="{{ old('email') }}" required>
+                            <input type="email" name="email" placeholder="masukan email anda..." value="{{ old('email') }}" required>
                         </div>
                         @error('email')
                             <span class="text-xs text-red-500 font-medium mt-1.5 block text-left">{{ $message }}</span>
@@ -253,7 +253,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 @error('password') text-red-400 @else text-gray-400 @enderror" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <input type="password" name="password" id="password" placeholder="********" required>
+                            <input type="password" name="password" id="password" placeholder="masukan password anda..." required>
                             <div class="password-toggle pr-5 cursor-pointer text-gray-400" id="togglePassword">
                                 <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -275,7 +275,7 @@
                             <div class="icon-side">
                                 <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="********" required>
+                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="masukan kembali password anda..." required>
                             <div class="password-toggle pr-5 cursor-pointer text-gray-400" id="togglePasswordConfirmation">
                                 <svg id="eyeIconConfirmation" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>

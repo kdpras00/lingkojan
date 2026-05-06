@@ -101,7 +101,7 @@
                     <div class="icon-side">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                     </div>
-                    <input type="text" name="login" value="{{ old('login') }}" placeholder="Email atau Username" required autofocus>
+                    <input type="text" name="login" value="{{ old('login') }}" placeholder="masukan email atau username anda..." required autofocus>
                 </div>
                 @error('login')
                     <div class="text-red-500 text-xs mt-[-15px] mb-4 text-left ml-2 font-bold">{{ $message }}</div>
@@ -112,7 +112,7 @@
                     <div class="icon-side">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                     </div>
-                    <input type="password" name="password" id="password" placeholder="••••••••••••" required>
+                    <input type="password" name="password" id="password" placeholder="masukan password anda..." required>
                     <div class="password-toggle" id="togglePassword">
                         <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>

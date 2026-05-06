@@ -22,7 +22,7 @@
             <!-- Search Bar (Wireframe 53) -->
             <div class="flex items-center space-x-3">
                 <div class="relative">
-                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl px-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] w-64" placeholder="Cari nomor pengaduan...">
+                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl px-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] w-64" placeholder="masukan nomor pengaduan...">
                 </div>
             </div>
         </div>

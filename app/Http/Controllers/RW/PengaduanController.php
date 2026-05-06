@@ -60,6 +60,32 @@ class PengaduanController extends Controller {
         return view('rw.pengaduan.recap', compact('recap', 'availableRts')); 
     }
 
+    public function recapDetail(\Illuminate\Http\Request $request) 
+    { 
+        $query = \App\Models\Pengaduan::with('user');
+
+        if ($request->rt) {
+            $query->where('rt', $request->rt);
+        }
+        if ($request->kategori) {
+            $query->where('kategori', $request->kategori);
+        }
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $pengaduans = $query->orderBy('created_at', 'desc')->get();
+        $availableRts = \App\Models\Pengaduan::distinct()->pluck('rt');
+
+        return view('rw.pengaduan.recap-detail', compact('pengaduans', 'availableRts')); 
+    }
+
     public function print($id) 
     { 
         $pengaduan = \App\Models\Pengaduan::with(['user', 'tindakLanjuts.user'])->findOrFail($id);

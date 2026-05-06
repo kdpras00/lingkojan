@@ -21,8 +21,11 @@
             
             <!-- Search Bar (Wireframe 53) -->
             <div class="flex items-center space-x-3">
-                <div class="relative">
-                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl px-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] w-64" placeholder="Cari nomor pengaduan...">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-400 group-focus-within:text-[#f07c1b] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl pl-11 pr-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] w-64" placeholder="masukan nomor pengaduan...">
                 </div>
             </div>
         </div>
@@ -35,6 +38,7 @@
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Tanggal</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Nomor Pengaduan</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Nama Warga</th>
+                        <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Kategori</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Subjek</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Last Status</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Menu</th>
@@ -47,6 +51,7 @@
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d M Y H:i') }}</td>
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? 'N/A' }}</td>
+                        <td class="px-6 py-5 text-[11px] font-bold text-gray-600 border-r border-gray-100 uppercase tracking-wider">{{ $pengaduan->kategori }}</td>
                         <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
                         <td class="px-6 py-5 border-r border-gray-100">
                             @php
@@ -70,7 +75,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data pengaduan.</td>
+                        <td colspan="8" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data pengaduan.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -107,7 +112,7 @@
             if (!hasVisibleRow && searchTerm !== '') {
                 tableBody.insertAdjacentHTML('beforeend', `
                     <tr id="empty-search-row">
-                        <td colspan="7" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Data tidak ditemukan.</td>
+                        <td colspan="8" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Data tidak ditemukan.</td>
                     </tr>
                 `);
             }

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             RTChairmanSeeder::class,
+            WargaSeeder::class,
             PengaduanSeeder::class,
         ]);
     }

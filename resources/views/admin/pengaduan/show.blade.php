@@ -56,7 +56,7 @@
         <div class="card !p-10">
             <!-- Header -->
             <div class="border-b border-gray-100 pb-5 mb-10 flex items-center justify-between">
-                <h3 class="text-2xl font-black text-black uppercase tracking-tight">Rincian Pengaduan</h3>
+                <h3 class="text-2xl font-black text-black uppercase tracking-tight">Pengaduan Header</h3>
                 <a href="{{ route('admin.pengaduan.print', $pengaduan->id) }}" target="_blank" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center shadow-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                     Cetak Laporan
@@ -67,7 +67,7 @@
                 <!-- Section: Rincian -->
                 <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
                     <div class="bg-gray-50/50 px-8 py-5 border-b border-gray-100">
-                        <h4 class="font-extrabold text-black uppercase text-sm tracking-widest">Informasi Pengaduan</h4>
+                        <h4 class="font-extrabold text-black uppercase text-sm tracking-widest">Rincian</h4>
                     </div>
                     <div class="p-10">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
@@ -96,8 +96,12 @@
                                 <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->phone ?? '-' }}</div>
                             </div>
                             <div class="group">
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Subjek / Judul</label>
+                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->subjek }}</div>
+                            </div>
+                            <div class="group">
                                 <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Lokasi / Alamat</label>
-                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->alamat ?? '-' }}</div>
+                                <div class="bg-gray-100 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-bold text-gray-600 shadow-sm">{{ $pengaduan->user->alamat ?? '-' }}</div>
                             </div>
                             <div class="group">
                                 <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Email</label>
@@ -113,11 +117,11 @@
                             </div>
                         </div>
 
-                        <!-- Full Width Subject -->
+                        <!-- Full Width Description -->
                         <div class="group">
-                            <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Subjek</label>
+                            <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Isi Laporan / Deskripsi</label>
                             <div class="bg-gray-50 border-2 border-gray-100 rounded-3xl p-8 text-lg font-bold text-black shadow-inner leading-relaxed group-hover:border-[#f07c1b]/20 transition-all">
-                                {{ $pengaduan->subjek }}
+                                {{ $pengaduan->alamat }}
                             </div>
                         </div>
 
