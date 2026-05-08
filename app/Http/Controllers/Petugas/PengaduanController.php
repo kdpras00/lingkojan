@@ -1,45 +1,66 @@
 <?php
+
 namespace App\Http\Controllers\Petugas;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PengaduanHeader;
+use App\Models\PengaduanDetail;
+use App\Models\PengaduanFoto;
+use Illuminate\Support\Facades\DB;
 
-class PengaduanController extends Controller {
+class PengaduanController extends Controller
+{
     public function show($id) 
     { 
-        $pengaduan = \App\Models\Pengaduan::with(['user', 'tindakLanjuts.user'])->findOrFail($id);
+        $pengaduan = PengaduanHeader::with(['kategori', 'details.user', 'details.status', 'details.fotos', 'details.komentar.user'])->findOrFail($id);
         return view('petugas.pengaduan.show', compact('pengaduan')); 
     }
 
     public function storeTindakLanjut(Request $request, $id)
     {
-        $pengaduan = \App\Models\Pengaduan::findOrFail($id);
+        $header = PengaduanHeader::findOrFail($id);
+        $latestDetail = $header->details()->latest('tgl')->first();
 
-        // Allow all transitions for non-final status (as requested: not stepwise)
-        if (in_array($pengaduan->status, ['Done', 'Cancel'])) {
+        if (in_array($latestDetail->pengaduan_status_id, [30, 40])) { // Done or Cancel
             return redirect()->back()->with('error', 'Status laporan sudah final.');
         }
-        $allowed = ['On Progress', 'Done', 'Cancel'];
+
+        $statusMap = [
+            'On Progress' => 20,
+            'Done' => 30,
+            'Cancel' => 40,
+        ];
 
         $request->validate([
-            'status' => 'required|in:' . implode(',', $allowed),
+            'status' => 'required|in:On Progress,Done,Cancel',
             'detail' => 'required|string',
             'foto' => 'nullable|image|max:2048',
         ]);
-        
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('tindak_lanjut', 'public');
+
+        DB::beginTransaction();
+        try {
+            $newDetail = PengaduanDetail::create([
+                'detail_pengaduan' => $request->detail,
+                'tgl' => now(),
+                'pengaduan_header_id' => $header->id,
+                'pengaduan_status_id' => $statusMap[$request->status],
+                'users_id' => auth()->id(),
+            ]);
+
+            if ($request->hasFile('foto')) {
+                $fotoPath = $request->file('foto')->store('tindak_lanjut', 'public');
+                PengaduanFoto::create([
+                    'nama_file' => $fotoPath,
+                    'pengaduan_detail_id' => $newDetail->id,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Berhasil memberikan tanggapan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        $pengaduan->tindakLanjuts()->create([
-            'user_id' => auth()->id(),
-            'status' => $request->status,
-            'detail' => $request->detail,
-            'foto' => $fotoPath,
-        ]);
-
-        $pengaduan->update(['status' => $request->status]);
-
-        return redirect()->back()->with('success', 'Berhasil memberikan tanggapan.');
     }
 }

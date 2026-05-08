@@ -1,91 +1,95 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Rt;
+use Illuminate\Support\Facades\Hash;
 
-class WargaController extends Controller {
+class WargaController extends Controller
+{
     public function index(Request $request)
     {
-        $query = \App\Models\User::role('warga');
-        if ($request->has('rt') && $request->rt != '') {
-            $query->where('rt', $request->rt);
+        $query = User::where('role_id', 1); // 1 = Warga
+        if ($request->has('rt_id') && $request->rt_id != '') {
+            $query->where('rt_id', $request->rt_id);
         }
-        $wargas = $query->get();
+        $wargas = $query->with('rt')->get();
         
-        $availableRts = \App\Models\User::role('warga')->whereNotNull('rt')->distinct()->pluck('rt');
+        $availableRts = Rt::orderBy('nama_rt')->get();
         
         return view('admin.warga.index', compact('wargas', 'availableRts'));
     }
+
     public function create() 
     { 
-        $rts = \App\Models\RukunTetangga::orderBy('nomor')->get();
+        $rts = Rt::orderBy('nama_rt')->get();
         return view('admin.warga.create', compact('rts')); 
     }
     
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => ['required', 'string', 'min:3', 'max:255', 'regex:/^[\p{L}\s]+$/u'],
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_num:ascii', 'unique:users'],
-            'nik'      => ['required', 'digits:16', 'unique:users'],
-            'phone'    => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
-            'email'    => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
-            'rt'       => ['required', 'string'],
-            'alamat'   => ['nullable', 'string'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
+            'nama_warga' => ['required', 'string', 'min:3', 'max:45', 'regex:/^[\p{L}\s]+$/u'],
+            'username'   => ['required', 'string', 'min:3', 'max:45', 'alpha_num:ascii', 'unique:users'],
+            'nik'        => ['required', 'digits:16', 'unique:users'],
+            'no_tlp'     => ['required', 'digits_between:10,15', 'regex:/^0[0-9]+$/'],
+            'email'      => ['required', 'string', 'email:rfc', 'max:60', 'unique:users'],
+            'rt_id'      => ['required', 'exists:rt,id'],
+            'alamat'     => ['required', 'string', 'max:100'],
+            'password'   => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
-            'name.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
-            'username.min'    => 'Username minimal 3 karakter.',
-            'username.alpha_num' => 'Username hanya boleh berisi huruf dan angka.',
-            'nik.digits'      => 'NIK harus tepat 16 digit angka.',
-            'phone.digits_between' => 'Nomor HP harus antara 10-15 digit.',
-            'phone.regex'     => 'Nomor HP harus diawali angka 0.',
-            'password.regex'  => 'Password harus mengandung minimal 1 huruf dan 1 angka.',
+            'nama_warga.regex'      => 'Nama hanya boleh berisi huruf dan spasi.',
+            'username.min'          => 'Username minimal 3 karakter.',
+            'username.alpha_num'    => 'Username hanya boleh berisi huruf dan angka.',
+            'nik.digits'            => 'NIK harus tepat 16 digit angka.',
+            'no_tlp.digits_between' => 'Nomor HP harus antara 10-15 digit.',
+            'no_tlp.regex'          => 'Nomor HP harus diawali angka 0.',
+            'password.regex'        => 'Password harus mengandung minimal 1 huruf dan 1 angka.',
         ]);
 
-        $user = \App\Models\User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'nik' => $request->nik,
-            'alamat' => $request->alamat,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'rt' => $request->rt,
-            'rw' => '006',
-            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        $user = User::create([
+            'nama_warga' => $request->nama_warga,
+            'username'   => $request->username,
+            'nik'        => $request->nik,
+            'alamat'     => $request->alamat,
+            'no_tlp'     => $request->no_tlp,
+            'email'      => $request->email,
+            'rt_id'      => $request->rt_id,
+            'role_id'    => 1, // Warga
+            'password'   => Hash::make($request->password),
         ]);
-
-        $user->assignRole('warga');
 
         return redirect()->route('admin.warga.index')->with('success', 'Akun Warga berhasil ditambahkan!');
     }
     
     public function show($id) 
     { 
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        $warga = User::where('role_id', 1)->with('rt')->findOrFail($id);
         return view('admin.warga.show', compact('warga')); 
     }
 
     public function edit($id) 
     { 
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
-        $rts = \App\Models\RukunTetangga::orderBy('nomor')->get();
+        $warga = User::where('role_id', 1)->findOrFail($id);
+        $rts = Rt::orderBy('nama_rt')->get();
         return view('admin.warga.edit', compact('warga', 'rts')); 
     }
 
     public function update(Request $request, $id)
     {
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        $warga = User::where('role_id', 1)->findOrFail($id);
 
         $rules = [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username,'.$warga->id],
-            'nik' => ['required', 'string', 'unique:users,nik,'.$warga->id],
-            'phone' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$warga->id],
-            'rt' => ['required', 'string'],
-            'rt' => ['required', 'string'],
-            'alamat' => ['nullable', 'string'],
+            'nama_warga' => ['required', 'string', 'max:45'],
+            'username'   => ['required', 'string', 'max:45', 'unique:users,username,'.$warga->id],
+            'nik'        => ['required', 'string', 'digits:16', 'unique:users,nik,'.$warga->id],
+            'no_tlp'     => ['required', 'string'],
+            'email'      => ['required', 'string', 'email', 'max:60', 'unique:users,email,'.$warga->id],
+            'rt_id'      => ['required', 'exists:rt,id'],
+            'alamat'     => ['required', 'string', 'max:100'],
         ];
 
         if ($request->filled('password')) {
@@ -94,50 +98,48 @@ class WargaController extends Controller {
 
         $request->validate($rules);
 
-        $warga->name = $request->name;
-        $warga->username = $request->username;
-        $warga->nik = $request->nik;
-        $warga->alamat = $request->alamat;
-        $warga->phone = $request->phone;
-        $warga->email = $request->email;
-        $warga->rt = $request->rt;
-        $warga->rw = '006';
+        $warga->update([
+            'nama_warga' => $request->nama_warga,
+            'username'   => $request->username,
+            'nik'        => $request->nik,
+            'alamat'     => $request->alamat,
+            'no_tlp'     => $request->no_tlp,
+            'email'      => $request->email,
+            'rt_id'      => $request->rt_id,
+        ]);
 
         if ($request->filled('password')) {
-            $warga->password = \Illuminate\Support\Facades\Hash::make($request->password);
+            $warga->update(['password' => Hash::make($request->password)]);
         }
-
-        $warga->save();
 
         return redirect()->route('admin.warga.index')->with('success', 'Akun Warga berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        $warga = User::where('role_id', 1)->findOrFail($id);
         $warga->delete();
         return redirect()->route('admin.warga.index')->with('success', 'Akun Warga berhasil dihapus!');
     }
 
     public function resetPassword($id) 
     { 
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        $warga = User::where('role_id', 1)->findOrFail($id);
         return view('admin.warga.reset-password', compact('warga')); 
     }
 
     public function updatePassword(Request $request, $id)
     {
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
+        $warga = User::where('role_id', 1)->findOrFail($id);
 
         $request->validate([
             'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/'],
         ], [
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
-            'password.regex' => 'Password harus mengandung minimal 1 huruf dan 1 angka.',
+            'password.regex'     => 'Password harus mengandung minimal 1 huruf dan 1 angka.',
         ]);
 
-        $warga->password = \Illuminate\Support\Facades\Hash::make($request->password);
-        $warga->save();
+        $warga->update(['password' => Hash::make($request->password)]);
 
         return back()->with('success', 'Password Warga berhasil diperbarui!');
     }

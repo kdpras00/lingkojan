@@ -107,13 +107,13 @@ class AuthController extends Controller
         ], $messages);
 
         $user = \App\Models\User::create([
-            'name' => $request->name,
+            'nama_warga' => $request->name,
             'username' => $request->username,
             'nik' => $request->nik,
-            'phone' => $request->phone,
+            'no_tlp' => $request->phone,
             'email' => $request->email,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
+            'rt_id' => (int)$request->rt,
+            'alamat' => $request->alamat ?? '',
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
         ]);
 

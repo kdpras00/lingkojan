@@ -64,20 +64,24 @@
                             <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                             <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</td>
                             <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100">{{ $pengaduan->nomor_pengaduan }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? '-' }}</td>
-                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->details->first()->user->nama_warga ?? '-' }}</td>
+                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                             <td class="px-6 py-5 border-r border-gray-100">
                                 @php
+                                    $lastDetail = $pengaduan->details->last();
+                                    $statusName = $lastDetail->status->status ?? 'Unknown';
+                                    $statusId = $lastDetail->pengaduan_status_id ?? 0;
+                                    
                                     $statusColors = [
-                                        'New' => 'text-blue-600',
-                                        'On Progress' => 'text-orange-600',
-                                        'Done' => 'text-green-600',
-                                        'Cancel' => 'text-red-600',
+                                        10 => 'text-blue-600',
+                                        20 => 'text-orange-600',
+                                        30 => 'text-green-600',
+                                        40 => 'text-red-600',
                                     ];
-                                    $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
+                                    $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                                 @endphp
                                 <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                                    {{ $pengaduan->status }}
+                                    {{ $statusName }}
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-center">

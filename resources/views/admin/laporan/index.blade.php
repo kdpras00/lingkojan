@@ -24,10 +24,9 @@
                     <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
                     <select name="status" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                         <option value="Semua Status" {{ request('status') == 'Semua Status' ? 'selected' : '' }}>Semua Status</option>
-                        <option value="New" {{ request('status') == 'New' ? 'selected' : '' }}>New</option>
-                        <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                        <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done</option>
-                        <option value="Cancel" {{ request('status') == 'Cancel' ? 'selected' : '' }}>Cancel</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}" {{ request('status') == $status->id ? 'selected' : '' }}>{{ $status->status }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="space-y-2">
@@ -82,21 +81,25 @@
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $report->created_at->format('d M Y') }}</td>
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100 tracking-wider">{{ $report->nomor_pengaduan }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $report->user->name ?? 'N/A' }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $report->rt ?: '-' }}</td>
-                        <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $report->subjek }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $report->details->first()->user->nama_warga ?? 'N/A' }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $report->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                        <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $report->subject }}</td>
                         <td class="px-6 py-5 border-r border-gray-100">
                             @php
+                                $lastDetail = $report->details->last();
+                                $statusName = $lastDetail->status->status ?? 'Unknown';
+                                $statusId = $lastDetail->pengaduan_status_id ?? 0;
+                                
                                 $statusColors = [
-                                    'New' => 'text-blue-600',
-                                    'On Progress' => 'text-orange-600',
-                                    'Done' => 'text-green-600',
-                                    'Cancel' => 'text-red-600',
+                                    10 => 'text-blue-600',
+                                    20 => 'text-orange-600',
+                                    30 => 'text-green-600',
+                                    40 => 'text-red-600',
                                 ];
-                                $textColor = $statusColors[$report->status] ?? 'text-gray-600';
+                                $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                             @endphp
                             <span class="{{ $textColor }} text-[10px] font-black uppercase tracking-widest">
-                                {{ $report->status }}
+                                {{ $statusName }}
                             </span>
                         </td>
                         <td class="px-6 py-5 text-center">

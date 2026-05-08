@@ -4,6 +4,8 @@ namespace App\Http\Controllers\RT;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PengaduanHeader;
+use App\Models\PengaduanDetail;
 
 class DashboardController extends Controller
 {
@@ -12,51 +14,74 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $userRt = auth()->user()->rt ?? '001';
+        $userRtId = auth()->user()->rt_id;
         
         $stats = [
-            'total' => \App\Models\Pengaduan::where('rt', $userRt)->count(),
-            'new' => \App\Models\Pengaduan::where('rt', $userRt)->where('status', 'New')->count(),
-            'progress' => \App\Models\Pengaduan::where('rt', $userRt)->where('status', 'On Progress')->count(),
-            'done' => \App\Models\Pengaduan::where('rt', $userRt)->where('status', 'Done')->count(),
-            'cancel' => \App\Models\Pengaduan::where('rt', $userRt)->where('status', 'Cancel')->count(),
+            'total' => PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
+                $q->where('rt_id', $userRtId);
+            })->count(),
+            'new' => PengaduanDetail::where('pengaduan_status_id', 10)
+                ->whereHas('user', function($q) use ($userRtId) {
+                    $q->where('rt_id', $userRtId);
+                })->count(),
+            'progress' => PengaduanDetail::where('pengaduan_status_id', 20)
+                ->whereHas('user', function($q) use ($userRtId) {
+                    $q->where('rt_id', $userRtId);
+                })->count(),
+            'done' => PengaduanDetail::where('pengaduan_status_id', 30)
+                ->whereHas('user', function($q) use ($userRtId) {
+                    $q->where('rt_id', $userRtId);
+                })->count(),
+            'cancel' => PengaduanDetail::where('pengaduan_status_id', 40)
+                ->whereHas('user', function($q) use ($userRtId) {
+                    $q->where('rt_id', $userRtId);
+                })->count(),
         ];
 
-        $query = \App\Models\Pengaduan::where('rt', $userRt)
-            ->with('user');
+        $query = PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
+            $q->where('rt_id', $userRtId);
+        })->with(['kategori', 'details.status', 'details.user']);
 
         // Apply Search
         if ($request->filled('q')) {
             $searchTerm = $request->q;
             $query->where(function($q) use ($searchTerm) {
                 $q->where('nomor_pengaduan', 'like', "%{$searchTerm}%")
-                  ->orWhere('subjek', 'like', "%{$searchTerm}%")
-                  ->orWhereHas('user', function($u) use ($searchTerm) {
-                      $u->where('name', 'like', "%{$searchTerm}%");
+                  ->orWhere('subject', 'like', "%{$searchTerm}%")
+                  ->orWhereHas('details.user', function($u) use ($searchTerm) {
+                      $u->where('nama_warga', 'like', "%{$searchTerm}%");
                   });
             });
         }
 
         // Apply Filters
         if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->where('pengaduan_status_id', $request->status);
+            });
         }
 
         if ($request->filled('kategori')) {
-            $query->where('kategori', $request->kategori);
+            $query->where('pengaduan_kategori_id', $request->kategori);
         }
 
         if ($request->filled('start_date')) {
-            $query->whereDate('created_at', '>=', $request->start_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '>=', $request->start_date);
+            });
         }
 
         if ($request->filled('end_date')) {
-            $query->whereDate('created_at', '<=', $request->end_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '<=', $request->end_date);
+            });
         }
 
-        $recentPengaduans = $query->orderBy('created_at', 'desc')
-            ->get();
+        $recentPengaduans = $query->get();
+        $categories = \App\Models\PengaduanKategori::all();
+        $statuses = \App\Models\PengaduanStatus::all();
+        $userRt = \App\Models\Rt::find($userRtId)->nama_rt ?? '-';
 
-        return view('rt.dashboard', compact('stats', 'recentPengaduans', 'userRt'));
+        return view('rt.dashboard', compact('stats', 'recentPengaduans', 'userRt', 'categories', 'statuses'));
     }
 }

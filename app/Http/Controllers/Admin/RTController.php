@@ -1,15 +1,16 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RukunTetangga;
+use App\Models\Rt;
 
-class RTController extends Controller {
-    
+class RTController extends Controller
+{
     public function index()
     {
-        $rts = RukunTetangga::all();
+        $rts = Rt::all();
         return view('admin.rt.index', compact('rts'));
     }
     
@@ -21,13 +22,11 @@ class RTController extends Controller {
     public function store(Request $request)
     {
         $request->validate([
-            'nomor' => ['required', 'string', 'unique:rukun_tetangga,nomor'],
-            'nama_ketua' => ['nullable', 'string', 'max:255'],
+            'nama_rt' => ['required', 'string', 'unique:rt,nama_rt', 'max:45'],
         ]);
 
-        RukunTetangga::create([
-            'nomor' => $request->nomor,
-            'nama_ketua' => $request->nama_ketua,
+        Rt::create([
+            'nama_rt' => $request->nama_rt,
         ]);
 
         return redirect()->route('admin.rt.index')->with('success', 'Data RT berhasil ditambahkan!');
@@ -35,22 +34,20 @@ class RTController extends Controller {
     
     public function edit($id) 
     { 
-        $rt = RukunTetangga::findOrFail($id);
+        $rt = Rt::findOrFail($id);
         return view('admin.rt.edit', compact('rt')); 
     }
 
     public function update(Request $request, $id)
     {
-        $rt = RukunTetangga::findOrFail($id);
+        $rt = Rt::findOrFail($id);
 
         $request->validate([
-            'nomor' => ['required', 'string', 'unique:rukun_tetangga,nomor,'.$rt->id],
-            'nama_ketua' => ['nullable', 'string', 'max:255'],
+            'nama_rt' => ['required', 'string', 'unique:rt,nama_rt,'.$rt->id, 'max:45'],
         ]);
 
         $rt->update([
-            'nomor' => $request->nomor,
-            'nama_ketua' => $request->nama_ketua,
+            'nama_rt' => $request->nama_rt,
         ]);
 
         return redirect()->route('admin.rt.index')->with('success', 'Data RT berhasil diperbarui!');
@@ -58,7 +55,7 @@ class RTController extends Controller {
 
     public function destroy($id)
     {
-        $rt = RukunTetangga::findOrFail($id);
+        $rt = Rt::findOrFail($id);
         $rt->delete();
         return redirect()->route('admin.rt.index')->with('success', 'Data RT berhasil dihapus!');
     }

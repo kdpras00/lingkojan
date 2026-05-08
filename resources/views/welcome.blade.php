@@ -159,6 +159,7 @@
                 <div class="swiper latest-complaints-swiper">
                     <div class="swiper-wrapper">
                         @forelse($latestPengaduans as $pengaduan)
+                            @php $latestDetail = $pengaduan->details->last(); @endphp
                             <div class="swiper-slide h-auto">
                                 <div class="glass-card p-8 text-white text-left">
                                     <div class="flex items-center mb-6">
@@ -166,18 +167,18 @@
                                             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="font-bold text-base leading-tight">{{ $pengaduan->user->name }}</p>
-                                            <p class="text-[11px] opacity-70 mt-1">{{ $pengaduan->created_at->format('d M Y') }}</p>
+                                            <p class="font-bold text-base leading-tight">{{ $latestDetail->user->nama_warga ?? 'Anonim' }}</p>
+                                            <p class="text-[11px] opacity-70 mt-1">{{ $latestDetail->tgl->format('d M Y') }}</p>
                                         </div>
                                     </div>
                                     <p class="text-sm mb-8 leading-relaxed font-medium line-clamp-3 h-16">
-                                        {{ $pengaduan->subjek }}
+                                        {{ $pengaduan->subject }}
                                     </p>
                                     <div class="flex justify-between items-center pt-6 border-t border-white/10 mt-auto">
                                         <a href="/login" class="text-[11px] font-bold uppercase tracking-widest hover:text-white transition-all opacity-80 hover:opacity-100">Detail ></a>
                                         
                                         <span class="text-[11px] font-bold uppercase tracking-widest text-white/90">
-                                            Status: <span class="text-white">{{ $pengaduan->status }}</span>
+                                            Status: <span class="text-white">{{ $latestDetail->status->status ?? 'New' }}</span>
                                         </span>
                                     </div>
                                 </div>

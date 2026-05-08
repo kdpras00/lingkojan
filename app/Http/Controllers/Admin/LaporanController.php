@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Auth;
+use App\Models\PengaduanHeader;
+use App\Models\PengaduanStatus;
 
 class LaporanController extends Controller
 {
@@ -14,26 +15,35 @@ class LaporanController extends Controller
      */
     public function index(Request $request)
     {
-        $query = \App\Models\Pengaduan::with('user');
+        $query = PengaduanHeader::with(['kategori', 'details.status', 'details.user']);
 
         if ($request->has('status') && $request->status != '' && $request->status != 'Semua Status') {
-            $query->where('status', $request->status);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->where('pengaduan_status_id', $request->status);
+            });
         }
 
-        if ($request->has('rt') && $request->rt != '') {
-            $query->where('rt', $request->rt);
+        if ($request->has('rt_id') && $request->rt_id != '') {
+            $query->whereHas('details.user', function($q) use ($request) {
+                $q->where('rt_id', $request->rt_id);
+            });
         }
 
         if ($request->has('start_date') && $request->start_date != '') {
-            $query->whereDate('created_at', '>=', $request->start_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '>=', $request->start_date);
+            });
         }
 
         if ($request->has('end_date') && $request->end_date != '') {
-            $query->whereDate('created_at', '<=', $request->end_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '<=', $request->end_date);
+            });
         }
 
         $reports = $query->get();
-        return view('admin.laporan.index', compact('reports'));
+        $statuses = PengaduanStatus::all();
+        return view('admin.laporan.index', compact('reports', 'statuses'));
     }
 
     /**
@@ -41,25 +51,33 @@ class LaporanController extends Controller
      */
     public function exportCsv(Request $request)
     {
-        $query = \App\Models\Pengaduan::with('user');
+        $query = PengaduanHeader::with(['kategori', 'details.status', 'details.user']);
 
         if ($request->has('status') && $request->status != '' && $request->status != 'Semua Status') {
-            $query->where('status', $request->status);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->where('pengaduan_status_id', $request->status);
+            });
         }
 
-        if ($request->has('rt') && $request->rt != '') {
-            $query->where('rt', $request->rt);
+        if ($request->has('rt_id') && $request->rt_id != '') {
+            $query->whereHas('details.user', function($q) use ($request) {
+                $q->where('rt_id', $request->rt_id);
+            });
         }
 
         if ($request->has('start_date') && $request->start_date != '') {
-            $query->whereDate('created_at', '>=', $request->start_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '>=', $request->start_date);
+            });
         }
 
         if ($request->has('end_date') && $request->end_date != '') {
-            $query->whereDate('created_at', '<=', $request->end_date);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereDate('tgl', '<=', $request->end_date);
+            });
         }
 
-        $reports      = $query->orderBy('created_at', 'desc')->get();
+        $reports = $query->get();
         $filterStatus = $request->status;
         $filterStart  = $request->start_date;
         $filterEnd    = $request->end_date;

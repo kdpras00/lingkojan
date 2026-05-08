@@ -38,11 +38,11 @@
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $user->name }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->nama_warga }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $user->phone ?: '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $user->no_tlp ?: '-' }}</p>
                 </div>
 
                 <!-- Row 3 -->
@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $user->rt ? $user->rt . '/006' : '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $user->rt ? $user->rt->nama_rt . '/006' : '-' }}</p>
                 </div>
             </div>
         </div>

@@ -57,19 +57,18 @@
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Status</label>
                     <select name="status" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
                         <option value="">Semua Status</option>
-                        <option value="New" {{ request('status') == 'New' ? 'selected' : '' }}>New</option>
-                        <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                        <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done</option>
-                        <option value="Cancel" {{ request('status') == 'Cancel' ? 'selected' : '' }}>Cancel</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}" {{ request('status') == $status->id ? 'selected' : '' }}>{{ $status->status }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Kategori</label>
                     <select name="kategori" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
                         <option value="">Semua Kategori</option>
-                        <option value="Kebersihan" {{ request('kategori') == 'Kebersihan' ? 'selected' : '' }}>Kebersihan</option>
-                        <option value="Keamanan" {{ request('kategori') == 'Keamanan' ? 'selected' : '' }}>Keamanan</option>
-                        <option value="Infrastruktur" {{ request('kategori') == 'Infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ request('kategori') == $cat->id ? 'selected' : '' }}>{{ $cat->kategori }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
@@ -123,22 +122,26 @@
                             <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                             <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</td>
                             <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100">{{ $pengaduan->nomor_pengaduan }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? 'N/A' }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->kategori }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->rt }}</td>
-                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->details->first()->user->nama_warga ?? 'N/A' }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->kategori->kategori }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                             <td class="px-6 py-5 border-r border-gray-100">
                                 @php
+                                    $lastDetail = $pengaduan->details->last();
+                                    $statusName = $lastDetail->status->status ?? 'Unknown';
+                                    $statusId = $lastDetail->pengaduan_status_id ?? 0;
+                                    
                                     $statusColors = [
-                                        'New' => 'text-blue-600',
-                                        'On Progress' => 'text-orange-600',
-                                        'Done' => 'text-green-600',
-                                        'Cancel' => 'text-red-600',
+                                        10 => 'text-blue-600',
+                                        20 => 'text-orange-600',
+                                        30 => 'text-green-600',
+                                        40 => 'text-red-600',
                                     ];
-                                    $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
+                                    $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                                 @endphp
                                 <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                                    {{ $pengaduan->status }}
+                                    {{ $statusName }}
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-center">

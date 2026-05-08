@@ -41,22 +41,24 @@
                 @forelse($pengaduans as $index => $pengaduan)
                 <tr class="hover:bg-gray-50/50 transition-all">
                     <td class="px-6 py-5 text-sm font-bold text-gray-500 border-r border-gray-100 text-center">{{ $index + 1 }}</td>
-                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d F Y H:i') }}</td>
+                    @php
+                        $latestDetail = $pengaduan->details->first();
+                        $statusName = $latestDetail->status->status ?? 'New';
+                        $statusColors = [
+                            'New' => 'text-blue-600',
+                            'On Progress' => 'text-orange-600',
+                            'Done' => 'text-green-600',
+                            'Cancel' => 'text-red-600',
+                        ];
+                        $textColor = $statusColors[$statusName] ?? 'text-gray-600';
+                    @endphp
+                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ \Carbon\Carbon::parse($latestDetail->tgl)->format('d F Y H:i') }}</td>
                     <td class="px-6 py-5 text-sm font-black text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
-                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? '-' }}</td>
-                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ auth()->user()->nama_warga }}</td>
+                    <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                     <td class="px-6 py-5 border-r border-gray-100">
-                        @php
-                            $statusColors = [
-                                'New' => 'text-blue-600',
-                                'On Progress' => 'text-orange-600',
-                                'Done' => 'text-green-600',
-                                'Cancel' => 'text-red-600',
-                            ];
-                            $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
-                        @endphp
                         <span class="{{ $textColor }} text-[10px] font-black uppercase tracking-widest">
-                            {{ $pengaduan->status }}
+                            {{ $statusName }}
                         </span>
                     </td>
                     <td class="px-6 py-5 text-center">

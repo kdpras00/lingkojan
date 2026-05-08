@@ -23,10 +23,10 @@
             <h4 class="text-xl font-black text-black uppercase tracking-tight">Informasi Akun</h4>
             <p class="text-sm text-gray-500 font-medium mt-1">Data profil Anda saat ini.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Nama</label>
-                <input type="text" value="{{ auth()->user()->name }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+                <input type="text" value="{{ auth()->user()->nama_warga }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
             </div>
             <div>
                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Email</label>
@@ -34,7 +34,7 @@
             </div>
             <div>
                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">RT</label>
-                <input type="text" value="{{ auth()->user()->rt }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
+                <input type="text" value="{{ auth()->user()->rt->nama_rt ?? '-' }}" class="w-full px-6 py-4 bg-gray-100/80 border border-gray-200 rounded-2xl text-sm font-bold text-gray-500 cursor-not-allowed" readonly>
             </div>
             <div>
                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Alamat</label>
@@ -65,9 +65,9 @@
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-1">Kategori<span class="text-red-500">*</span></label>
                     <select name="kategori" class="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat @error('kategori') border-red-500 @enderror">
                         <option value="">Pilih Kategori</option>
-                        <option value="Keamanan" {{ old('kategori') == 'Keamanan' ? 'selected' : '' }}>Keamanan</option>
-                        <option value="Kebersihan" {{ old('kategori') == 'Kebersihan' ? 'selected' : '' }}>Kebersihan</option>
-                        <option value="Lingkungan" {{ old('kategori') == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
+                        @foreach($kategoris as $k)
+                            <option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected' : '' }}>{{ $k->kategori }}</option>
+                        @endforeach
                     </select>
                     @error('kategori') <p class="text-red-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">{{ $message }}</p> @enderror
                 </div>

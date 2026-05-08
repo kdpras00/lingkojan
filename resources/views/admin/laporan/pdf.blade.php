@@ -113,10 +113,10 @@
                 <td class="center">{{ $i + 1 }}</td>
                 <td class="center">{{ $report->created_at->format('d/m/Y') }}</td>
                 <td class="center">{{ $report->nomor_pengaduan }}</td>
-                <td>{{ $report->user->name ?? 'N/A' }}</td>
-                <td class="center">{{ $report->rt ?: '-' }}</td>
-                <td>{{ $report->subjek }}</td>
-                <td class="center">{{ $report->status }}</td>
+                <td>{{ $report->details->first()->user->nama_warga ?? 'N/A' }}</td>
+                <td class="center">{{ $report->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                <td>{{ $report->subject }}</td>
+                <td class="center">{{ $report->details->last()->status->status ?? '-' }}</td>
             </tr>
             @empty
             <tr>
@@ -127,7 +127,7 @@
     </table>
 
     <div class="footer">
-        Dicetak oleh: {{ Auth::user()->name ?? 'Administrator' }}<br>
+        Dicetak oleh: {{ Auth::user()->nama_warga ?? 'Administrator' }}<br>
         {{ now()->format('d/m/Y H:i') }}
     </div>
 

@@ -1,25 +1,21 @@
 <?php
-namespace App\Http\Controllers\RW;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class WargaController extends Controller {
-    public function index(Request $request)
+namespace App\Http\Controllers\RW;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+
+class WargaController extends Controller
+{
+    public function index()
     {
-        $query = \App\Models\User::role('warga');
-        if ($request->has('rt') && $request->rt != '') {
-            $query->where('rt', $request->rt);
-        }
-        $wargas = $query->get();
-        
-        $availableRts = \App\Models\User::role('warga')->whereNotNull('rt')->distinct()->pluck('rt');
-        
-        return view('rw.warga.index', compact('wargas', 'availableRts'));
+        $warga = User::where('role_id', 1)->with('rt')->get(); // 1 = Warga
+        return view('rw.warga.index', compact('warga'));
     }
 
-    public function show($id)
-    {
-        $warga = \App\Models\User::role('warga')->findOrFail($id);
-        return view('rw.warga.show', compact('warga'));
+    public function show($id) 
+    { 
+        $warga = User::where('role_id', 1)->with('rt')->findOrFail($id);
+        return view('rw.warga.show', compact('warga')); 
     }
 }

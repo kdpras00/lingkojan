@@ -22,13 +22,13 @@
                 <div class="flex items-center space-x-10">
                     <label class="text-sm font-black text-black uppercase tracking-widest w-40">RT</label>
                     <div class="flex-1 group">
-                        <select name="rt" class="w-full bg-gray-50 border @error('rt') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
-                            <option value="" @if(old('rt', $ketuaRt->rt) == '') selected @endif disabled>Pilih RT</option>
+                        <select name="rt_id" class="w-full bg-gray-50 border @error('rt_id') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
+                            <option value="" @if(old('rt_id', $ketuaRt->rt_id) == '') selected @endif disabled>Pilih RT</option>
                             @foreach($rts as $rt_data)
-                                <option value="{{ $rt_data->nomor }}" {{ old('rt', $ketuaRt->rt) == $rt_data->nomor ? 'selected' : '' }}>{{ $rt_data->nomor }}</option>
+                                <option value="{{ $rt_data->id }}" {{ old('rt_id', $ketuaRt->rt_id) == $rt_data->id ? 'selected' : '' }}>{{ $rt_data->nama_rt }}</option>
                             @endforeach
                         </select>
-                        @error('rt') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
+                        @error('rt_id') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
@@ -43,8 +43,8 @@
                 <div class="flex items-center space-x-10">
                     <label class="text-sm font-black text-black uppercase tracking-widest w-40">Nama</label>
                     <div class="flex-1 group">
-                        <input type="text" name="name" value="{{ old('name', $ketuaRt->name) }}" class="w-full bg-gray-50 border @error('name') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Sarudin Akmal">
-                        @error('name') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
+                        <input type="text" name="nama_warga" value="{{ old('nama_warga', $ketuaRt->nama_warga) }}" class="w-full bg-gray-50 border @error('nama_warga') border-red-500 @else border-gray-200 @enderror rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Sarudin Akmal">
+                        @error('nama_warga') <span class="text-xs text-red-500 mt-1 ml-1 font-bold">{{ $message }}</span> @enderror
                     </div>
                 </div>
 

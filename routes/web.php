@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $latestPengaduans = \App\Models\Pengaduan::with('user')->latest()->take(10)->get();
+    $latestPengaduans = \App\Models\PengaduanHeader::with(['details.user', 'details.status'])->orderBy('id', 'desc')->take(10)->get();
     return view('welcome', compact('latestPengaduans'));
 })->name('home');
 Route::view('/tentang', 'tentang')->name('tentang');

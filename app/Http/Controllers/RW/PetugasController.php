@@ -1,18 +1,21 @@
 <?php
-namespace App\Http\Controllers\RW;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class PetugasController extends Controller {
+namespace App\Http\Controllers\RW;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+
+class PetugasController extends Controller
+{
     public function index()
     {
-        $petugas = \App\Models\User::role('petugas')->get();
+        $petugas = User::where('role_id', 4)->get(); // 4 = Petugas
         return view('rw.petugas.index', compact('petugas'));
     }
 
-    public function show($id)
-    {
-        $petugas = \App\Models\User::role('petugas')->findOrFail($id);
-        return view('rw.petugas.show', compact('petugas'));
+    public function show($id) 
+    { 
+        $petugas = User::where('role_id', 4)->findOrFail($id);
+        return view('rw.petugas.show', compact('petugas')); 
     }
 }

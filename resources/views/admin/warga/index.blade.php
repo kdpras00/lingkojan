@@ -22,10 +22,10 @@
             <div class="flex flex-col md:flex-row md:items-end gap-6">
                 <div class="flex-1 max-w-xs">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">RT</label>
-                    <select name="rt" class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
+                    <select name="rt_id" class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                         <option value="">Semua RT</option>
                         @foreach($availableRts as $art)
-                            <option value="{{ $art }}" {{ request('rt') == $art ? 'selected' : '' }}>RT {{ $art }}</option>
+                            <option value="{{ $art->id }}" {{ request('rt_id') == $art->id ? 'selected' : '' }}>{{ $art->nama_rt }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -64,12 +64,12 @@
                     @forelse($wargas as $index => $warga)
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $warga->name }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $warga->nama_warga }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->username }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-600 border-r border-gray-100 tracking-wider">{{ $warga->nik }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->phone }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->no_tlp }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->email }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt ?: '-' }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt->nama_rt ?? '-' }}</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center justify-center space-x-2">
                                 <a href="{{ route('admin.warga.show', $warga->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors" title="Detail">
@@ -78,7 +78,7 @@
                                 <a href="{{ route('admin.warga.edit', $warga->id) }}" class="p-1 text-gray-400 hover:text-orange-600 transition-colors" title="Edit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                 </a>
-                                <button type="button" onclick="openDeleteModal('{{ $warga->name }}', {{ $warga->id }})" class="p-1 text-gray-400 hover:text-red-600 transition-colors" title="Hapus">
+                                <button type="button" onclick="openDeleteModal('{{ $warga->nama_warga }}', {{ $warga->id }})" class="p-1 text-gray-400 hover:text-red-600 transition-colors" title="Hapus">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                             </div>

@@ -1,19 +1,27 @@
 <?php
+
 namespace App\Http\Controllers\RT;
+
 use App\Http\Controllers\Controller;
-class PengaduanController extends Controller {
+use App\Models\PengaduanHeader;
+
+class PengaduanController extends Controller
+{
     public function show($id) 
     { 
-        $userRt = auth()->user()->rt ?? '001';
-        $pengaduan = \App\Models\Pengaduan::where('rt', $userRt)
-            ->with(['user', 'tindakLanjuts.user'])
+        $userRtId = auth()->user()->rt_id;
+        $pengaduan = PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
+                $q->where('rt_id', $userRtId);
+            })
+            ->with(['kategori', 'details.user', 'details.status', 'details.fotos', 'details.komentar.user'])
             ->findOrFail($id);
             
-        return view('rt.pengaduan.show', compact('pengaduan', 'userRt')); 
+        return view('rt.pengaduan.show', compact('pengaduan', 'userRtId')); 
     }
+
     public function print($id) 
     { 
-        $pengaduan = \App\Models\Pengaduan::with(['user', 'tindakLanjuts.user'])->findOrFail($id);
+        $pengaduan = PengaduanHeader::with(['kategori', 'details.user', 'details.status'])->findOrFail($id);
         return view('rt.pengaduan.print', compact('pengaduan')); 
     }
 }
