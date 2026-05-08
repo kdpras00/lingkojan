@@ -115,9 +115,8 @@ class AuthController extends Controller
             'rt_id' => (int)$request->rt,
             'alamat' => $request->alamat ?? '',
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'role_id' => 1, // Warga
         ]);
-
-        $user->assignRole('warga');
 
         Auth::login($user);
 

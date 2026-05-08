@@ -54,7 +54,8 @@ class KpMonaSeeder extends Seeder
         ]);
 
         // Data for table: users
-        $faker = \Faker\Factory::create('id_ID');
+        $fakerExists = class_exists('\Faker\Factory');
+        $faker = $fakerExists ? \Faker\Factory::create('id_ID') : null;
         $password = bcrypt('password123');
         $now = now();
 
@@ -98,11 +99,11 @@ class KpMonaSeeder extends Seeder
                 'username' => 'rt' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
                 'password' => $password,
                 'role_id' => 2, // Ketua RT
-                'no_tlp' => $faker->numerify('08##########'),
+                'no_tlp' => $faker ? $faker->numerify('08##########') : '0812' . rand(10000000, 99999999),
                 'email' => 'rt' . $rtId . '@lingkojan.com',
                 'alamat' => 'Kampung Kojan RT ' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
                 'rt_id' => $rtId,
-                'nik' => $faker->unique()->numerify('################'),
+                'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
@@ -113,15 +114,15 @@ class KpMonaSeeder extends Seeder
             
             for ($i = 1; $i <= $count; $i++) {
                 $wargaData[] = [
-                    'nama_warga' => $faker->name,
+                    'nama_warga' => $faker ? $faker->name : 'Warga RT' . $rtId . ' No' . $i,
                     'username' => 'warga_' . $rtId . '_' . $i,
                     'password' => $password,
                     'role_id' => 1, // Warga
-                    'no_tlp' => $faker->numerify('08##########'),
-                    'email' => $faker->unique()->safeEmail,
+                    'no_tlp' => $faker ? $faker->numerify('08##########') : '0813' . rand(10000000, 99999999),
+                    'email' => $faker ? $faker->unique()->safeEmail : 'warga' . $rtId . '_' . $i . '@example.com',
                     'alamat' => 'Alamat Warga RT ' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
                     'rt_id' => $rtId,
-                    'nik' => $faker->unique()->numerify('################'),
+                    'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];
