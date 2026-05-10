@@ -222,9 +222,20 @@
                                             Pengaduan</label>
                                         <div
                                             class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 text-sm font-normal text-gray-600 shadow-sm leading-relaxed min-h-[80px]">
-                                            {{ $pengaduan->subject }}
+                                            {{ $pengaduan->details->first()->detail_pengaduan ?? '-' }}
                                         </div>
                                     </div>
+                                    @if($pengaduan->details->first()->fotos->count() > 0)
+                                        <div class="flex items-center text-sm font-black text-gray-700 ml-1 mt-4">
+                                            <span class="mr-2">Download File:</span>
+                                            @foreach($pengaduan->details->first()->fotos as $foto)
+                                                <a href="{{ asset('storage/' . $foto->nama_file) }}" target="_blank"
+                                                    class="text-blue-500 hover:underline italic mr-3">
+                                                    {{ basename($foto->nama_file) }}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @endif
 
                                 </div>
 
@@ -275,8 +286,8 @@
                                             </div>
                                         </div>
                                         @if($tindak->fotos->count() > 0)
-                                            <div class="flex items-center text-sm font-black text-gray-700 ml-1">
-                                                <span class="mr-2">Lampiran:</span>
+                                            <div class="flex items-center text-sm font-black text-gray-700 ml-1 mt-4">
+                                                <span class="mr-2">Download File:</span>
                                                 @foreach($tindak->fotos as $foto)
                                                     <a href="{{ asset('storage/' . $foto->nama_file) }}" target="_blank"
                                                         class="text-blue-500 hover:underline italic mr-3">
