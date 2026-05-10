@@ -168,7 +168,7 @@
                                         </div>
                                         <div>
                                             <p class="font-bold text-base leading-tight">{{ $latestDetail->user->nama_warga ?? 'Anonim' }}</p>
-                                            <p class="text-[11px] opacity-70 mt-1">{{ $latestDetail->tgl->format('d M Y') }}</p>
+                                            <p class="text-[11px] opacity-70 mt-1">{{ \Carbon\Carbon::parse($latestDetail->tgl)->format('d M Y') }}</p>
                                         </div>
                                     </div>
                                     <p class="text-sm mb-8 leading-relaxed font-medium line-clamp-3 h-16">

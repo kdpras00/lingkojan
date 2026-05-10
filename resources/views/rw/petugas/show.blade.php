@@ -38,11 +38,11 @@
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama Lengkap</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $petugas->name }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $petugas->nama_warga }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. Telepon</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $petugas->phone ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $petugas->no_tlp ?? '-' }}</p>
                 </div>
                 <div>
                     <!-- Empty space -->

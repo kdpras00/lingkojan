@@ -59,19 +59,37 @@ class PengaduanController extends Controller
 
     public function recap(Request $request) 
     { 
-        $query = PengaduanHeader::select('pengaduan_header.pengaduan_kategori_id', 'users.rt_id', 'pengaduan_detail.pengaduan_status_id', DB::raw('count(*) as total'))
+        $query = PengaduanHeader::select(
+                'rt.nama_rt as rt_name', 
+                'pengaduan_kategori.kategori as kategori_name', 
+                'pengaduan_status.status as status_name', 
+                'users.rt_id',
+                'pengaduan_header.pengaduan_kategori_id',
+                'pengaduan_detail.pengaduan_status_id',
+                DB::raw('count(*) as total')
+            )
             ->join('pengaduan_detail', 'pengaduan_header.id', '=', 'pengaduan_detail.pengaduan_header_id')
             ->join('users', 'pengaduan_detail.users_id', '=', 'users.id')
-            ->groupBy('pengaduan_header.pengaduan_kategori_id', 'users.rt_id', 'pengaduan_detail.pengaduan_status_id');
+            ->join('rt', 'users.rt_id', '=', 'rt.id')
+            ->join('pengaduan_kategori', 'pengaduan_header.pengaduan_kategori_id', '=', 'pengaduan_kategori.id')
+            ->join('pengaduan_status', 'pengaduan_detail.pengaduan_status_id', '=', 'pengaduan_status.id')
+            ->groupBy(
+                'rt.nama_rt', 
+                'pengaduan_kategori.kategori', 
+                'pengaduan_status.status',
+                'users.rt_id',
+                'pengaduan_header.pengaduan_kategori_id',
+                'pengaduan_detail.pengaduan_status_id'
+            );
 
-        if ($request->rt_id) {
-            $query->where('users.rt_id', $request->rt_id);
+        if ($request->rt) {
+            $query->where('users.rt_id', $request->rt);
         }
-        if ($request->status_id) {
-            $query->where('pengaduan_detail.pengaduan_status_id', $request->status_id);
+        if ($request->status) {
+            $query->where('pengaduan_detail.pengaduan_status_id', $request->status);
         }
-        if ($request->kategori_id) {
-            $query->where('pengaduan_header.pengaduan_kategori_id', $request->kategori_id);
+        if ($request->kategori) {
+            $query->where('pengaduan_header.pengaduan_kategori_id', $request->kategori);
         }
         if ($request->start_date) {
             $query->whereDate('pengaduan_detail.tgl', '>=', $request->start_date);

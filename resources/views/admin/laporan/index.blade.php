@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button type="submit" class="w-full bg-black text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">Terapkan Filter</button>
+                    <button type="submit" class="w-full bg-white border-2 border-black text-black px-10 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Terapkan Filter</button>
                 </div>
             </div>
         </form>
@@ -55,7 +55,7 @@
                 <p class="text-sm text-gray-500 font-medium mt-1">Rekapitulasi data pengaduan yang masuk</p>
             </div>
             <!-- Export Options -->
-            <a href="{{ route('admin.laporan.export', request()->query()) }}" class="flex items-center text-[10px] font-black uppercase text-gray-400 hover:text-black tracking-widest transition-colors">
+            <a href="{{ route('admin.laporan.export', request()->query()) }}" class="bg-white border-2 border-black text-black px-6 py-2.5 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                 Export PDF
             </a>
@@ -88,17 +88,8 @@
                             @php
                                 $lastDetail = $report->details->last();
                                 $statusName = $lastDetail->status->status ?? 'Unknown';
-                                $statusId = $lastDetail->pengaduan_status_id ?? 0;
-                                
-                                $statusColors = [
-                                    10 => 'text-blue-600',
-                                    20 => 'text-orange-600',
-                                    30 => 'text-green-600',
-                                    40 => 'text-red-600',
-                                ];
-                                $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                             @endphp
-                            <span class="{{ $textColor }} text-[10px] font-black uppercase tracking-widest">
+                            <span class="text-black text-[10px] font-black uppercase tracking-widest">
                                 {{ $statusName }}
                             </span>
                         </td>

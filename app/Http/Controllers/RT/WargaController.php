@@ -10,8 +10,9 @@ class WargaController extends Controller
     public function index()
     {
         $userRtId = auth()->user()->rt_id;
-        $warga = User::where('role_id', 1)->where('rt_id', $userRtId)->get(); // 1 = Warga
-        return view('rt.warga.index', compact('warga', 'userRtId'));
+        $userRt = auth()->user()->rt->nama_rt ?? '-';
+        $warga = User::with('rt')->where('role_id', 1)->where('rt_id', $userRtId)->get(); // 1 = Warga
+        return view('rt.warga.index', compact('warga', 'userRtId', 'userRt'));
     }
 
     public function show($id) 

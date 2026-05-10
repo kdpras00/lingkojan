@@ -101,8 +101,8 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-end items-center gap-6 mt-12 pt-8 border-t border-gray-100">
-                <a href="{{ route('warga.pengaduan.index') }}" class="text-sm font-bold text-gray-400 hover:text-black transition-colors">Batal</a>
-                <button type="submit" class="bg-[#f07c1b] text-white px-12 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-[#d96a12] transition-all shadow-xl flex items-center group/btn w-full md:w-auto justify-center">
+                <a href="{{ route('warga.pengaduan.index') }}" class="text-sm font-black text-gray-500 hover:text-black transition-colors px-8 py-3 border-2 border-transparent hover:border-black rounded-none">Batal</a>
+                <button type="submit" class="bg-white border-2 border-black text-black px-12 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/btn w-full md:w-auto justify-center">
                     Kirim Pengaduan
                     <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                 </button>

@@ -70,17 +70,8 @@
                                 @php
                                     $lastDetail = $pengaduan->details->last();
                                     $statusName = $lastDetail->status->status ?? 'Unknown';
-                                    $statusId = $lastDetail->pengaduan_status_id ?? 0;
-                                    
-                                    $statusColors = [
-                                        10 => 'text-blue-600',
-                                        20 => 'text-orange-600',
-                                        30 => 'text-green-600',
-                                        40 => 'text-red-600',
-                                    ];
-                                    $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                                 @endphp
-                                <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
+                                <span class="text-black text-[10px] font-bold uppercase tracking-widest">
                                     {{ $statusName }}
                                 </span>
                             </td>

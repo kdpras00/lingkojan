@@ -29,7 +29,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="bg-black text-white px-8 py-3.5 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-all shadow-md">Terapkan Filter</button>
+                <button type="submit" class="bg-white border-2 border-black text-black px-8 py-3.5 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Terapkan Filter</button>
             </div>
         </form>
     </div>
@@ -60,12 +60,12 @@
                     @forelse($wargas as $index => $warga)
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $warga->name }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $warga->nama_warga }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->username }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-600 border-r border-gray-100 tracking-wider">{{ $warga->nik }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->phone }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->no_tlp }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->email }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt ?: '-' }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt->nama_rt ?? '-' }}</td>
                         <td class="px-6 py-5 text-center">
                             <a href="{{ route('rw.warga.show', $warga->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors inline-block" title="Detail">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>

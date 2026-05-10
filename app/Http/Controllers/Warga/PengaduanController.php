@@ -49,7 +49,7 @@ class PengaduanController extends Controller
             'subjek' => 'required|string|max:45',
             'kategori' => 'required|exists:pengaduan_kategori,id',
             'deskripsi' => 'required|string',
-            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         DB::beginTransaction();

@@ -38,11 +38,11 @@
                 <!-- Row 2 -->
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">Nama</label>
-                    <p class="text-sm font-bold text-gray-700">{{ $warga->name }}</p>
+                    <p class="text-sm font-bold text-gray-700">{{ $warga->nama_warga }}</p>
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">No. HP</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $warga->phone ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-wider">{{ $warga->no_tlp ?? '-' }}</p>
                 </div>
                 <div>
                     <!-- Empty space to align Alamat -->
@@ -55,7 +55,7 @@
                 </div>
                 <div>
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3">RT/RW</label>
-                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->rt }}/{{ $warga->rw ?? '006' }}</p>
+                    <p class="text-sm font-bold text-gray-700 tracking-widest">{{ $warga->rt->nama_rt ?? '-' }}/{{ $warga->rw ?? '006' }}</p>
                 </div>
             </div>
         </div>

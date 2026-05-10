@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="flex items-center justify-end space-x-4 pt-8 mt-4 border-t border-gray-100">
-                    <a href="{{ route('admin.rt.index') }}" class="px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest text-gray-600 border border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-all">Batal</a>
-                    <button type="submit" class="bg-black text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl flex items-center group/btn">
+                    <a href="{{ route('admin.rt.index') }}" class="px-8 py-3 rounded-none text-[11px] font-black uppercase tracking-widest text-gray-500 border-2 border-transparent hover:border-black transition-all">Batal</a>
+                    <button type="submit" class="bg-white border-2 border-black text-black px-10 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/btn">
                         Edit
                         <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                     </button>

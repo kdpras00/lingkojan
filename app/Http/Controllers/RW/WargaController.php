@@ -7,10 +7,20 @@ use App\Models\User;
 
 class WargaController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        $warga = User::where('role_id', 1)->with('rt')->get(); // 1 = Warga
-        return view('rw.warga.index', compact('warga'));
+        $query = User::where('role_id', 1)->with('rt'); // 1 = Warga
+        
+        if ($request->filled('rt')) {
+            $query->whereHas('rt', function($q) use ($request) {
+                $q->where('nama_rt', $request->rt);
+            });
+        }
+        
+        $wargas = $query->get();
+        $availableRts = \App\Models\Rt::all();
+        
+        return view('rw.warga.index', compact('wargas', 'availableRts'));
     }
 
     public function show($id) 

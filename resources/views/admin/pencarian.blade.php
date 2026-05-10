@@ -24,7 +24,7 @@
             <div class="flex-1 max-w-md relative group">
                 <input type="text" name="q" value="{{ request('q') }}" class="w-full bg-white border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all" placeholder="Masukkan nomor pengaduan atau subjek...">
             </div>
-            <button type="submit" class="bg-black text-white px-10 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">Cari</button>
+            <button type="submit" class="bg-white border-2 border-black text-black px-10 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Cari</button>
         </form>
 
         <!-- Results Table -->
@@ -57,17 +57,8 @@
                             @php
                                 $lastDetail = $res->details->last();
                                 $statusName = $lastDetail->status->status ?? 'Unknown';
-                                $statusId = $lastDetail->pengaduan_status_id ?? 0;
-                                
-                                $statusColors = [
-                                    10 => 'text-blue-600',
-                                    20 => 'text-orange-600',
-                                    30 => 'text-green-600',
-                                    40 => 'text-red-600',
-                                ];
-                                $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                             @endphp
-                            <span class="{{ $textColor }} text-[10px] font-black uppercase tracking-widest">
+                            <span class="text-black text-[10px] font-black uppercase tracking-widest">
                                 {{ $statusName }}
                             </span>
                         </td>

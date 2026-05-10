@@ -27,4 +27,13 @@ class PengaduanHeader extends Model
     {
         return $this->hasMany(PengaduanDetail::class, 'pengaduan_header_id');
     }
+
+    /**
+     * Get the created_at attribute from the first detail.
+     */
+    public function getCreatedAtAttribute()
+    {
+        $firstDetail = $this->details->sortBy('id')->first();
+        return $firstDetail ? \Carbon\Carbon::parse($firstDetail->tgl) : \Carbon\Carbon::now();
+    }
 }

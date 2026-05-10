@@ -18,7 +18,7 @@
                 <h3 class="text-2xl font-black text-black tracking-tight">Daftar Administrator</h3>
                 <p class="text-sm text-gray-500 font-medium mt-1">Kelola data pengguna dengan level akses Administrator</p>
             </div>
-            <a href="{{ route('admin.users.create') }}" class="bg-black text-white px-8 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg flex items-center group">
+            <a href="{{ route('admin.users.create') }}" class="bg-white border-2 border-black text-black px-8 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group">
                 <svg class="w-4 h-4 mr-2 transform group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah User
             </a>

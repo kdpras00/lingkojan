@@ -18,9 +18,6 @@
                 </div>
                 <input type="text" id="warga-search" placeholder="Cari laporan..." class="block w-full pl-11 pr-4 py-3 border border-gray-100 rounded-2xl text-xs font-bold bg-gray-50/50 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
             </div>
-            <a href="{{ route('warga.pengaduan.create') }}" class="w-full md:w-auto bg-[#f07c1b] text-white px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#d96a12] transition-all shadow-lg text-center">
-                Buat Pengaduan Baru
-            </a>
         </div>
     </div>
 
@@ -44,20 +41,13 @@
                     @php
                         $latestDetail = $pengaduan->details->first();
                         $statusName = $latestDetail->status->status ?? 'New';
-                        $statusColors = [
-                            'New' => 'text-blue-600',
-                            'On Progress' => 'text-orange-600',
-                            'Done' => 'text-green-600',
-                            'Cancel' => 'text-red-600',
-                        ];
-                        $textColor = $statusColors[$statusName] ?? 'text-gray-600';
                     @endphp
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ \Carbon\Carbon::parse($latestDetail->tgl)->format('d F Y H:i') }}</td>
                     <td class="px-6 py-5 text-sm font-black text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ auth()->user()->nama_warga }}</td>
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                     <td class="px-6 py-5 border-r border-gray-100">
-                        <span class="{{ $textColor }} text-[10px] font-black uppercase tracking-widest">
+                        <span class="text-black text-[10px] font-black uppercase tracking-widest">
                             {{ $statusName }}
                         </span>
                     </td>

@@ -57,4 +57,12 @@ class PengaduanDetail extends Model
     {
         return $this->hasMany(Komentar::class, 'pengaduan_detail_id');
     }
+
+    /**
+     * Get the created_at attribute from tgl.
+     */
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->tgl);
+    }
 }

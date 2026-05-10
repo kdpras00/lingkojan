@@ -69,7 +69,7 @@
                     @forelse($wargaStats as $index => $stat)
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $stat->rt }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $stat->rt->nama_rt ?? '-' }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700">{{ $stat->total }}</td>
                     </tr>
                     @empty

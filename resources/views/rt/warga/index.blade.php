@@ -37,12 +37,12 @@
                     @forelse($warga as $index => $w)
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $w->name }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $w->nama_warga }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $w->username }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $w->nik ?? '-' }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $w->phone ?? '-' }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $w->no_tlp ?? '-' }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $w->email }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $w->rt }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $w->rt->nama_rt ?? '-' }}</td>
                         <td class="px-6 py-5 text-center">
                             <a href="{{ route('rt.warga.show', $w->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors" title="Detail">
                                 <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>

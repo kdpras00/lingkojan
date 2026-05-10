@@ -65,7 +65,7 @@
             <h4 class="font-bold text-xl text-black">Pengaduan Saya</h4>
             <p class="text-sm text-gray-500">Lihat semua laporan yang telah Anda buat</p>
         </div>
-        <a href="{{ route('warga.pengaduan.create') }}" class="btn-orange !mt-0 !py-2 !px-6 flex items-center">
+        <a href="{{ route('warga.pengaduan.create') }}" class="bg-white border-2 border-black text-black px-6 py-2.5 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Buat Pengaduan
         </a>
@@ -88,22 +88,16 @@
                 @forelse($myPengaduans as $index => $pengaduan)
                 <tr class="hover:bg-gray-50 transition-all">
                     <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $index + 1 }}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ \Carbon\Carbon::parse($pengaduan->details->first()->tgl)->format('d-m-Y H:i') }}</td>
                     <td class="px-4 py-4 text-sm font-semibold text-black border-r border-gray-100">{{ $pengaduan->nomor_pengaduan }}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $pengaduan->kategori }}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $pengaduan->kategori->kategori ?? '-' }}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                     <td class="px-4 py-4 border-r border-gray-100">
                         @php
-                            $statusColors = [
-                                'New' => 'text-blue-600',
-                                'On Progress' => 'text-orange-600',
-                                'Done' => 'text-green-600',
-                                'Cancel' => 'text-red-600',
-                            ];
-                            $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
+                            $currentStatus = $pengaduan->details->last()->status->status ?? 'Unknown';
                         @endphp
-                        <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                            {{ $pengaduan->status }}
+                        <span class="text-black text-[10px] font-bold uppercase tracking-widest">
+                            {{ $currentStatus }}
                         </span>
                     </td>
                     <td class="px-4 py-4 text-center">

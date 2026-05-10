@@ -79,9 +79,10 @@ class AuthController extends Controller
             'phone.required' => 'Nomor Telepon tidak boleh kosong.',
             'phone.regex' => 'Nomor HP tidak valid (harus angka, 10-13 digit, diawali 08).',
             
-            'email.required' => 'Email tidak boleh kosong.',
-            'email.email' => 'Format email tidak valid (harus mengandung @ dan domain).',
             'email.unique' => 'Email sudah terdaftar.',
+            
+            'alamat.required' => 'Alamat tidak boleh kosong.',
+            'alamat.max' => 'Alamat maksimal 255 karakter.',
             
             'rt.required' => 'RT harus dipilih.',
             'rt.in' => 'Pilihan RT tidak valid.',
@@ -101,6 +102,7 @@ class AuthController extends Controller
             'nik' => ['required', 'digits:16', 'unique:users'],
             'phone' => ['required', 'regex:/^08[0-9]{8,11}$/'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
+            'alamat' => ['required', 'string', 'max:255'],
             'rt' => ['required', 'string', 'in:001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016'],
             'rw' => ['required', 'string', 'in:006'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/', 'confirmed'],

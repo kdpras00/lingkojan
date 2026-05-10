@@ -38,9 +38,9 @@
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $item->username }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $item->name }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-black border-r border-gray-100">{{ $item->nama_warga }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-600 border-r border-gray-100 tracking-wider">{{ $item->nik }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 tracking-wider">{{ $item->phone }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 tracking-wider">{{ $item->no_tlp }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $item->email }}</td>
                         <td class="px-6 py-5 text-center">
                             <a href="{{ route('rw.petugas.show', $item->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors inline-block" title="Detail">

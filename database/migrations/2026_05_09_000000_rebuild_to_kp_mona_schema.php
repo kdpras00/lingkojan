@@ -94,7 +94,7 @@ return new class extends Migration
         // Table: pengaduan_foto
         Schema::create('pengaduan_foto', function (Blueprint $table) {
             $table->integer('id')->primary()->autoIncrement();
-            $table->string('nama_file', 45);
+            $table->string('nama_file', 255);
             $table->integer('pengaduan_detail_id');
             
             $table->foreign('pengaduan_detail_id')->references('id')->on('pengaduan_detail')->onDelete('no action')->onUpdate('no action');

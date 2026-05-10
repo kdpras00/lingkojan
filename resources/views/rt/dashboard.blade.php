@@ -35,7 +35,7 @@
             <h3 class="text-xl font-bold text-black mb-1">Data Warga RT {{ $userRt }}</h3>
             <p class="text-sm text-gray-500 font-medium">Lihat data warga yang terdaftar di wilayah RT {{ $userRt }}</p>
         </div>
-        <button onclick="window.location='{{ route('rt.warga.index') }}'" class="bg-[#f07c1b] text-white px-8 py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#d96a12] transition-all shadow-[0_10px_20px_-5px_rgba(240,124,27,0.3)] flex items-center group/btn">
+        <button onclick="window.location='{{ route('rt.warga.index') }}'" class="bg-white border-2 border-black text-black px-8 py-4 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/btn">
             <svg class="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
             Lihat Data Warga
             <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
@@ -80,7 +80,7 @@
                     <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20">
                 </div>
                 <div class="flex items-end">
-                    <button type="submit" class="w-full bg-black text-white px-4 py-3.5 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-sm h-[46px]">
+                    <button type="submit" class="w-full bg-white border-2 border-black text-black px-4 py-3 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] h-[46px]">
                         Terapkan Filter
                     </button>
                 </div>
@@ -93,11 +93,11 @@
                 <h4 class="text-xl font-bold text-black tracking-tight">Data Pengaduan</h4>
                 
                 <!-- Search Bar -->
-                <form action="{{ route('rt.dashboard') }}" method="GET" class="relative w-full md:w-80 group">
+                <form action="{{ route('rt.dashboard') }}" method="GET" class="relative w-full md:w-64 group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-[#f07c1b] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <svg class="h-4 w-4 text-gray-400 group-focus-within:text-[#f07c1b] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="masukan nomor pengaduan..." class="block w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all shadow-sm">
+                    <input type="text" name="q" value="{{ request('q') }}" placeholder="masukan nomor pengaduan..." class="block w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-xl text-xs font-bold bg-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all shadow-sm">
                 </form>
             </div>
 
@@ -130,17 +130,8 @@
                                 @php
                                     $lastDetail = $pengaduan->details->last();
                                     $statusName = $lastDetail->status->status ?? 'Unknown';
-                                    $statusId = $lastDetail->pengaduan_status_id ?? 0;
-                                    
-                                    $statusColors = [
-                                        10 => 'text-blue-600',
-                                        20 => 'text-orange-600',
-                                        30 => 'text-green-600',
-                                        40 => 'text-red-600',
-                                    ];
-                                    $textColor = $statusColors[$statusId] ?? 'text-gray-600';
                                 @endphp
-                                <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
+                                <span class="text-black text-[10px] font-bold uppercase tracking-widest">
                                     {{ $statusName }}
                                 </span>
                             </td>

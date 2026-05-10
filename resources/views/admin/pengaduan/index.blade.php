@@ -21,8 +21,13 @@
             
             <!-- Search Bar (Wireframe 53) -->
             <div class="flex items-center space-x-3">
-                <div class="relative">
-                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl px-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] w-64" placeholder="masukan nomor pengaduan...">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-400 group-focus-within:text-[#f07c1b] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <input type="text" id="admin-search" class="bg-gray-50 border border-gray-200 rounded-xl pl-11 pr-6 py-2.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#f07c1b] focus:ring-4 focus:ring-[#f07c1b]/5 transition-all w-64" placeholder="masukan nomor pengaduan...">
                 </div>
             </div>
         </div>
@@ -46,20 +51,14 @@
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d M Y H:i') }}</td>
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? 'N/A' }}</td>
-                        <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->details->first()->user->nama_warga ?? 'N/A' }}</td>
+                        <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                         <td class="px-6 py-5 border-r border-gray-100">
                             @php
-                                $statusColors = [
-                                    'New' => 'text-blue-600',
-                                    'On Progress' => 'text-orange-600',
-                                    'Done' => 'text-green-600',
-                                    'Cancel' => 'text-red-600',
-                                ];
-                                $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
+                                $statusName = $pengaduan->details->last()->status->status ?? 'Unknown';
                             @endphp
-                            <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                                {{ $pengaduan->status }}
+                            <span class="text-black text-[10px] font-bold uppercase tracking-widest">
+                                {{ $statusName }}
                             </span>
                         </td>
                         <td class="px-6 py-5 text-center">

@@ -31,7 +31,7 @@
 <body class="p-0 md:p-10">
     <!-- Print Button (Visible only on screen) -->
     <div class="max-w-4xl mx-auto mb-6 no-print flex justify-end">
-        <button onclick="window.print()" class="bg-[#f07c1b] text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-[#d96a12] transition-colors flex items-center">
+        <button onclick="window.print()" class="bg-white border-2 border-black text-black px-8 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
             Cetak Laporan
         </button>
@@ -57,6 +57,9 @@
 
         <div class="space-y-8">
             <!-- Section A: Profil Pelapor -->
+            @php
+                $pelapor = $pengaduan->details->sortBy('id')->first()->user;
+            @endphp
             <div class="border border-black overflow-hidden">
                 <div class="bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-widest">
                     A. Profil Pelapor
@@ -64,27 +67,27 @@
                 <table class="w-full text-sm border-collapse">
                     <tr class="border-t border-black">
                         <td class="w-1/3 px-4 py-2 font-bold border-r border-black bg-gray-50">Nama</td>
-                        <td class="px-4 py-2">{{ $pengaduan->user->name }}</td>
+                        <td class="px-4 py-2">{{ $pelapor->nama_warga }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">Username</td>
-                        <td class="px-4 py-2">{{ $pengaduan->user->username ?? '-' }}</td>
+                        <td class="px-4 py-2">{{ $pelapor->username ?? '-' }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">NIK</td>
-                        <td class="px-4 py-2 tracking-widest">{{ $pengaduan->user->nik ?? '-' }}</td>
+                        <td class="px-4 py-2 tracking-widest">{{ $pelapor->nik ?? '-' }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">No. Telepon</td>
-                        <td class="px-4 py-2">{{ $pengaduan->user->phone ?? '-' }}</td>
+                        <td class="px-4 py-2">{{ $pelapor->no_tlp ?? '-' }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">Email</td>
-                        <td class="px-4 py-2">{{ $pengaduan->user->email }}</td>
+                        <td class="px-4 py-2">{{ $pelapor->email }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">RT/RW</td>
-                        <td class="px-4 py-2">{{ $pengaduan->rt }}/{{ $pengaduan->rw }}</td>
+                        <td class="px-4 py-2">{{ $pelapor->rt->nama_rt ?? '-' }}/006</td>
                     </tr>
                 </table>
             </div>
@@ -105,11 +108,11 @@
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">Kategori</td>
-                        <td class="px-4 py-2">{{ $pengaduan->kategori }}</td>
+                        <td class="px-4 py-2">{{ $pengaduan->kategori->kategori ?? '-' }}</td>
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">Status Terakhir</td>
-                        <td class="px-4 py-2 font-bold">{{ $pengaduan->status }}</td>
+                        <td class="px-4 py-2 font-bold uppercase">{{ $pengaduan->details->sortByDesc('id')->first()->status->status ?? '-' }}</td>
                     </tr>
                 </table>
             </div>
@@ -119,20 +122,23 @@
                 <div class="bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-widest">
                     C. Isi Laporan
                 </div>
-                <div class="px-4 py-2 font-bold border-b border-black bg-gray-50 text-xs">Subjek: {{ $pengaduan->subjek }}</div>
+                <div class="px-4 py-2 font-bold border-b border-black bg-gray-50 text-xs">Subjek: {{ $pengaduan->subject }}</div>
                 <div class="px-4 py-4 text-sm leading-relaxed">
-                    "{{ $pengaduan->alamat }}"
+                    "{{ $pengaduan->details->sortBy('id')->first()->detail_pengaduan }}"
                 </div>
             </div>
 
             <!-- Section D: Bukti Laporan -->
-            @if($pengaduan->foto)
+            @php
+                $firstFoto = $pengaduan->details->sortBy('id')->first()->fotos->first();
+            @endphp
+            @if($firstFoto)
             <div class="border border-black overflow-hidden">
                 <div class="bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-widest">
                     D. Bukti Laporan
                 </div>
                 <div class="px-4 py-6 flex justify-center">
-                    <img src="{{ asset('storage/' . $pengaduan->foto) }}" alt="Bukti Laporan" class="max-h-64 border border-gray-200">
+                    <img src="{{ asset('storage/' . $firstFoto->nama_file) }}" alt="Bukti Laporan" class="max-h-64 border border-gray-200">
                 </div>
             </div>
             @endif
@@ -142,7 +148,7 @@
                 <div class="text-center w-64">
                     <p class="text-sm font-medium">Jakarta, {{ date('d F Y') }}</p>
                     <p class="text-sm font-bold mb-20 uppercase tracking-widest">Pelapor</p>
-                    <p class="text-sm font-black border-b border-black inline-block pb-1">{{ $pengaduan->user->name }}</p>
+                    <p class="text-sm font-black border-b border-black inline-block pb-1">{{ $pelapor->nama_warga }}</p>
                 </div>
             </div>
         </div>

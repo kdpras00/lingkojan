@@ -29,21 +29,21 @@
             <!-- Filter Section -->
             <form action="{{ route('rw.pengaduan.recap.detail') }}" method="GET" class="bg-gray-50/50 rounded-2xl border border-gray-100 p-6">
                 <!-- Keep existing query parameters that shouldn't change -->
-                @if(request('kategori'))
-                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+                @if(request('kategori_id'))
+                    <input type="hidden" name="kategori_id" value="{{ request('kategori_id') }}">
                 @endif
-                @if(request('status'))
-                    <input type="hidden" name="status" value="{{ request('status') }}">
+                @if(request('status_id'))
+                    <input type="hidden" name="status_id" value="{{ request('status_id') }}">
                 @endif
 
                 <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-6">Filter Laporan</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">RT</label>
-                        <select name="rt" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
+                        <select name="rt_id" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
                             <option value="">Semua RT</option>
                             @foreach($availableRts as $art)
-                                <option value="{{ $art }}" {{ request('rt') == $art ? 'selected' : '' }}>{{ $art }}</option>
+                                <option value="{{ $art->id }}" {{ request('rt_id') == $art->id ? 'selected' : '' }}>RT {{ $art->nama_rt }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -56,7 +56,7 @@
                         <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20">
                     </div>
                     <div class="flex items-end">
-                        <button type="submit" class="w-full bg-black text-white px-4 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-sm h-[46px]">
+                        <button type="submit" class="w-full bg-white border-2 border-black text-black px-4 py-3 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] h-[46px]">
                             Terapkan Filter
                         </button>
                     </div>
@@ -83,24 +83,15 @@
                         @forelse($pengaduans as $index => $pengaduan)
                         <tr class="hover:bg-gray-50/50 transition-colors">
                             <td class="px-4 py-4 text-xs font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H.i') }}</td>
+                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</td>
                             <td class="px-4 py-4 text-xs font-bold text-black border-r border-gray-100">{{ $pengaduan->nomor_pengaduan }}</td>
-                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? '-' }}</td>
-                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->kategori }}</td>
-                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->rt }}</td>
-                            <td class="px-4 py-4 text-xs font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->details->first()->user->nama_warga ?? '-' }}</td>
+                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->kategori->kategori ?? '-' }}</td>
+                            <td class="px-4 py-4 text-xs font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                            <td class="px-4 py-4 text-xs font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                             <td class="px-4 py-4 border-r border-gray-100">
-                                @php
-                                    $statusColors = [
-                                        'New' => 'text-blue-600',
-                                        'On Progress' => 'text-orange-600',
-                                        'Done' => 'text-green-600',
-                                        'Cancel' => 'text-red-600',
-                                    ];
-                                    $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
-                                @endphp
-                                <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                                    {{ $pengaduan->status }}
+                                <span class="text-black text-[10px] font-bold uppercase tracking-widest">
+                                    {{ $pengaduan->details->first()->status->status ?? '-' }}
                                 </span>
                             </td>
                             <td class="px-4 py-4 text-center">

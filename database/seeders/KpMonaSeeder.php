@@ -12,6 +12,19 @@ class KpMonaSeeder extends Seeder
      */
     public function run(): void
     {
+        // Disable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Truncate tables
+        DB::table('role')->truncate();
+        DB::table('rt')->truncate();
+        DB::table('users')->truncate();
+        DB::table('pengaduan_kategori')->truncate();
+        DB::table('pengaduan_status')->truncate();
+
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         // Data for table: role
         DB::table('role')->insert([
             ['id' => 1, 'name_role' => 'Warga'],
@@ -58,6 +71,7 @@ class KpMonaSeeder extends Seeder
         $faker = $fakerExists ? \Faker\Factory::create('id_ID') : null;
         $password = bcrypt('password123');
         $now = now();
+        $usedUsernames = ['admin', 'petugas', 'rw006'];
 
         // 1. Admin & Petugas
         DB::table('users')->insert([
@@ -86,6 +100,19 @@ class KpMonaSeeder extends Seeder
                 'nik' => '1234567890123457',
                 'created_at' => $now,
                 'updated_at' => $now,
+            ],
+            [
+                'nama_warga' => 'Ketua RW 006',
+                'username' => 'rw006',
+                'password' => $password,
+                'role_id' => 3, // Ketua RW
+                'no_tlp' => '081234567892',
+                'email' => 'rw006@lingkojan.com',
+                'alamat' => 'Kampung Kojan RW 006',
+                'rt_id' => 1,
+                'nik' => '1234567890123458',
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -94,14 +121,17 @@ class KpMonaSeeder extends Seeder
             $rtId = $index + 1;
 
             // Seed 1 Ketua RT per RT
+            $rtUsername = 'rt' . str_pad($rtId, 3, '0', STR_PAD_LEFT);
+            $usedUsernames[] = $rtUsername;
+            
             DB::table('users')->insert([
                 'nama_warga' => $namaWargaKetua,
-                'username' => 'rt' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
+                'username' => $rtUsername,
                 'password' => $password,
                 'role_id' => 2, // Ketua RT
                 'no_tlp' => $faker ? $faker->numerify('08##########') : '0812' . rand(10000000, 99999999),
                 'email' => 'rt' . $rtId . '@lingkojan.com',
-                'alamat' => 'Kampung Kojan RT ' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
+                'alamat' => 'Jl. Sltpn No. ' . ($index + 1) . ', RT. ' . str_pad($rtId, 3, '0', STR_PAD_LEFT) . '/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat, Jakarta, 11840',
                 'rt_id' => $rtId,
                 'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
                 'created_at' => $now,
@@ -113,14 +143,33 @@ class KpMonaSeeder extends Seeder
             $wargaData = [];
             
             for ($i = 1; $i <= $count; $i++) {
+                $name = $faker ? $faker->name : 'Warga RT' . $rtId . ' No' . $i;
+                
+                // Username based on name without random numbers
+                $username = strtolower(str_replace([' ', '.', ','], '', preg_replace('/[^A-Za-z0-9 ]/', '', $name)));
+                
+                // If username is empty or too short, fallback
+                if (empty($username)) { $username = 'user' . $i; }
+                
+                // Ensure uniqueness if collision occurs
+                $baseUsername = $username;
+                $counter = 1;
+                while (in_array($username, $usedUsernames)) {
+                    $username = $baseUsername . $counter;
+                    $counter++;
+                }
+                $usedUsernames[] = $username;
+                
+                $email = $username . '@example.com';
+                
                 $wargaData[] = [
-                    'nama_warga' => $faker ? $faker->name : 'Warga RT' . $rtId . ' No' . $i,
-                    'username' => 'warga_' . $rtId . '_' . $i,
+                    'nama_warga' => $name,
+                    'username' => $username,
                     'password' => $password,
                     'role_id' => 1, // Warga
                     'no_tlp' => $faker ? $faker->numerify('08##########') : '0813' . rand(10000000, 99999999),
-                    'email' => $faker ? $faker->unique()->safeEmail : 'warga' . $rtId . '_' . $i . '@example.com',
-                    'alamat' => 'Alamat Warga RT ' . str_pad($rtId, 3, '0', STR_PAD_LEFT),
+                    'email' => $email,
+                    'alamat' => 'Jl. Sltpn No. ' . rand(1, 200) . ', RT. ' . str_pad($rtId, 3, '0', STR_PAD_LEFT) . '/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat, Jakarta, 11840',
                     'rt_id' => $rtId,
                     'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
                     'created_at' => $now,

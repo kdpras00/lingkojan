@@ -20,7 +20,7 @@
                     <select name="rt" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
                         <option value="">Semua RT</option>
                         @foreach($availableRts as $art)
-                            <option value="{{ $art }}" {{ request('rt') == $art ? 'selected' : '' }}>RT {{ $art }}</option>
+                            <option value="{{ $art->id }}" {{ request('rt') == $art->id ? 'selected' : '' }}>RT {{ $art->nama_rt }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -33,7 +33,7 @@
                     <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20">
                 </div>
                 <div class="flex items-end">
-                    <button type="submit" class="w-full bg-black text-white px-4 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-sm h-[46px]">
+                    <button type="submit" class="w-full bg-white border-2 border-black text-black px-4 py-3 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] h-[46px]">
                         Terapkan Filter
                     </button>
                 </div>
@@ -57,19 +57,16 @@
                     @forelse($recap as $index => $r)
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $r->rt }}</td>
-                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $r->kategori }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $r->rt_name }}</td>
+                        <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $r->kategori_name }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">
-                            <span class="text-[10px] font-bold uppercase tracking-widest
-                                {{ $r->status == 'New' ? 'text-blue-600' : 
-                                  ($r->status == 'On Progress' ? 'text-orange-600' : 
-                                  ($r->status == 'Done' ? 'text-green-600' : 'text-red-600')) }}">
-                                {{ $r->status }}
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-black">
+                                {{ $r->status_name }}
                             </span>
                         </td>
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100">{{ $r->total }}</td>
                         <td class="px-6 py-5 text-center">
-                            <a href="{{ route('rw.pengaduan.recap.detail', ['rt' => $r->rt, 'kategori' => $r->kategori, 'status' => $r->status]) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors inline-block" title="Lihat Detail">
+                            <a href="{{ route('rw.pengaduan.recap.detail', ['rt_id' => $r->rt_id, 'kategori_id' => $r->pengaduan_kategori_id, 'status_id' => $r->pengaduan_status_id]) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors inline-block" title="Lihat Detail">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                             </a>
                         </td>

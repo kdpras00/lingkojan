@@ -26,27 +26,27 @@
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Status</label>
                         <select name="status" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                             <option value="">Semua Status</option>
-                            <option value="New" {{ request('status') == 'New' ? 'selected' : '' }}>New</option>
-                            <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                            <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done</option>
-                            <option value="Cancel" {{ request('status') == 'Cancel' ? 'selected' : '' }}>Cancel</option>
+                            <option value="10" {{ request('status') == '10' ? 'selected' : '' }}>New</option>
+                            <option value="20" {{ request('status') == '20' ? 'selected' : '' }}>On Progress</option>
+                            <option value="30" {{ request('status') == '30' ? 'selected' : '' }}>Done</option>
+                            <option value="40" {{ request('status') == '40' ? 'selected' : '' }}>Cancel</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">RT</label>
-                        <select name="rt" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
+                        <select name="rt_id" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                             <option value="">Semua RT</option>
                             @foreach($availableRts as $art)
-                                <option value="{{ $art }}" {{ request('rt') == $art ? 'selected' : '' }}>RT {{ $art }}</option>
+                                <option value="{{ $art->id }}" {{ request('rt_id') == $art->id ? 'selected' : '' }}>RT {{ $art->nama_rt }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Kategori</label>
-                        <select name="kategori" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
+                        <select name="kategori_id" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                             <option value="">Semua Kategori</option>
                             @foreach($availableKategoris as $kat)
-                                <option value="{{ $kat }}" {{ request('kategori') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
+                                <option value="{{ $kat->id }}" {{ request('kategori_id') == $kat->id ? 'selected' : '' }}>{{ $kat->kategori }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -59,7 +59,7 @@
                         <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20">
                     </div>
                     <div class="flex items-end">
-                        <button type="submit" class="w-full bg-black text-white px-10 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 h-[54px]">
+                        <button type="submit" class="w-full bg-white border-2 border-black text-black px-10 py-4 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] h-[54px]">
                             Terapkan Filter
                         </button>
                     </div>
@@ -76,8 +76,8 @@
                     <form action="{{ route('rw.pengaduan.index') }}" method="GET" class="flex items-center space-x-2">
                         <!-- Preserve other filters when searching -->
                         @if(request('status')) <input type="hidden" name="status" value="{{ request('status') }}"> @endif
-                        @if(request('rt')) <input type="hidden" name="rt" value="{{ request('rt') }}"> @endif
-                        @if(request('kategori')) <input type="hidden" name="kategori" value="{{ request('kategori') }}"> @endif
+                        @if(request('rt_id')) <input type="hidden" name="rt_id" value="{{ request('rt_id') }}"> @endif
+                        @if(request('kategori_id')) <input type="hidden" name="kategori_id" value="{{ request('kategori_id') }}"> @endif
                         @if(request('start_date')) <input type="hidden" name="start_date" value="{{ request('start_date') }}"> @endif
                         @if(request('end_date')) <input type="hidden" name="end_date" value="{{ request('end_date') }}"> @endif
 
@@ -112,22 +112,13 @@
                             <td class="px-6 py-5 text-sm font-medium text-gray-500 text-center border-r border-gray-100">{{ $index + 1 }}</td>
                             <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->created_at->format('d-m-Y H:i') }}</td>
                             <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100 tracking-wider">{{ $pengaduan->nomor_pengaduan }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->user->name ?? 'N/A' }}</td>
-                            <td class="px-6 py-5 text-[11px] font-bold text-gray-600 border-r border-gray-100 uppercase tracking-wider">{{ $pengaduan->kategori }}</td>
-                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->rt ?: '-' }}</td>
-                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subjek }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $pengaduan->details->first()->user->nama_warga ?? 'N/A' }}</td>
+                            <td class="px-6 py-5 text-[11px] font-bold text-gray-600 border-r border-gray-100 uppercase tracking-wider">{{ $pengaduan->kategori->kategori ?? '-' }}</td>
+                            <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $pengaduan->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                            <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                             <td class="px-6 py-5 border-r border-gray-100">
-                                @php
-                                    $statusColors = [
-                                        'New' => 'text-blue-600',
-                                        'On Progress' => 'text-orange-600',
-                                        'Done' => 'text-green-600',
-                                        'Cancel' => 'text-red-600',
-                                    ];
-                                    $textColor = $statusColors[$pengaduan->status] ?? 'text-gray-600';
-                                @endphp
-                                <span class="{{ $textColor }} text-[10px] font-bold uppercase tracking-widest">
-                                    {{ $pengaduan->status }}
+                                <span class="text-black text-[10px] font-bold uppercase tracking-widest">
+                                    {{ $pengaduan->details->first()->status->status ?? '-' }}
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-center">

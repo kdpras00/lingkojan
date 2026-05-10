@@ -22,7 +22,7 @@
             <div>
                 <div class="border-b-2 border-gray-100 pb-4 mb-8 flex items-center justify-between">
                     <h3 class="text-xl font-black text-black tracking-tight uppercase">Data Pribadi</h3>
-                    <button type="button" onclick="toggleModal('modalResetPassword')" class="bg-orange-500 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-lg flex items-center group/reset-btn">
+                    <button type="button" onclick="toggleModal('modalResetPassword')" class="bg-white border-2 border-black text-black px-6 py-2.5 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/reset-btn">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
                         Reset Password
                     </button>
@@ -84,8 +84,8 @@
             </div>
 
             <div class="flex items-center justify-end space-x-4 pt-8 mt-4 border-t border-gray-100">
-                <a href="{{ route('admin.petugas.index') }}" class="px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest text-gray-600 border border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-all">Batal</a>
-                <button type="submit" class="bg-black text-white px-12 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl flex items-center group/btn">
+                <a href="{{ route('admin.petugas.index') }}" class="px-8 py-3 rounded-none text-[11px] font-black uppercase tracking-widest text-gray-500 border-2 border-transparent hover:border-black transition-all">Batal</a>
+                <button type="submit" class="bg-white border-2 border-black text-black px-12 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/btn">
                     Simpan Perubahan
                     <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                 </button>
@@ -127,8 +127,8 @@
                     </div>
 
                     <div class="flex items-center justify-end space-x-6 pt-6 border-t border-gray-50">
-                        <button type="button" onclick="toggleModal('modalResetPassword')" class="px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest text-gray-600 border border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-all">Batal</button>
-                        <button type="submit" class="bg-black text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl flex items-center group/modal-btn">
+                        <button type="button" onclick="toggleModal('modalResetPassword')" class="px-8 py-3 rounded-none text-[11px] font-black uppercase tracking-widest text-gray-500 border-2 border-transparent hover:border-black transition-all">Batal</button>
+                        <button type="submit" class="bg-white border-2 border-black text-black px-10 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center group/modal-btn">
                             Simpan Password
                             <svg class="w-4 h-4 ml-3 transform group-hover/modal-btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                         </button>
