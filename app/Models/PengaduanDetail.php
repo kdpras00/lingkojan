@@ -50,13 +50,7 @@ class PengaduanDetail extends Model
         return $this->hasMany(PengaduanFoto::class, 'pengaduan_detail_id');
     }
 
-    /**
-     * @return HasMany
-     */
-    public function komentar(): HasMany
-    {
-        return $this->hasMany(Komentar::class, 'pengaduan_detail_id');
-    }
+
 
     /**
      * Get the created_at attribute from tgl.

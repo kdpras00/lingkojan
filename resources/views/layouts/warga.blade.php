@@ -9,6 +9,7 @@
     
     <link rel="preload" as="image" href="{{ asset('images/banner.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
@@ -245,6 +246,29 @@
         </div>
 
         <div class="content-body">
+            @if(session('success'))
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ session('success') }}',
+                        confirmButtonColor: '#f07c1b',
+                        borderRadius: '20px'
+                    });
+                </script>
+            @endif
+
+            @if(session('error'))
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '{{ session('error') }}',
+                        confirmButtonColor: '#f07c1b'
+                    });
+                </script>
+            @endif
+
             @yield('content')
         </div>
     </main>

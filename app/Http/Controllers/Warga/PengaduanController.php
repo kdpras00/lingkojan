@@ -34,7 +34,7 @@ class PengaduanController extends Controller
 
     public function show($id)
     {
-        $pengaduan = PengaduanHeader::with(['details.user', 'details.status', 'details.fotos', 'details.komentar.user', 'kategori'])
+        $pengaduan = PengaduanHeader::with(['details.user.role', 'details.status', 'details.fotos', 'kategori'])
             ->whereHas('details', function ($query) {
                 $query->where('users_id', auth()->id());
             })
@@ -55,7 +55,7 @@ class PengaduanController extends Controller
         DB::beginTransaction();
         try {
             // Generate nomor_pengaduan: P-YYYYMMDD-XXXX
-            $countToday = PengaduanHeader::whereDate('nomor_pengaduan', 'like', 'P-' . now()->format('Ymd') . '-%')->count();
+            $countToday = PengaduanHeader::where('nomor_pengaduan', 'like', 'P-' . now()->format('Ymd') . '-%')->count();
             $nomor = 'P-' . now()->format('Ymd') . '-' . str_pad($countToday + 1, 4, '0', STR_PAD_LEFT);
 
             $header = PengaduanHeader::create([

@@ -58,7 +58,7 @@ class User extends Authenticatable
     /**
      * @return BelongsTo
      */
-    public function role_ref(): BelongsTo
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
@@ -81,7 +81,7 @@ class User extends Authenticatable
 
         $targetRoleName = $roleMapping[strtolower($role)] ?? $role;
         
-        return $this->role_ref && $this->role_ref->name_role === $targetRoleName;
+        return $this->role && $this->role->name_role === $targetRoleName;
     }
 
     /**
@@ -124,11 +124,5 @@ class User extends Authenticatable
         return $this->hasMany(PengaduanDetail::class, 'users_id');
     }
 
-    /**
-     * @return HasMany
-     */
-    public function komentar(): HasMany
-    {
-        return $this->hasMany(Komentar::class, 'users_id');
-    }
+
 }

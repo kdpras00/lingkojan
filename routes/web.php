@@ -15,7 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $latestPengaduans = \App\Models\PengaduanHeader::with(['details.user', 'details.status'])->orderBy('id', 'desc')->take(10)->get();
+    $latestPengaduans = \App\Models\PengaduanHeader::whereHas('details', function($q) {
+        $q->whereIn('id', function($sub) {
+            $sub->select(Illuminate\Support\Facades\DB::raw('min(id)'))
+                ->from('pengaduan_detail')
+                ->groupBy('pengaduan_header_id');
+        })->whereHas('user', function($u) {
+            $u->where('role_id', 1); // 1 = Warga
+        });
+    })
+    ->with(['details.user', 'details.status'])
+    ->orderBy('id', 'desc')
+    ->take(10)
+    ->get();
     return view('welcome', compact('latestPengaduans'));
 })->name('home');
 Route::view('/tentang', 'tentang')->name('tentang');

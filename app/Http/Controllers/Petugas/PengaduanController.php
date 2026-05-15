@@ -13,7 +13,7 @@ class PengaduanController extends Controller
 {
     public function show($id) 
     { 
-        $pengaduan = PengaduanHeader::with(['kategori', 'details.user', 'details.status', 'details.fotos', 'details.komentar.user'])->findOrFail($id);
+        $pengaduan = PengaduanHeader::with(['kategori', 'details.user.role', 'details.status', 'details.fotos'])->findOrFail($id);
         return view('petugas.pengaduan.show', compact('pengaduan')); 
     }
 

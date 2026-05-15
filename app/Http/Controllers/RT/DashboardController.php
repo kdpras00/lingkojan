@@ -16,26 +16,16 @@ class DashboardController extends Controller
     {
         $userRtId = auth()->user()->rt_id;
         
+        $allPengaduans = PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
+            $q->where('rt_id', $userRtId);
+        })->with('details')->get();
+
         $stats = [
-            'total' => PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
-                $q->where('rt_id', $userRtId);
-            })->count(),
-            'new' => PengaduanDetail::where('pengaduan_status_id', 10)
-                ->whereHas('user', function($q) use ($userRtId) {
-                    $q->where('rt_id', $userRtId);
-                })->count(),
-            'progress' => PengaduanDetail::where('pengaduan_status_id', 20)
-                ->whereHas('user', function($q) use ($userRtId) {
-                    $q->where('rt_id', $userRtId);
-                })->count(),
-            'done' => PengaduanDetail::where('pengaduan_status_id', 30)
-                ->whereHas('user', function($q) use ($userRtId) {
-                    $q->where('rt_id', $userRtId);
-                })->count(),
-            'cancel' => PengaduanDetail::where('pengaduan_status_id', 40)
-                ->whereHas('user', function($q) use ($userRtId) {
-                    $q->where('rt_id', $userRtId);
-                })->count(),
+            'total' => $allPengaduans->count(),
+            'new' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 10)->count(),
+            'progress' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 20)->count(),
+            'done' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 30)->count(),
+            'cancel' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 40)->count(),
         ];
 
         $query = PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {

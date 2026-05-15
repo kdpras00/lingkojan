@@ -25,6 +25,23 @@
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeImagePreview();
         });
+        function confirmCancel() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Pengaduan ini akan dibatalkan dan tidak dapat diubah kembali!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Batalkan!',
+                cancelButtonText: 'Tutup',
+                borderRadius: '24px'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('cancel-form').submit();
+                }
+            })
+        }
     </script>
 @endpush
 
@@ -67,11 +84,10 @@
                 <!-- Header Rincian -->
                 <div class="border-b border-gray-100 pb-5 mb-10 flex items-center justify-between">
                     <h3 class="text-2xl font-black text-black uppercase tracking-tight">Pengaduan Header</h3>
-                    @if($pengaduan->status == 'New')
-                        <form action="{{ route('warga.pengaduan.cancel', $pengaduan->id) }}" method="POST"
-                            onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pengaduan ini?')">
+                    @if($pengaduan->details->last()->pengaduan_status_id == 10)
+                        <form id="cancel-form" action="{{ route('warga.pengaduan.cancel', $pengaduan->id) }}" method="POST">
                             @csrf
-                            <button type="submit"
+                            <button type="button" onclick="confirmCancel()"
                                 class="bg-red-500 text-white px-6 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-sm">
                                 Batalkan Pengaduan
                             </button>
@@ -225,7 +241,7 @@
                                                 class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
                                             <div
                                                 class="bg-white border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-normal text-black shadow-sm">
-                                                {{ $tindak->user->role->name_role ?? 'User' }}
+                                                {{ $tindak->user->role->name_role ?? 'Warga' }}
                                             </div>
                                         </div>
                                     </div>

@@ -274,7 +274,7 @@
                                                                         class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Role</label>
                                                                     <div
                                                                         class="bg-white border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-normal text-black shadow-sm">
-                                                                        {{ $tindak->user->role->name_role ?? 'User' }}
+                                                                        {{ $tindak->user->role->name_role ?? 'Warga' }}
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -13,12 +13,13 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $allPengaduans = PengaduanHeader::with('details')->get();
         $stats = [
-            'total' => PengaduanHeader::count(),
-            'new' => PengaduanDetail::where('pengaduan_status_id', 10)->count(),
-            'progress' => PengaduanDetail::where('pengaduan_status_id', 20)->count(),
-            'done' => PengaduanDetail::where('pengaduan_status_id', 30)->count(),
-            'cancel' => PengaduanDetail::where('pengaduan_status_id', 40)->count(),
+            'total' => $allPengaduans->count(),
+            'new' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 10)->count(),
+            'progress' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 20)->count(),
+            'done' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 30)->count(),
+            'cancel' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 40)->count(),
         ];
 
         $query = PengaduanHeader::with(['kategori', 'details.status', 'details.user']);

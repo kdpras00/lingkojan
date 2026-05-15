@@ -159,7 +159,10 @@
                 <div class="swiper latest-complaints-swiper">
                     <div class="swiper-wrapper">
                         @forelse($latestPengaduans as $pengaduan)
-                            @php $latestDetail = $pengaduan->details->last(); @endphp
+                            @php 
+                                $firstDetail = $pengaduan->details->first();
+                                $latestDetail = $pengaduan->details->last();
+                            @endphp
                             <div class="swiper-slide h-auto">
                                 <div class="glass-card p-8 text-white text-left">
                                     <div class="flex items-center mb-6">
@@ -167,8 +170,8 @@
                                             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="font-bold text-base leading-tight">{{ $latestDetail->user->nama_warga ?? 'Anonim' }}</p>
-                                            <p class="text-[11px] opacity-70 mt-1">{{ \Carbon\Carbon::parse($latestDetail->tgl)->format('d M Y') }}</p>
+                                            <p class="font-bold text-base leading-tight blur-[3px] select-none">{{ $firstDetail->user->nama_warga ?? 'Anonim' }}</p>
+                                            <p class="text-[11px] opacity-70 mt-1">{{ \Carbon\Carbon::parse($pengaduan->created_at)->format('d M Y') }}</p>
                                         </div>
                                     </div>
                                     <p class="text-sm mb-8 leading-relaxed font-medium line-clamp-3 h-16">

@@ -13,7 +13,7 @@ class PengaduanController extends Controller
         $pengaduan = PengaduanHeader::whereHas('details.user', function($q) use ($userRtId) {
                 $q->where('rt_id', $userRtId);
             })
-            ->with(['kategori', 'details.user', 'details.status', 'details.fotos', 'details.komentar.user'])
+            ->with(['kategori', 'details.user.role', 'details.status', 'details.fotos'])
             ->findOrFail($id);
             
         return view('rt.pengaduan.show', compact('pengaduan', 'userRtId')); 
