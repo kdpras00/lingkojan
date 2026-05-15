@@ -112,7 +112,7 @@
                     </tr>
                     <tr class="border-t border-black">
                         <td class="px-4 py-2 font-bold border-r border-black bg-gray-50">Status Terakhir</td>
-                        <td class="px-4 py-2 font-bold uppercase">{{ $pengaduan->details->sortByDesc('id')->first()->status->status ?? '-' }}</td>
+                        <td class="px-4 py-2 font-bold uppercase">{{ $pengaduan->details->last()->status->status ?? '-' }}</td>
                     </tr>
                 </table>
             </div>

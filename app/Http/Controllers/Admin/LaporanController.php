@@ -19,7 +19,12 @@ class LaporanController extends Controller
 
         if ($request->has('status') && $request->status != '' && $request->status != 'Semua Status') {
             $query->whereHas('details', function($q) use ($request) {
-                $q->where('pengaduan_status_id', $request->status);
+                $q->where('pengaduan_status_id', $request->status)
+                  ->whereIn('id', function($sub) {
+                      $sub->selectRaw('MAX(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
 
@@ -55,7 +60,12 @@ class LaporanController extends Controller
 
         if ($request->has('status') && $request->status != '' && $request->status != 'Semua Status') {
             $query->whereHas('details', function($q) use ($request) {
-                $q->where('pengaduan_status_id', $request->status);
+                $q->where('pengaduan_status_id', $request->status)
+                  ->whereIn('id', function($sub) {
+                      $sub->selectRaw('MAX(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
 

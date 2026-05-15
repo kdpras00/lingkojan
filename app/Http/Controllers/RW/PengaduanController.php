@@ -28,7 +28,12 @@ class PengaduanController extends Controller
 
         if ($request->filled('status')) {
             $query->whereHas('details', function($q) use ($request) {
-                $q->where('pengaduan_status_id', $request->status);
+                $q->where('pengaduan_status_id', $request->status)
+                  ->whereIn('id', function($sub) {
+                      $sub->selectRaw('MAX(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
         if ($request->filled('rt_id')) {
@@ -68,7 +73,14 @@ class PengaduanController extends Controller
                 'pengaduan_detail.pengaduan_status_id',
                 DB::raw('count(*) as total')
             )
-            ->join('pengaduan_detail', 'pengaduan_header.id', '=', 'pengaduan_detail.pengaduan_header_id')
+            ->join('pengaduan_detail', function($join) {
+                $join->on('pengaduan_header.id', '=', 'pengaduan_detail.pengaduan_header_id')
+                    ->whereIn('pengaduan_detail.id', function($query) {
+                        $query->selectRaw('MAX(id)')
+                            ->from('pengaduan_detail')
+                            ->groupBy('pengaduan_header_id');
+                    });
+            })
             ->join('users', 'pengaduan_detail.users_id', '=', 'users.id')
             ->join('rt', 'users.rt_id', '=', 'rt.id')
             ->join('pengaduan_kategori', 'pengaduan_header.pengaduan_kategori_id', '=', 'pengaduan_kategori.id')
@@ -120,7 +132,12 @@ class PengaduanController extends Controller
         }
         if ($request->status_id) {
             $query->whereHas('details', function($q) use ($request) {
-                $q->where('pengaduan_status_id', $request->status_id);
+                $q->where('pengaduan_status_id', $request->status_id)
+                  ->whereIn('id', function($sub) {
+                      $sub->selectRaw('MAX(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
 
