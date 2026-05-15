@@ -39,7 +39,7 @@
                 <tr class="hover:bg-gray-50/50 transition-all">
                     <td class="px-6 py-5 text-sm font-bold text-gray-500 border-r border-gray-100 text-center">{{ $index + 1 }}</td>
                     @php
-                        $latestDetail = $pengaduan->details->first();
+                        $latestDetail = $pengaduan->details->last();
                         $statusName = $latestDetail->status->status ?? 'New';
                     @endphp
                     <td class="px-6 py-5 text-sm font-bold text-gray-700 border-r border-gray-100">{{ \Carbon\Carbon::parse($latestDetail->tgl)->format('d F Y H:i') }}</td>

@@ -146,7 +146,7 @@
                                             Terakhir</label>
                                         <div
                                             class="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-normal text-gray-700 shadow-sm uppercase">
-                                            {{ $pengaduan->details->first()->status->status ?? '-' }}</div>
+                                            {{ $pengaduan->details->last()->status->status ?? '-' }}</div>
                                     </div>
                                     <div class="space-y-2 group">
                                         <label
@@ -324,16 +324,19 @@
                                         ['label' => 'Cancel', 'id' => 40],
                                     ];
 
-                                    $latestDetail = $pengaduan->details->sortByDesc('id')->first();
-                                    $currentStatus = $latestDetail->status->status ?? 'New';
-                                    $currentStatusIndex = array_search($currentStatus, array_column($steps, 'label'));
+                                $lastStatusId = $pengaduan->details->last()->pengaduan_status_id ?? 0;
                                 @endphp
 
                             @foreach($steps as $index => $step)
                                 @php
-                                    $isCompleted = $currentStatusIndex > $index && $currentStatus != 'Cancel';
-                                    $isCurrent = $currentStatus == $step['label'];
-                                    $isCancelStep = $step['label'] == 'Cancel' && $currentStatus == 'Cancel';
+                                    $isCompleted = false;
+                                    $isCurrent = $lastStatusId == $step['id'];
+                                    $isCancelStep = $step['id'] == 40 && $lastStatusId == 40;
+
+                                    // Check if status has been reached in history
+                                    $tindakAt = $pengaduan->details->where('pengaduan_status_id', $step['id'])->first();
+                                    if ($tindakAt && !$isCurrent)
+                                        $isCompleted = true;
 
                                     // Reset colors
                                     $bgClass = 'bg-white';
@@ -341,32 +344,30 @@
                                     $textClass = 'text-gray-400';
 
                                     if ($isCompleted || $isCurrent || $isCancelStep) {
-                                        if ($step['label'] == 'New') {
+                                        if ($step['id'] == 10) {
                                             $bgClass = 'bg-blue-500';
                                             $borderClass = 'border-blue-500';
                                             $textClass = 'text-blue-600';
-                                        } elseif ($step['label'] == 'On Progress') {
+                                        } elseif ($step['id'] == 20) {
                                             $bgClass = 'bg-orange-500';
                                             $borderClass = 'border-orange-500';
                                             $textClass = 'text-orange-600';
-                                        } elseif ($step['label'] == 'Done') {
+                                        } elseif ($step['id'] == 30) {
                                             $bgClass = 'bg-green-500';
                                             $borderClass = 'border-green-500';
                                             $textClass = 'text-green-600';
-                                        } elseif ($step['label'] == 'Cancel') {
+                                        } elseif ($step['id'] == 40) {
                                             $bgClass = 'bg-red-500';
                                             $borderClass = 'border-red-500';
                                             $textClass = 'text-red-600';
                                         }
                                     }
 
-                                    $tindakAt = $pengaduan->details->where('pengaduan_status_id', $step['id'])->first();
-
                                     // Only pulse for non-terminal current status
-                                    $shouldPulse = $isCurrent && in_array($step['label'], ['New', 'On Progress']);
+                                    $shouldPulse = $isCurrent && in_array($step['id'], [10, 20]);
                                 @endphp
 
-                                @if($step['label'] != 'Cancel' || $pengaduan->status == 'Cancel')
+                                @if($step['id'] != 40 || $lastStatusId == 40)
                                     <div class="relative">
                                         <div class="absolute -left-[45px] top-1 w-5 h-5 flex items-center justify-center z-10">
                                             @if($shouldPulse)
@@ -375,9 +376,9 @@
                                             @endif
                                             <div
                                                 class="relative w-5 h-5 {{ $bgClass }} border-2 {{ $borderClass }} rounded-full flex items-center justify-center shadow-sm">
-                                                @if($isCurrent && in_array($step['label'], ['New', 'On Progress']))
+                                                @if($isCurrent && in_array($step['id'], [10, 20]))
                                                     <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-                                                @elseif($isCompleted || ($isCurrent && $step['label'] == 'Done'))
+                                                @elseif($isCompleted || ($isCurrent && $step['id'] == 30))
                                                     <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
@@ -396,7 +397,7 @@
                                             <h6 class="font-bold text-md {{ $textClass }} tracking-tight">{{ $index + 1 }}.
                                                 {{ $step['label'] }}</h6>
                                             <p class="text-[11px] {{ $textClass }} opacity-70 mt-1 font-medium">
-                                                {{ $tindakAt ? $tindakAt->created_at->format('d M Y H:i') : ($isCompleted && $step['label'] == 'New' ? $pengaduan->created_at->format('d M Y H:i') : '-') }}
+                                                {{ $tindakAt ? $tindakAt->created_at->format('d M Y H:i') : '-' }}
                                             </p>
                                         </div>
                                     </div>

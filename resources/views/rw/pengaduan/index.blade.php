@@ -118,7 +118,7 @@
                             <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $pengaduan->subject }}</td>
                             <td class="px-6 py-5 border-r border-gray-100">
                                 <span class="text-black text-[10px] font-bold uppercase tracking-widest">
-                                    {{ $pengaduan->details->first()->status->status ?? '-' }}
+                                    {{ $pengaduan->details->last()->status->status ?? '-' }}
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-center">

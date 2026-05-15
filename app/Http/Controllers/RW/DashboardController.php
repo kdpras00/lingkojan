@@ -14,6 +14,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $allPengaduans = PengaduanHeader::with('details')->get();
+
         $stats = [
             'total' => $allPengaduans->count(),
             'new' => $allPengaduans->filter(fn($p) => $p->details->last()->pengaduan_status_id == 10)->count(),
