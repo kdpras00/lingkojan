@@ -29,8 +29,15 @@ class LaporanController extends Controller
         }
 
         if ($request->has('rt_id') && $request->rt_id != '') {
-            $query->whereHas('details.user', function($q) use ($request) {
-                $q->where('rt_id', $request->rt_id);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereHas('user', function($u) use ($request) {
+                    $u->where('rt_id', $request->rt_id);
+                })
+                ->whereIn('id', function($sub) {
+                    $sub->selectRaw('MIN(id)')
+                        ->from('pengaduan_detail')
+                        ->groupBy('pengaduan_header_id');
+                });
             });
         }
 
@@ -70,8 +77,15 @@ class LaporanController extends Controller
         }
 
         if ($request->has('rt_id') && $request->rt_id != '') {
-            $query->whereHas('details.user', function($q) use ($request) {
-                $q->where('rt_id', $request->rt_id);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereHas('user', function($u) use ($request) {
+                    $u->where('rt_id', $request->rt_id);
+                })
+                ->whereIn('id', function($sub) {
+                    $sub->selectRaw('MIN(id)')
+                        ->from('pengaduan_detail')
+                        ->groupBy('pengaduan_header_id');
+                });
             });
         }
 

@@ -37,8 +37,15 @@ class PengaduanController extends Controller
             });
         }
         if ($request->filled('rt_id')) {
-            $query->whereHas('details.user', function($q) use ($request) {
-                $q->where('rt_id', $request->rt_id);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereHas('user', function($u) use ($request) {
+                    $u->where('rt_id', $request->rt_id);
+                })
+                ->whereIn('id', function($sub) {
+                    $sub->selectRaw('MIN(id)')
+                        ->from('pengaduan_detail')
+                        ->groupBy('pengaduan_header_id');
+                });
             });
         }
         if ($request->filled('kategori_id')) {
@@ -70,44 +77,54 @@ class PengaduanController extends Controller
                 'pengaduan_status.status as status_name', 
                 'users.rt_id',
                 'pengaduan_header.pengaduan_kategori_id',
-                'pengaduan_detail.pengaduan_status_id',
+                'latest_detail.pengaduan_status_id',
                 DB::raw('count(*) as total')
             )
-            ->join('pengaduan_detail', function($join) {
-                $join->on('pengaduan_header.id', '=', 'pengaduan_detail.pengaduan_header_id')
-                    ->whereIn('pengaduan_detail.id', function($query) {
+            // Join for Latest Status
+            ->join('pengaduan_detail as latest_detail', function($join) {
+                $join->on('pengaduan_header.id', '=', 'latest_detail.pengaduan_header_id')
+                    ->whereIn('latest_detail.id', function($query) {
                         $query->selectRaw('MAX(id)')
                             ->from('pengaduan_detail')
                             ->groupBy('pengaduan_header_id');
                     });
             })
-            ->join('users', 'pengaduan_detail.users_id', '=', 'users.id')
+            // Join for Original Reporter (First Detail)
+            ->join('pengaduan_detail as first_detail', function($join) {
+                $join->on('pengaduan_header.id', '=', 'first_detail.pengaduan_header_id')
+                    ->whereIn('first_detail.id', function($query) {
+                        $query->selectRaw('MIN(id)')
+                            ->from('pengaduan_detail')
+                            ->groupBy('pengaduan_header_id');
+                    });
+            })
+            ->join('users', 'first_detail.users_id', '=', 'users.id')
             ->join('rt', 'users.rt_id', '=', 'rt.id')
             ->join('pengaduan_kategori', 'pengaduan_header.pengaduan_kategori_id', '=', 'pengaduan_kategori.id')
-            ->join('pengaduan_status', 'pengaduan_detail.pengaduan_status_id', '=', 'pengaduan_status.id')
+            ->join('pengaduan_status', 'latest_detail.pengaduan_status_id', '=', 'pengaduan_status.id')
             ->groupBy(
                 'rt.nama_rt', 
                 'pengaduan_kategori.kategori', 
                 'pengaduan_status.status',
                 'users.rt_id',
                 'pengaduan_header.pengaduan_kategori_id',
-                'pengaduan_detail.pengaduan_status_id'
+                'latest_detail.pengaduan_status_id'
             );
 
         if ($request->rt) {
             $query->where('users.rt_id', $request->rt);
         }
         if ($request->status) {
-            $query->where('pengaduan_detail.pengaduan_status_id', $request->status);
+            $query->where('latest_detail.pengaduan_status_id', $request->status);
         }
         if ($request->kategori) {
             $query->where('pengaduan_header.pengaduan_kategori_id', $request->kategori);
         }
         if ($request->start_date) {
-            $query->whereDate('pengaduan_detail.tgl', '>=', $request->start_date);
+            $query->whereDate('latest_detail.tgl', '>=', $request->start_date);
         }
         if ($request->end_date) {
-            $query->whereDate('pengaduan_detail.tgl', '<=', $request->end_date);
+            $query->whereDate('latest_detail.tgl', '<=', $request->end_date);
         }
 
         $recap = $query->get();
@@ -123,8 +140,15 @@ class PengaduanController extends Controller
         $query = PengaduanHeader::with(['kategori', 'details.status', 'details.user']);
 
         if ($request->rt_id) {
-            $query->whereHas('details.user', function($q) use ($request) {
-                $q->where('rt_id', $request->rt_id);
+            $query->whereHas('details', function($q) use ($request) {
+                $q->whereHas('user', function($u) use ($request) {
+                    $u->where('rt_id', $request->rt_id);
+                })
+                ->whereIn('id', function($sub) {
+                    $sub->selectRaw('MIN(id)')
+                        ->from('pengaduan_detail')
+                        ->groupBy('pengaduan_header_id');
+                });
             });
         }
         if ($request->kategori_id) {
