@@ -56,7 +56,13 @@ class RTController extends Controller
     public function destroy($id)
     {
         $rt = Rt::findOrFail($id);
+        
+        if ($rt->users()->exists()) {
+            return redirect()->route('admin.rt.index')->with('error', 'Data RT tidak dapat dihapus karena masih digunakan oleh warga atau pengguna lain!');
+        }
+
         $rt->delete();
         return redirect()->route('admin.rt.index')->with('success', 'Data RT berhasil dihapus!');
     }
 }
+

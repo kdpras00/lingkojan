@@ -111,6 +111,11 @@ class PetugasController extends Controller
     public function destroy($id)
     {
         $petugas = User::where('role_id', 4)->findOrFail($id);
+
+        if ($petugas->pengaduanDetails()->exists()) {
+            return redirect()->route('admin.petugas.index')->with('error', 'Akun Petugas tidak dapat dihapus karena memiliki riwayat pengaduan/tindak lanjut!');
+        }
+
         $petugas->delete();
         return redirect()->route('admin.petugas.index')->with('success', 'Akun Petugas berhasil dihapus!');
     }

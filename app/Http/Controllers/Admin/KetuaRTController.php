@@ -85,6 +85,11 @@ class KetuaRTController extends Controller
     public function destroy($id)
     {
         $ketuaRt = User::where('role_id', 2)->findOrFail($id);
+
+        if ($ketuaRt->pengaduanDetails()->exists()) {
+            return redirect()->route('admin.ketua_rt.index')->with('error', 'Akun Ketua RT tidak dapat dihapus karena memiliki riwayat pengaduan/tindak lanjut!');
+        }
+
         $ketuaRt->delete();
 
         return redirect()->route('admin.ketua_rt.index')->with('success', 'Akun Ketua RT berhasil dihapus!');

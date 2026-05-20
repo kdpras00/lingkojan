@@ -44,10 +44,15 @@ class DashboardController extends Controller
             });
         }
 
-        // Apply Filters
+        // Apply Filters — status must match the LATEST detail row only
         if ($request->filled('status')) {
-            $query->whereHas('details', function($q) use ($request) {
-                $q->where('pengaduan_status_id', $request->status);
+            $query->whereHas('details', function ($q) use ($request) {
+                $q->where('pengaduan_status_id', $request->status)
+                  ->whereIn('id', function ($sub) {
+                      $sub->selectRaw('MAX(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
 

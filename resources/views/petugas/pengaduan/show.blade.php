@@ -230,7 +230,7 @@
                                                     Tindak Lanjut</label>
                                                 <div
                                                     class="bg-white border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-medium text-black shadow-sm">
-                                                    {{ $tindak->created_at->format('d-m-Y H:i') }}
+                                                    {{ \Carbon\Carbon::parse($tindak->tgl)->format('d-m-Y H:i') }}
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
@@ -468,7 +468,7 @@
                                             <h6 class="font-bold text-md {{ $textClass }} tracking-tight">{{ $index + 1 }}.
                                                 {{ $step['label'] }}</h6>
                                             <p class="text-[11px] {{ $textClass }} opacity-70 mt-1 font-medium">
-                                                {{ $tindakAt ? $tindakAt->created_at->format('d M Y H:i') : '-' }}
+                                                {{ $tindakAt ? \Carbon\Carbon::parse($tindakAt->tgl)->format('d M Y H:i') : '-' }}
                                             </p>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PengaduanHeader;
 use App\Models\PengaduanKategori;
 use App\Models\Rt;
+use App\Models\PengaduanStatus;
 use Illuminate\Support\Facades\DB;
 
 class PengaduanController extends Controller
@@ -52,21 +53,32 @@ class PengaduanController extends Controller
             $query->where('pengaduan_kategori_id', $request->kategori_id);
         }
         if ($request->filled('start_date')) {
-            $query->whereHas('details', function($q) use ($request) {
-                $q->whereDate('tgl', '>=', $request->start_date);
+            $query->whereHas('details', function ($q) use ($request) {
+                $q->whereDate('tgl', '>=', $request->start_date)
+                  ->whereIn('id', function ($sub) {
+                      $sub->selectRaw('MIN(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
         if ($request->filled('end_date')) {
-            $query->whereHas('details', function($q) use ($request) {
-                $q->whereDate('tgl', '<=', $request->end_date);
+            $query->whereHas('details', function ($q) use ($request) {
+                $q->whereDate('tgl', '<=', $request->end_date)
+                  ->whereIn('id', function ($sub) {
+                      $sub->selectRaw('MIN(id)')
+                          ->from('pengaduan_detail')
+                          ->groupBy('pengaduan_header_id');
+                  });
             });
         }
 
         $pengaduans = $query->get();
         $availableRts = Rt::orderBy('nama_rt')->get();
         $availableKategoris = PengaduanKategori::all();
+        $availableStatuses = PengaduanStatus::all();
 
-        return view('rw.pengaduan.index', compact('pengaduans', 'availableRts', 'availableKategoris'));
+        return view('rw.pengaduan.index', compact('pengaduans', 'availableRts', 'availableKategoris', 'availableStatuses'));
     }
 
     public function recap(Request $request) 
@@ -129,10 +141,11 @@ class PengaduanController extends Controller
 
         $recap = $query->get();
         
-        $availableRts = Rt::orderBy('nama_rt')->get();
+        $availableRts       = Rt::orderBy('nama_rt')->get();
         $availableKategoris = PengaduanKategori::all();
+        $availableStatuses  = PengaduanStatus::all();
 
-        return view('rw.pengaduan.recap', compact('recap', 'availableRts', 'availableKategoris')); 
+        return view('rw.pengaduan.recap', compact('recap', 'availableRts', 'availableKategoris', 'availableStatuses')); 
     }
 
     public function recapDetail(Request $request) 

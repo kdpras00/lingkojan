@@ -111,6 +111,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::where('role_id', 5)->findOrFail($id);
+
+        if ($user->pengaduanDetails()->exists()) {
+            return redirect()->route('admin.users.index')->with('error', 'Akun Admin tidak dapat dihapus karena memiliki riwayat pengaduan!');
+        }
+
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'Akun Admin berhasil dihapus!');
     }

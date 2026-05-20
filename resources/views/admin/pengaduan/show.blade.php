@@ -181,7 +181,7 @@
 
                             <div class="space-y-6">
                                 <!-- Tindak Lanjut Details -->
-                                @foreach($pengaduan->details->sortBy('created_at') as $tindak)
+                                @foreach($pengaduan->details->sortBy('id') as $tindak)
                                     <div
                                         class="border border-gray-200 rounded-[32px] p-10 space-y-8 bg-white shadow-sm hover:shadow-md transition-all border-2">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -206,7 +206,7 @@
                                                     class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Pengaduan</label>
                                                 <div
                                                     class="bg-white border border-gray-200 rounded-2xl px-6 py-3.5 text-sm font-medium text-black shadow-sm">
-                                                    {{ $tindak->created_at->format('d-m-Y H:i') }}
+                                                    {{ \Carbon\Carbon::parse($tindak->tgl)->format('d-m-Y H:i') }}
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
@@ -223,7 +223,7 @@
                                                 class="block text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">Detail Pengaduan</label>
                                             <div
                                                 class="bg-white border border-gray-200 rounded-2xl px-6 py-5 text-sm font-normal text-black shadow-sm leading-relaxed min-h-[80px]">
-                                                {{ $tindak->detail }}
+                                                {{ $tindak->detail_pengaduan }}
                                             </div>
                                         </div>
                                         @if($tindak->fotos->count() > 0)
@@ -337,7 +337,7 @@
                                             <h6 class="font-bold text-md {{ $textClass }} tracking-tight">{{ $index + 1 }}.
                                                 {{ $step['label'] }}</h6>
                                             <p class="text-[11px] {{ $textClass }} opacity-70 mt-1 font-medium">
-                                                {{ $tindakAt ? $tindakAt->created_at->format('d M Y H:i') : '-' }}
+                                                {{ $tindakAt ? \Carbon\Carbon::parse($tindakAt->tgl)->format('d M Y H:i') : '-' }}
                                             </p>
                                         </div>
                                     </div>

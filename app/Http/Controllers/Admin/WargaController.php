@@ -118,6 +118,11 @@ class WargaController extends Controller
     public function destroy($id)
     {
         $warga = User::where('role_id', 1)->findOrFail($id);
+
+        if ($warga->pengaduanDetails()->exists()) {
+            return redirect()->route('admin.warga.index')->with('error', 'Akun Warga tidak dapat dihapus karena memiliki riwayat pengaduan!');
+        }
+
         $warga->delete();
         return redirect()->route('admin.warga.index')->with('success', 'Akun Warga berhasil dihapus!');
     }

@@ -12,37 +12,65 @@
         <span class="text-gray-400">Laporan</span>
     </div>
 
-    <!-- Filter Section (Wireframe 55) -->
+    <!-- Filter Section -->
     <div class="card !p-10 shadow-sm border border-gray-100">
         <form action="{{ route('admin.laporan.index') }}" method="GET" class="space-y-8">
             <div class="flex items-center">
                 <h4 class="text-sm font-black text-black uppercase tracking-widest">Filter Laporan</h4>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
+                <!-- Status -->
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Status</label>
-                    <select name="status" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
-                        <option value="Semua Status" {{ request('status') == 'Semua Status' ? 'selected' : '' }}>Semua Status</option>
+                    <select name="status" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
+                        <option value="">Semua Status</option>
                         @foreach($statuses as $status)
                             <option value="{{ $status->id }}" {{ request('status') == $status->id ? 'selected' : '' }}>{{ $status->status }}</option>
                         @endforeach
                     </select>
                 </div>
+
+                <!-- Kategori -->
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Kategori</label>
+                    <select name="kategori_id" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
+                        <option value="">Semua Kategori</option>
+                        @foreach($kategoris as $kat)
+                            <option value="{{ $kat->id }}" {{ request('kategori_id') == $kat->id ? 'selected' : '' }}>{{ $kat->kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- RT Filter -->
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">RT</label>
+                    <select name="rt_id" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat">
+                        <option value="">Semua RT</option>
+                        @foreach(\App\Models\Rt::orderBy('nama_rt')->get() as $rt)
+                            <option value="{{ $rt->id }}" {{ request('rt_id') == $rt->id ? 'selected' : '' }}>{{ $rt->nama_rt }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Tanggal Awal -->
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Awal</label>
-                    <div class="relative group">
-                        <input type="date" name="start_date" value="{{ request('start_date') }}" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
-                    </div>
+                    <input type="date" name="start_date" value="{{ request('start_date') }}" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
                 </div>
+
+                <!-- Tanggal Akhir -->
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Tanggal Akhir</label>
-                    <div class="relative group">
-                        <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
-                    </div>
+                    <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
                 </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="w-full bg-white border-2 border-black text-black px-10 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Terapkan Filter</button>
+
+                <!-- Submit + Reset -->
+                <div class="flex gap-2">
+                    <button type="submit" class="flex-1 bg-white border-2 border-black text-black px-4 py-3 rounded-none text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Terapkan</button>
+                    @if(request()->hasAny(['status','kategori_id','rt_id','start_date','end_date']))
+                        <a href="{{ route('admin.laporan.index') }}" class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 text-gray-500 rounded-none text-[11px] font-black uppercase tracking-widest hover:border-black hover:text-black transition-all" title="Reset filter">✕</a>
+                    @endif
                 </div>
             </div>
         </form>
@@ -52,7 +80,12 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-gray-100 pb-8">
             <div>
                 <h3 class="text-2xl font-black text-black tracking-tight">Daftar Laporan</h3>
-                <p class="text-sm text-gray-500 font-medium mt-1">Rekapitulasi data pengaduan yang masuk</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                    Rekapitulasi data pengaduan
+                    @if(request()->hasAny(['status','kategori_id','rt_id','start_date','end_date']))
+                        <span class="text-orange-500 font-bold">&mdash; filter aktif ({{ $reports->count() }} hasil)</span>
+                    @endif
+                </p>
             </div>
             <!-- Export Options -->
             <a href="{{ route('admin.laporan.export', request()->query()) }}" class="bg-white border-2 border-black text-black px-6 py-2.5 rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] flex items-center">
@@ -70,6 +103,7 @@
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Nomor Pengaduan</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Pelapor</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100 text-center">RT</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Kategori</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Subjek</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-r border-gray-100">Status</th>
                         <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Aksi</th>
@@ -83,13 +117,21 @@
                         <td class="px-6 py-5 text-sm font-bold text-black border-r border-gray-100 tracking-wider">{{ $report->nomor_pengaduan }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $report->details->first()->user->nama_warga ?? 'N/A' }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $report->details->first()->user->rt->nama_rt ?? '-' }}</td>
+                        <td class="px-6 py-5 text-[11px] font-bold text-gray-600 border-r border-gray-100 uppercase tracking-wider">{{ $report->kategori->kategori ?? '-' }}</td>
                         <td class="px-6 py-5 text-sm font-medium text-gray-600 border-r border-gray-100">{{ $report->subject }}</td>
                         <td class="px-6 py-5 border-r border-gray-100">
                             @php
-                                $lastDetail = $report->details->last();
+                                $lastDetail = $report->details->sortBy('id')->last();
                                 $statusName = $lastDetail->status->status ?? 'Unknown';
+                                $statusColor = match($statusName) {
+                                    'New'         => 'text-orange-600',
+                                    'On Progress' => 'text-blue-600',
+                                    'Done'        => 'text-green-600',
+                                    'Cancel'      => 'text-red-600',
+                                    default       => 'text-gray-600',
+                                };
                             @endphp
-                            <span class="text-black text-[10px] font-black uppercase tracking-widest">
+                            <span class="{{ $statusColor }} text-[10px] font-black uppercase tracking-widest">
                                 {{ $statusName }}
                             </span>
                         </td>
@@ -101,7 +143,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data laporan untuk kriteria ini.</td>
+                        <td colspan="9" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data laporan untuk kriteria ini.</td>
                     </tr>
                     @endforelse
                 </tbody>

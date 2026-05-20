@@ -26,10 +26,9 @@
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Status</label>
                         <select name="status" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-4 text-sm font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
                             <option value="">Semua Status</option>
-                            <option value="10" {{ request('status') == '10' ? 'selected' : '' }}>New</option>
-                            <option value="20" {{ request('status') == '20' ? 'selected' : '' }}>On Progress</option>
-                            <option value="30" {{ request('status') == '30' ? 'selected' : '' }}>Done</option>
-                            <option value="40" {{ request('status') == '40' ? 'selected' : '' }}>Cancel</option>
+                            @foreach($availableStatuses as $st)
+                                <option value="{{ $st->id }}" {{ request('status') == $st->id ? 'selected' : '' }}>{{ $st->status }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
