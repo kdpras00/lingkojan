@@ -83,9 +83,9 @@
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt->nama_rt ?? '-' }}</td>
                         <td class="px-6 py-5 border-r border-gray-100 text-center">
                             @if($warga->is_approved)
-                                <span class="px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-green-700 bg-green-50 border border-green-200 rounded-md">Disetujui</span>
+                                <span class="text-[11px] font-black uppercase tracking-wider text-green-600">Disetujui</span>
                             @else
-                                <span class="px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 rounded-md">Menunggu</span>
+                                <span class="text-[11px] font-black uppercase tracking-wider text-amber-600">Menunggu</span>
                             @endif
                         </td>
                         <td class="px-6 py-5">
