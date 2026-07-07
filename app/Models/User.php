@@ -30,6 +30,7 @@ class User extends Authenticatable
         'alamat',
         'rt_id',
         'nik',
+        'is_approved',
     ];
 
     /**

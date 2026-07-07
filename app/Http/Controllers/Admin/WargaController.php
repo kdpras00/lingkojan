@@ -59,6 +59,7 @@ class WargaController extends Controller
             'email'      => $request->email,
             'rt_id'      => $request->rt_id,
             'role_id'    => 1, // Warga
+            'is_approved'=> true,
             'password'   => Hash::make($request->password),
         ]);
 
@@ -147,5 +148,25 @@ class WargaController extends Controller
         $warga->update(['password' => Hash::make($request->password)]);
 
         return back()->with('success', 'Password Warga berhasil diperbarui!');
+    }
+
+    public function approve($id)
+    {
+        $warga = User::where('role_id', 1)->findOrFail($id);
+        $warga->update(['is_approved' => true]);
+
+        return redirect()->route('admin.warga.index')->with('success', 'Akun Warga ' . $warga->nama_warga . ' berhasil disetujui!');
+    }
+
+    public function reject($id)
+    {
+        $warga = User::where('role_id', 1)->findOrFail($id);
+        
+        if ($warga->pengaduanDetails()->exists()) {
+            return redirect()->route('admin.warga.index')->with('error', 'Akun Warga tidak dapat ditolak karena memiliki riwayat pengaduan!');
+        }
+
+        $warga->delete();
+        return redirect()->route('admin.warga.index')->with('success', 'Pendaftaran Akun Warga berhasil ditolak dan dihapus!');
     }
 }

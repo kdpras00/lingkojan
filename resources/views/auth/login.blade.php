@@ -94,6 +94,12 @@
             <img src="{{ asset('images/iconkojan.png') }}" alt="Logo" class="h-8 mx-auto mb-10">
             <h2 class="text-3xl font-bold text-black mb-10">Login</h2>
 
+            @if(session('success'))
+                <div class="bg-green-50 text-green-800 border border-green-200 rounded-2xl p-4 mb-6 text-sm font-semibold text-center">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <!-- Login (Email or Username) -->

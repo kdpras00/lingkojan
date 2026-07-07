@@ -85,6 +85,7 @@ class KpMonaSeeder extends Seeder
                 'alamat' => 'Kampung Kojan RW 006',
                 'rt_id' => 1,
                 'nik' => '1234567890123456',
+                'is_approved' => true,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -98,6 +99,7 @@ class KpMonaSeeder extends Seeder
                 'alamat' => 'Kampung Kojan RW 006',
                 'rt_id' => 1,
                 'nik' => '1234567890123457',
+                'is_approved' => true,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -111,6 +113,7 @@ class KpMonaSeeder extends Seeder
                 'alamat' => 'Kampung Kojan RW 006',
                 'rt_id' => 1,
                 'nik' => '1234567890123458',
+                'is_approved' => true,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]
@@ -134,6 +137,7 @@ class KpMonaSeeder extends Seeder
                 'alamat' => 'Jl. Sltpn No. ' . ($index + 1) . ', RT. ' . str_pad($rtId, 3, '0', STR_PAD_LEFT) . '/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat, Jakarta, 11840',
                 'rt_id' => $rtId,
                 'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
+                'is_approved' => true,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
@@ -172,6 +176,7 @@ class KpMonaSeeder extends Seeder
                     'alamat' => 'Jl. Sltpn No. ' . rand(1, 200) . ', RT. ' . str_pad($rtId, 3, '0', STR_PAD_LEFT) . '/RW. 006, Kampung Kojan, Kalideres, Jakarta Barat, Jakarta, 11840',
                     'rt_id' => $rtId,
                     'nik' => $faker ? $faker->unique()->numerify('################') : rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999) . rand(1000, 9999),
+                    'is_approved' => true,
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];

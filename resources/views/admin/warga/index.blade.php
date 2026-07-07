@@ -46,6 +46,16 @@
             </a>
         </div>
 
+        <!-- Search Box -->
+        <div class="max-w-md">
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" id="search-input" placeholder="Cari berdasarkan nama, username, NIK, RT, status..." class="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-12 pr-6 py-3.5 text-sm font-bold text-gray-700 focus:outline-none focus:ring-4 focus:ring-orange-500/5 focus:border-[#f07c1b] transition-all">
+            </div>
+        </div>
+
         <div class="overflow-x-auto border border-gray-100 rounded-3xl shadow-sm bg-white">
             <table class="w-full text-left">
                 <thead class="bg-gray-50 border-b border-gray-100">
@@ -57,6 +67,7 @@
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">No. Telepon</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">Email</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100">RT</th>
+                        <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-r border-gray-100 text-center w-28">Status</th>
                         <th class="px-6 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Menu</th>
                     </tr>
                 </thead>
@@ -70,8 +81,26 @@
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->no_tlp }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100">{{ $warga->email }}</td>
                         <td class="px-6 py-5 text-sm font-semibold text-gray-700 border-r border-gray-100 text-center">{{ $warga->rt->nama_rt ?? '-' }}</td>
+                        <td class="px-6 py-5 border-r border-gray-100 text-center">
+                            @if($warga->is_approved)
+                                <span class="px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-green-700 bg-green-50 border border-green-200 rounded-full">Disetujui</span>
+                            @else
+                                <span class="px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 rounded-full">Menunggu</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-5">
                             <div class="flex items-center justify-center space-x-2">
+                                @if(!$warga->is_approved)
+                                    <form action="{{ route('admin.warga.approve', $warga->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="p-1 text-gray-400 hover:text-green-600 transition-colors" title="Setujui">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </button>
+                                    </form>
+                                    <button type="button" onclick="openRejectModal('{{ $warga->nama_warga }}', {{ $warga->id }})" class="p-1 text-gray-400 hover:text-red-500 transition-colors" title="Tolak">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </button>
+                                @endif
                                 <a href="{{ route('admin.warga.show', $warga->id) }}" class="p-1 text-gray-400 hover:text-blue-600 transition-colors" title="Detail">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 </a>
@@ -86,7 +115,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data warga.</td>
+                        <td colspan="9" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Belum ada data warga.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -118,6 +147,28 @@
     </div>
 </div>
 
+<!-- Reject Confirmation Modal -->
+<div id="reject_modal" class="fixed inset-0 z-[2000] hidden">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm">
+        <div class="bg-white rounded-[32px] overflow-hidden shadow-2xl border border-gray-100">
+            <div class="p-10 text-center space-y-6">
+                <div>
+                    <h4 class="text-xl font-bold text-black tracking-tight" id="reject_modal_title">Tolak Pendaftaran</h4>
+                    <p class="text-sm text-gray-500 font-medium mt-3 leading-relaxed" id="reject_modal_body">Apakah anda yakin ingin menolak pendaftaran warga ini?</p>
+                </div>
+                <div class="grid grid-cols-2 gap-0 border-t border-gray-100 -mx-10 -mb-10">
+                    <form id="reject_form" action="" method="POST" class="w-full border-r border-gray-100">
+                        @csrf
+                        <button type="submit" class="w-full py-5 text-sm font-bold text-black hover:bg-red-50 hover:text-red-600 transition-colors uppercase tracking-widest">Yes</button>
+                    </form>
+                    <button type="button" onclick="closeRejectModal()" class="py-5 text-sm font-bold text-black hover:bg-gray-50 transition-colors uppercase tracking-widest">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script>
     function openDeleteModal(name, id) {
@@ -132,6 +183,68 @@
         document.getElementById('delete_modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
     }
+
+    function openRejectModal(name, id) {
+        document.getElementById('reject_modal_title').innerText = 'Tolak ' + name;
+        document.getElementById('reject_modal_body').innerText = 'Apakah anda yakin ingin menolak pendaftaran ' + name + '? Akun ini akan dihapus dari sistem.';
+        document.getElementById('reject_form').action = '/admin/warga/' + id + '/reject';
+        document.getElementById('reject_modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeRejectModal() {
+        document.getElementById('reject_modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Realtime Search Logic
+    document.getElementById('search-input').addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        const rows = document.querySelectorAll('tbody tr');
+        let hasVisibleRows = false;
+
+        rows.forEach(row => {
+            if (row.querySelector('td[colspan]')) return;
+
+            const name = row.cells[1].textContent.toLowerCase();
+            const username = row.cells[2].textContent.toLowerCase();
+            const nik = row.cells[3].textContent.toLowerCase();
+            const phone = row.cells[4].textContent.toLowerCase();
+            const email = row.cells[5].textContent.toLowerCase();
+            const rt = row.cells[6].textContent.toLowerCase();
+            const status = row.cells[7].textContent.toLowerCase();
+
+            const matches = name.includes(query) || 
+                            username.includes(query) || 
+                            nik.includes(query) || 
+                            phone.includes(query) || 
+                            email.includes(query) || 
+                            rt.includes(query) ||
+                            status.includes(query);
+
+            if (matches) {
+                row.style.display = '';
+                hasVisibleRows = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Toggle "no results" placeholder
+        let noResultsRow = document.getElementById('no-results-row');
+        if (!hasVisibleRows && query !== '') {
+            if (!noResultsRow) {
+                noResultsRow = document.createElement('tr');
+                noResultsRow.id = 'no-results-row';
+                noResultsRow.innerHTML = `<td colspan="9" class="px-6 py-10 text-center text-sm font-normal text-gray-400">Tidak ada warga yang cocok dengan pencarian "${this.value}".</td>`;
+                document.querySelector('tbody').appendChild(noResultsRow);
+            }
+        } else {
+            if (noResultsRow) {
+                noResultsRow.remove();
+            }
+        }
+    });
 </script>
 @endpush
 @endsection

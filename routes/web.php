@@ -24,7 +24,7 @@ Route::get('/', function () {
             $u->where('role_id', 1); // 1 = Warga
         });
     })
-    ->with(['details.user', 'details.status'])
+    ->with(['details.user', 'details.status', 'details.fotos'])
     ->orderBy('id', 'desc')
     ->take(10)
     ->get();
@@ -114,8 +114,10 @@ Route::middleware(['auth'])->prefix('admin')->as('admin.')->group(function () {
     Route::resource('rt', Admin\RTController::class)->except(['show']);
     Route::resource('ketua_rt', Admin\KetuaRTController::class)->except(['show']);
     
-    // Warga Management with Custom Password Reset
+    // Warga Management with Custom Password Reset and Approval
     Route::resource('warga', Admin\WargaController::class);
+    Route::post('/warga/{id}/approve', [Admin\WargaController::class, 'approve'])->name('warga.approve');
+    Route::post('/warga/{id}/reject', [Admin\WargaController::class, 'reject'])->name('warga.reject');
     Route::get('/warga/{id}/reset-password', [Admin\WargaController::class, 'resetPassword'])->name('warga.reset_password');
     Route::put('/warga/{id}/reset-password', [Admin\WargaController::class, 'updatePassword'])->name('warga.update_password');
 

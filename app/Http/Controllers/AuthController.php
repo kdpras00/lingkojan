@@ -27,9 +27,16 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
             $user = Auth::user();
+            
+            if ($user->hasRole('warga') && !$user->is_approved) {
+                Auth::logout();
+                return back()->withErrors([
+                    'login' => 'Akun Anda belum disetujui oleh Admin. Silakan hubungi RT/RW setempat.',
+                ])->onlyInput('login');
+            }
+
+            $request->session()->regenerate();
             
             if ($user->hasRole('admin')) {
                 return redirect()->route('admin.dashboard');
@@ -118,10 +125,9 @@ class AuthController extends Controller
             'alamat' => $request->alamat ?? '',
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
             'role_id' => 1, // Warga
+            'is_approved' => false,
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('warga.dashboard');
+        return redirect()->route('login')->with('success', 'Pendaftaran berhasil! Akun Anda sedang menunggu persetujuan Admin.');
     }
 }

@@ -164,20 +164,37 @@
                                 $latestDetail = $pengaduan->details->last();
                             @endphp
                             <div class="swiper-slide h-auto">
-                                <div class="glass-card p-8 text-white text-left">
-                                    <div class="flex items-center mb-6">
-                                        <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-md border border-white/20">
-                                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg>
+                                <div class="glass-card p-6 text-white text-left flex flex-col justify-between">
+                                    <div>
+                                        <!-- Complaint Image -->
+                                        @php
+                                            $fotoAwal = $firstDetail->fotos->first();
+                                        @endphp
+                                        <div class="w-full h-44 bg-white/10 rounded-2xl overflow-hidden mb-5 border border-white/10 relative flex items-center justify-center">
+                                            @if($fotoAwal)
+                                                <img src="{{ asset('storage/' . $fotoAwal->nama_file) }}" class="w-full h-full object-cover" alt="Foto Pengaduan">
+                                            @else
+                                                <div class="flex flex-col items-center justify-center text-white/40 space-y-2">
+                                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                    <span class="text-[10px] font-bold uppercase tracking-wider">Tidak ada foto</span>
+                                                </div>
+                                            @endif
                                         </div>
-                                        <div>
-                                            <p class="font-bold text-base leading-tight blur-[3px] select-none">{{ $firstDetail->user->nama_warga ?? 'Anonim' }}</p>
-                                            <p class="text-[11px] opacity-70 mt-1">{{ \Carbon\Carbon::parse($pengaduan->created_at)->format('d M Y') }}</p>
+
+                                        <!-- Reporter & Date -->
+                                        <div class="flex items-center justify-between mb-4 text-xs font-semibold">
+                                            <span class="opacity-95">Oleh: {{ $firstDetail->user->nama_warga ?? 'Anonim' }}</span>
+                                            <span class="opacity-75 text-[11px]">{{ \Carbon\Carbon::parse($pengaduan->created_at)->format('d M Y') }}</span>
                                         </div>
+
+                                        <!-- Subject -->
+                                        <p class="text-sm mb-6 leading-relaxed font-bold line-clamp-3 h-12 text-white">
+                                            {{ $pengaduan->subject }}
+                                        </p>
                                     </div>
-                                    <p class="text-sm mb-8 leading-relaxed font-medium line-clamp-3 h-16">
-                                        {{ $pengaduan->subject }}
-                                    </p>
-                                    <div class="flex justify-between items-center pt-6 border-t border-white/10 mt-auto">
+
+                                    <!-- Footer -->
+                                    <div class="flex justify-between items-center pt-5 border-t border-white/10 mt-auto">
                                         <a href="/login" class="text-[11px] font-bold uppercase tracking-widest hover:text-white transition-all opacity-80 hover:opacity-100">Detail ></a>
                                         
                                         <span class="text-[11px] font-bold uppercase tracking-widest text-white/90">

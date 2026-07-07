@@ -9,7 +9,6 @@
     
     <link rel="preload" as="image" href="{{ asset('images/banner.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
