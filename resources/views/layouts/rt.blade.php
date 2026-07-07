@@ -159,12 +159,11 @@
             padding: 40px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.1);
-            transition: box-shadow 0.2s, transform 0.2s;
+            transition: box-shadow 0.2s;
         }
 
         .card:hover {
             box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-            transform: translateY(-2px);
         }
 
         .status-badge {
@@ -180,13 +179,6 @@
         .status-finished { background: #e8f5e9; color: #388e3c; }
         .status-rejected { background: #ffebee; color: #d32f2f; }
     
-        }');
-            background-repeat: repeat;
-            background-size: auto;
-            z-index: -1;
-            transform: translateZ(0);
-            will-change: transform;
-        }
     
     
         @keyframes fadeInPage {
